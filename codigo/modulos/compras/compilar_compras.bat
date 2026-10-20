@@ -21,6 +21,7 @@ $projects = @{}
 $temporaryTargets = New-Object 'System.Collections.Generic.List[string]'
 $result = 1
 $current = $null
+$shortDrive = $null
 
 function FullPath($folder, $relative) {
     [IO.Path]::GetFullPath([IO.Path]::Combine($folder, $relative))
@@ -59,18 +60,54 @@ function Add-Step($path) {
 }
 
 function Invoke-Query($path, $configuration, $platform) {
-    $output = & $msbuild $path /nologo "/p:Configuration=$configuration" "/p:Platform=$platform" `
-        /getProperty:TargetPath,PlatformTarget,TargetFrameworkVersion,OutputType,Prefer32Bit `
-        /getItem:Reference,ProjectReference,PackageReference 2>&1
-    $code = $LASTEXITCODE
+    # /getItem:Reference calcula FullPath incluso para nombres de ensamblado.
+    # Consultar copias con identidad corta evita MAX_PATH sin cambiar los proyectos.
+    if (!$script:queryTargets) {
+        $script:queryTargets = Join-Path ([IO.Path]::GetTempPath()) ('Compras_Query_' + [guid]::NewGuid().ToString('N') + '.targets')
+        $temporaryTargets.Add($script:queryTargets)
+        $queryXml = @'
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Target Name="ConsultarCompras">
+    <ItemGroup>
+      <_ComprasReference Include="Reference" Condition="'@(Reference)' != ''">
+        <OriginalIdentity>%(Reference.Identity)</OriginalIdentity>
+        <HintPath>%(Reference.HintPath)</HintPath>
+      </_ComprasReference>
+    </ItemGroup>
+  </Target>
+</Project>
+'@
+        [IO.File]::WriteAllText($script:queryTargets,$queryXml,[Text.UTF8Encoding]::new($false))
+    }
+    # Windows PowerShell convierte stderr en errores: capturarlo completo antes de fallar.
+    $previousPreference = $ErrorActionPreference
+    try {
+        $ErrorActionPreference = 'Continue'
+        $output = & $msbuild $path /nologo "/p:Configuration=$configuration" "/p:Platform=$platform" `
+            /t:ConsultarCompras "/p:CustomAfterMicrosoftCommonTargets=$script:queryTargets" `
+            /getProperty:TargetPath,PlatformTarget,TargetFrameworkVersion,OutputType,Prefer32Bit `
+            /getItem:_ComprasReference,ProjectReference,PackageReference 2>&1
+        $code = $LASTEXITCODE
+    } finally {
+        $ErrorActionPreference = $previousPreference
+    }
     if ($code -ne 0) { throw "No se pudo evaluar $path (codigo $code):`n$($output -join "`n")" }
-    ($output -join "`n") | ConvertFrom-Json
+    $data = ($output -join "`n") | ConvertFrom-Json
+    $references = @($data.Items._ComprasReference | ForEach-Object {
+        [pscustomobject]@{ Identity=$_.OriginalIdentity; HintPath=$_.HintPath }
+    })
+    $data.Items | Add-Member -NotePropertyName Reference -NotePropertyValue $references
+    $data
 }
 
 function Add-Project($path, $configuration, $platform, $step) {
     $path = [IO.Path]::GetFullPath($path)
     if ($projects.ContainsKey($path)) {
-        if ($projects[$path].Step -ne $step) { throw "Proyecto incluido en dos pasos: $path" }
+        # Seguridad comparte modelo/controlador con el paso previo que necesita Navegador.
+        # Reutilizar su productor; la solucion completa compila los proyectos restantes.
+        if ($projects[$path].Configuration -ne $configuration -or $projects[$path].Platform -ne $platform) {
+            throw "Proyecto incluido con configuraciones incompatibles: $path"
+        }
         return $projects[$path]
     }
     if (!(Test-Path -LiteralPath $path -PathType Leaf)) { throw "Falta el proyecto: $path" }
@@ -106,6 +143,20 @@ function MsbuildEscape([string]$text) {
 }
 
 try {
+    # NuGet packages.config todavia puede fallar con MAX_PATH. SUBST solo crea
+    # un alias temporal: no mueve archivos ni cambia la configuracion del equipo.
+    # Incluir tambien ayuda y los demas recursos hermanos de codigo.
+    $repositoryRoot = FullPath $base '..\..\..'
+    $subst = Join-Path $env:SystemRoot 'System32\subst.exe'
+    foreach ($letter in 90..68) {
+        $drive = ([char]$letter).ToString() + ':'
+        if (Test-Path -LiteralPath ($drive + '\')) { continue }
+        & $subst $drive $repositoryRoot 2>$null
+        if ($LASTEXITCODE -eq 0) { $shortDrive=$drive; break }
+    }
+    if (!$shortDrive) { throw 'No se pudo crear una unidad temporal libre (D: a Z:) para evitar rutas largas de NuGet.' }
+    $base = FullPath ($shortDrive + '\') 'codigo\modulos\compras'
+    Write-Host "Ruta temporal de compilacion: $base (los archivos permanecen en su ubicacion original)."
     $configuration = $env:CC_CONFIG
     if (!$configuration) { $configuration='Debug' }
     if ($env:CC_MORE -or $configuration -notin @('Debug','Release')) {
@@ -129,7 +180,7 @@ try {
     $externalNames = @('Consultas.sln','Navegador.sln','CapaControlador_Seguridad.csproj')
     $ancestor = (Get-Item -LiteralPath $base).Parent
     $external = @()
-    while ($ancestor -and $ancestor.Parent) {
+    while ($ancestor) {
         $external = @(Find-Files $ancestor.FullName $externalNames | Where-Object { $_ -match '[\\/]componentes[\\/]' })
         if (@($external | ForEach-Object { [IO.Path]::GetFileName($_) } | Sort-Object -Unique).Count -eq 3) { break }
         if (Test-Path -LiteralPath (Join-Path $ancestor.FullName '.git')) { break }
@@ -137,16 +188,34 @@ try {
     }
     $consultas = Unique-Path 'Consultas.sln' $external
     $seguridad = Unique-Path 'CapaControlador_Seguridad.csproj' $external
+    $seguridadSolution = Join-Path (Split-Path (Split-Path $seguridad)) 'Seguridad.sln'
+    if (!(Test-Path -LiteralPath $seguridadSolution -PathType Leaf)) { throw "Falta la solucion: $seguridadSolution" }
     $navegador = Unique-Path 'Navegador.sln' $external
+    # Reportes esta dos niveles arriba; en este repositorio se llama reporteador.
+    $reportsRoot = FullPath $base '..\..\componentes\reportes'
+    if (!(Test-Path -LiteralPath $reportsRoot -PathType Container)) {
+        $reportsRoot = FullPath $base '..\..\componentes\reporteador'
+    }
+    if (!(Test-Path -LiteralPath $reportsRoot -PathType Container)) {
+        throw 'No se encontro componentes\reportes ni componentes\reporteador dos niveles arriba de Compras.'
+    }
+    # Actualizar debe preceder a Guardar; todos los botones preceden a Reporteador.
+    $reportNames = @('BtnActualizar_Reporteador','BtnBusqueda_Reporteador','BtnEditar_Reporteador',
+        'BtnEliminar_Reporteador','BtnGuardar_Reporteador','BtnLimpiar_Reporteador',
+        'BtnRuta_Reporteador','BtnVerReporte_Reporteador','Reporteador','Ejecucion_Reporteador')
+    $reportFiles = @(Find-Files $reportsRoot @($reportNames | ForEach-Object { "$_.sln" }))
+    $reportSolutions = @($reportNames | ForEach-Object { Unique-Path "$_.sln" $reportFiles })
     $steps.Clear()
     $null = Add-Step $consultas
     # La vista de Seguridad depende de Compras: aqui solo se necesita modelo/controlador.
     $null = Add-Step $seguridad
+    foreach ($solution in $reportSolutions) { $null = Add-Step $solution }
     $null = Add-Step $navegador
     foreach ($name in $moduleNames) {
         $null = Add-Step $local[$name]
         if ($executables.ContainsKey($name) -and $executables[$name]) { $null = Add-Step $executables[$name] }
     }
+    $null = Add-Step $seguridadSolution
 
     # VS 2022, incluidas Build Tools; PATH es un segundo mecanismo, no dotnet build.
     $candidates = @()
@@ -295,6 +364,10 @@ try {
     $summary | ForEach-Object { Write-Host $_ }
     foreach ($targets in $temporaryTargets) {
         try { [IO.File]::Delete($targets) } catch { Write-Warning "No se pudo eliminar el archivo temporal: $targets" }
+    }
+    if ($shortDrive) {
+        & $subst $shortDrive /D
+        if ($LASTEXITCODE -ne 0) { Write-Warning "No se pudo quitar el alias temporal $shortDrive" }
     }
 }
 exit $result
