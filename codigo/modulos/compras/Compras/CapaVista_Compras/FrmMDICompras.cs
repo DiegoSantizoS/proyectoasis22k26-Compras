@@ -43,6 +43,12 @@ namespace CapaVista_Compras
             }
         }
 
+        public void ComprasMetActualizarInfoUsuario(string Usuario, string Rol)
+        {
+            ComprasLblUsuario.Texto = "Usuario: " + Usuario;
+            ComprasLblRol.Texto = "Rol: " + Rol;
+        }   
+
         protected override bool ProcessCmdKey(ref Message Mensaje, Keys Teclas)
         {
             if (Teclas != (Keys.Alt | Keys.Enter)) return base.ProcessCmdKey(ref Mensaje, Teclas);

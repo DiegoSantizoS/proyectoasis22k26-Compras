@@ -11,10 +11,12 @@ namespace CapaVista_Compras
         {
             InitializeComponent();
             ClsPresentacionCompras.ComprasMetFijarTamanoFormulario(this);
+            ComprasUsrMantenimiento.NavegadorMetConfigurar("tblProveedor", 4, 4);
+            /*
             ClsMantenimientoCompras.ComprasProcConfigurar(this, ComprasUsrMantenimiento, "tlbMetodopago",
                 CapaControlador_Compras.ClsAplicacionesCompras.MantenimientoMetodoPago);
+        
+            */       
         }
-
-
     }
 }
