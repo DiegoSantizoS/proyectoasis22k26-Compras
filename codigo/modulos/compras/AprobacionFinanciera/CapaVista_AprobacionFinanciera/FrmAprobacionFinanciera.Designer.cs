@@ -64,25 +64,27 @@
             this.ComprasPnlContenido.Location = new System.Drawing.Point(0, 0);
             this.ComprasPnlContenido.Margin = new System.Windows.Forms.Padding(0);
             this.ComprasPnlContenido.Name = "ComprasPnlContenido";
-            this.ComprasPnlContenido.Size = new System.Drawing.Size(1279, 723);
+            this.ComprasPnlContenido.Size = new System.Drawing.Size(1283, 723);
             this.ComprasPnlContenido.TabIndex = 0;
             // 
             // ComprasBtnRegresar
             // 
             this.ComprasBtnRegresar.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.ComprasBtnRegresar.BackColor = CapaVista_Componentes.Componentes.ClsTemaCompras.FondoBotones;
+            this.ComprasBtnRegresar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(220)))), ((int)(((byte)(239)))));
             this.ComprasBtnRegresar.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ComprasBtnRegresar.BackgroundImage")));
             this.ComprasBtnRegresar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ComprasBtnRegresar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.ComprasBtnRegresar.FlatAppearance.BorderColor = CapaVista_Componentes.Componentes.ClsTemaCompras.PrincipalNavegador;
+            this.ComprasBtnRegresar.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(42)))), ((int)(((byte)(90)))));
             this.ComprasBtnRegresar.FlatAppearance.BorderSize = 0;
             this.ComprasBtnRegresar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(173)))), ((int)(((byte)(213)))));
             this.ComprasBtnRegresar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(182)))), ((int)(((byte)(193)))), ((int)(((byte)(224)))));
             this.ComprasBtnRegresar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ComprasBtnRegresar.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ComprasBtnRegresar.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.PrincipalNavegador;
-            this.ComprasBtnRegresar.Location = new System.Drawing.Point(1136, 542);
+            this.ComprasBtnRegresar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(42)))), ((int)(((byte)(90)))));
+            this.ComprasBtnRegresar.Location = new System.Drawing.Point(1138, 542);
             this.ComprasBtnRegresar.Margin = new System.Windows.Forms.Padding(0);
+            this.ComprasBtnRegresar.MaximumSize = new System.Drawing.Size(80, 80);
+            this.ComprasBtnRegresar.MinimumSize = new System.Drawing.Size(80, 80);
             this.ComprasBtnRegresar.Name = "ComprasBtnRegresar";
             this.ComprasBtnRegresar.Size = new System.Drawing.Size(80, 80);
             this.ComprasBtnRegresar.TabIndex = 4;
@@ -91,19 +93,21 @@
             // ComprasBtnEvaluar
             // 
             this.ComprasBtnEvaluar.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.ComprasBtnEvaluar.BackColor = CapaVista_Componentes.Componentes.ClsTemaCompras.FondoBotones;
+            this.ComprasBtnEvaluar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(220)))), ((int)(((byte)(239)))));
             this.ComprasBtnEvaluar.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ComprasBtnEvaluar.BackgroundImage")));
             this.ComprasBtnEvaluar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ComprasBtnEvaluar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.ComprasBtnEvaluar.FlatAppearance.BorderColor = CapaVista_Componentes.Componentes.ClsTemaCompras.PrincipalNavegador;
+            this.ComprasBtnEvaluar.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(42)))), ((int)(((byte)(90)))));
             this.ComprasBtnEvaluar.FlatAppearance.BorderSize = 0;
             this.ComprasBtnEvaluar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(173)))), ((int)(((byte)(213)))));
             this.ComprasBtnEvaluar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(182)))), ((int)(((byte)(193)))), ((int)(((byte)(224)))));
             this.ComprasBtnEvaluar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ComprasBtnEvaluar.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ComprasBtnEvaluar.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.PrincipalNavegador;
-            this.ComprasBtnEvaluar.Location = new System.Drawing.Point(935, 542);
+            this.ComprasBtnEvaluar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(42)))), ((int)(((byte)(90)))));
+            this.ComprasBtnEvaluar.Location = new System.Drawing.Point(937, 542);
             this.ComprasBtnEvaluar.Margin = new System.Windows.Forms.Padding(0);
+            this.ComprasBtnEvaluar.MaximumSize = new System.Drawing.Size(80, 80);
+            this.ComprasBtnEvaluar.MinimumSize = new System.Drawing.Size(80, 80);
             this.ComprasBtnEvaluar.Name = "ComprasBtnEvaluar";
             this.ComprasBtnEvaluar.Size = new System.Drawing.Size(80, 80);
             this.ComprasBtnEvaluar.TabIndex = 3;
@@ -112,19 +116,21 @@
             // ComprasBtnVer
             // 
             this.ComprasBtnVer.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.ComprasBtnVer.BackColor = CapaVista_Componentes.Componentes.ClsTemaCompras.FondoBotones;
+            this.ComprasBtnVer.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(220)))), ((int)(((byte)(239)))));
             this.ComprasBtnVer.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ComprasBtnVer.BackgroundImage")));
             this.ComprasBtnVer.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ComprasBtnVer.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.ComprasBtnVer.FlatAppearance.BorderColor = CapaVista_Componentes.Componentes.ClsTemaCompras.PrincipalNavegador;
+            this.ComprasBtnVer.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(42)))), ((int)(((byte)(90)))));
             this.ComprasBtnVer.FlatAppearance.BorderSize = 0;
             this.ComprasBtnVer.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(173)))), ((int)(((byte)(213)))));
             this.ComprasBtnVer.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(182)))), ((int)(((byte)(193)))), ((int)(((byte)(224)))));
             this.ComprasBtnVer.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ComprasBtnVer.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ComprasBtnVer.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.PrincipalNavegador;
-            this.ComprasBtnVer.Location = new System.Drawing.Point(736, 542);
+            this.ComprasBtnVer.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(42)))), ((int)(((byte)(90)))));
+            this.ComprasBtnVer.Location = new System.Drawing.Point(738, 542);
             this.ComprasBtnVer.Margin = new System.Windows.Forms.Padding(0);
+            this.ComprasBtnVer.MaximumSize = new System.Drawing.Size(80, 80);
+            this.ComprasBtnVer.MinimumSize = new System.Drawing.Size(80, 80);
             this.ComprasBtnVer.Name = "ComprasBtnVer";
             this.ComprasBtnVer.Size = new System.Drawing.Size(80, 80);
             this.ComprasBtnVer.TabIndex = 2;
@@ -137,14 +143,14 @@
             this.ComprasLblTitulo.Location = new System.Drawing.Point(35, 26);
             this.ComprasLblTitulo.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.ComprasLblTitulo.Name = "ComprasLblTitulo";
-            this.ComprasLblTitulo.Size = new System.Drawing.Size(374, 34);
+            this.ComprasLblTitulo.Size = new System.Drawing.Size(297, 28);
             this.ComprasLblTitulo.TabIndex = 1;
             this.ComprasLblTitulo.Text = "Aprobacion Financiera";
             // 
             // ComprasUsrOrdenesDisponibles
             // 
-            this.ComprasUsrOrdenesDisponibles.BackColor = CapaVista_Componentes.Componentes.ClsTemaCompras.FondoGeneral;
-            this.ComprasUsrOrdenesDisponibles.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.PrincipalNavegador;
+            this.ComprasUsrOrdenesDisponibles.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(246)))), ((int)(((byte)(247)))), ((int)(((byte)(250)))));
+            this.ComprasUsrOrdenesDisponibles.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(42)))), ((int)(((byte)(90)))));
             this.ComprasUsrOrdenesDisponibles.Location = new System.Drawing.Point(21, 73);
             this.ComprasUsrOrdenesDisponibles.Margin = new System.Windows.Forms.Padding(0);
             this.ComprasUsrOrdenesDisponibles.Name = "ComprasUsrOrdenesDisponibles";
@@ -154,12 +160,12 @@
             // FrmAprobacionFinanciera
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.BackColor = CapaVista_Componentes.Componentes.ClsTemaCompras.FondoGeneral;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(246)))), ((int)(((byte)(247)))), ((int)(((byte)(250)))));
             this.ClientSize = new System.Drawing.Size(1300, 700);
             this.Controls.Add(this.ComprasPnlDesplazamiento);
             this.DoubleBuffered = true;
             this.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.PrincipalNavegador;
+            this.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(42)))), ((int)(((byte)(90)))));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
