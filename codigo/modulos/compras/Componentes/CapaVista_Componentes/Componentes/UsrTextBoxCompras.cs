@@ -5,17 +5,29 @@ using System.Windows.Forms;
 
 namespace CapaVista_Componentes.Componentes
 {
+    // -- Enumeración para los tipos de moneda disponibles --
+    public enum ComprasEnumTipoMoneda
+    {
+        Quetzales,
+        Dolares,
+        Euros
+    }
+
     [DefaultBindingProperty("Text")]
     [DefaultEvent("TextChanged")]
     public partial class UsrTextBoxCompras : UserControl
     {
-
         private bool _ErrorVisible;
         private bool _MostrarEtiquetaError = true;
         private int _AlturaEtiquetaError = 22;
         private int _AlturaErrorAmpliada;
         private int _AlturaFilaErrorAplicada = 30;
         private int _VersionTexto;
+
+        // --- Variables privadas para el control de moneda ---
+        private bool _ModoMoneda = false;
+        private ComprasEnumTipoMoneda _TipoMoneda = ComprasEnumTipoMoneda.Quetzales;
+        private bool _ProtegiendoMoneda = false;
 
         [Category("Compras")]
         [Description("Muestra la etiqueta de error y reserva su espacio. Al desactivarla, solo se conserva el borde de error.")]
@@ -47,7 +59,41 @@ namespace CapaVista_Componentes.Componentes
                 ComprasProcActualizarEspacioError();
             }
         }
+        // --- Propiedades de Moneda ---
+        [Category("Compras")]
+        [Description("Activa o desactiva el comportamiento de máscara de moneda en el TextBox.")]
+        [DefaultValue(false)]
+        public bool ModoMoneda
+        {
+            get => _ModoMoneda;
+            set
+            {
+                _ModoMoneda = value;
+                if (_ModoMoneda)
+                {
+                    ComprasTxtTexto.SelectionAlignment = HorizontalAlignment.Right;
+                    ComprasMetAplicarFormatoMoneda();
+                }
+                else
+                {
+                    ComprasTxtTexto.SelectionAlignment = HorizontalAlignment.Left;
+                }
+            }
+        }
 
+        [Category("Compras")]
+        [Description("Define el tipo de moneda a mostrar cuando ModoMoneda está activado.")]
+        [DefaultValue(ComprasEnumTipoMoneda.Quetzales)]
+        public ComprasEnumTipoMoneda TipoMoneda
+        {
+            get => _TipoMoneda;
+            set
+            {
+                _TipoMoneda = value;
+                if (_ModoMoneda) ComprasMetAplicarFormatoMoneda();
+            }
+        }
+        // --- Fin Propiedades de Moneda ---
         private void ComprasProcActualizarEspacioError()
         {
             if (ComprasUsrError == null || ComprasTlpMain == null) return;
@@ -70,21 +116,128 @@ namespace CapaVista_Componentes.Componentes
             InitializeComponent();
             DoubleBuffered = true;
             ComprasUsrError.ComprasProcConservarRojo();
+
             ComprasTxtTexto.TextChanged += (Sender, Evento) => ComprasProcTextoCambiado(Evento);
             Enter += (Sender, Evento) => ComprasTxtTexto.Focus();
+
             ComprasTxtTexto.KeyDown += (Sender, Evento) => OnKeyDown(Evento);
-            ComprasTxtTexto.KeyPress += (Sender, Evento) => OnKeyPress(Evento);
+            ComprasTxtTexto.KeyPress += (Sender, Evento) =>
+            // -- Validación de teclas para el modo moneda
+            {
+                if (_ModoMoneda) ComprasProcValidarTeclasMoneda(Evento);
+                OnKeyPress(Evento);
+            };
+            // -- Fin Validación de teclas para el modo moneda
             ComprasTxtTexto.KeyUp += (Sender, Evento) => OnKeyUp(Evento);
             ComprasTxtTexto.MouseClick += (Sender, Evento) => OnMouseClick(Evento);
-            ComprasTxtTexto.Enter += (Sender, Evento) => ComprasProcActualizarBorde();
-            ComprasTxtTexto.Leave += (Sender, Evento) => ComprasProcActualizarBorde();
+
+            // Intervención para el formato visual al entrar y salir
+            ComprasTxtTexto.Enter += (Sender, Evento) =>
+            {
+                ComprasProcActualizarBorde();
+                if (_ModoMoneda) ComprasMetRemoverFormatoMoneda();
+            };
+            ComprasTxtTexto.Leave += (Sender, Evento) =>
+            {
+                ComprasProcActualizarBorde();
+                if (_ModoMoneda) ComprasMetAplicarFormatoMoneda();
+            };
+            // Fin Intervención para el formato visual al entrar y salir
             ComprasMetLimpiarError();
         }
+
+        // --- Lógica de Moneda ---
+
+        private string ComprasFuncObtenerSimboloMoneda()
+        {
+            switch (_TipoMoneda)
+            {
+                case ComprasEnumTipoMoneda.Dolares: return "$";
+                case ComprasEnumTipoMoneda.Euros: return "€";
+                case ComprasEnumTipoMoneda.Quetzales:
+                default: return "Q";
+            }
+        }
+
+        private void ComprasMetAplicarFormatoMoneda()
+        {
+            if (!_ModoMoneda || string.IsNullOrWhiteSpace(this.Text)) return;
+
+            string TextoPuro = this.Text.Replace(ComprasFuncObtenerSimboloMoneda(), "").Replace(",", "").Trim();
+            if (decimal.TryParse(TextoPuro, out decimal Monto))
+            {
+                this.Text = $"{ComprasFuncObtenerSimboloMoneda()} {Monto:N2}";
+            }
+        }
+
+        private void ComprasMetRemoverFormatoMoneda()
+        {
+            if (!_ModoMoneda) return;
+
+            string Simbolo = ComprasFuncObtenerSimboloMoneda();
+            string TextoPuro = this.Text.Replace(Simbolo, "").Replace(",", "").Trim();
+
+            if (decimal.TryParse(TextoPuro, out decimal Monto))
+            {
+                this.Text = $"{Simbolo} {Monto.ToString("0.00")}";
+            }
+            else
+            {
+                this.Text = $"{Simbolo} ";
+            }
+        }
+
+        private void ComprasProcValidarTeclasMoneda(KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                e.Handled = true;
+                Form ParentForm = this.FindForm();
+                if (ParentForm != null) ParentForm.ActiveControl = null;
+                return;
+            }
+
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
+            {
+                e.Handled = true;
+            }
+
+            if ((e.KeyChar == '.') && (this.Text.IndexOf('.') > -1))
+            {
+                e.Handled = true;
+            }
+
+            string Simbolo = ComprasFuncObtenerSimboloMoneda();
+            if (ComprasTxtTexto.SelectionStart <= Simbolo.Length && !char.IsControl(e.KeyChar))
+            {
+                ComprasTxtTexto.SelectionStart = Simbolo.Length + 1;
+            }
+        }
+
+        // --- Fin Lógica de Moneda ---
 
         private void ComprasProcTextoCambiado(EventArgs Evento)
         {
             _VersionTexto++;
             ComprasMetLimpiarError();
+
+            // -- no permitir que el usuario borre el símbolo de moneda al cambiar el texto
+            if (_ModoMoneda && !_ProtegiendoMoneda && ComprasTxtTexto.Focused)
+            {
+                _ProtegiendoMoneda = true;
+                string Simbolo = ComprasFuncObtenerSimboloMoneda();
+
+                if (!string.IsNullOrEmpty(ComprasTxtTexto.Text) && !ComprasTxtTexto.Text.StartsWith(Simbolo))
+                {
+                    int PosicionCursor = ComprasTxtTexto.SelectionStart;
+                    string TextoLimpio = ComprasTxtTexto.Text.Replace(Simbolo, "").TrimStart();
+
+                    ComprasTxtTexto.Text = $"{Simbolo} {TextoLimpio}";
+                    ComprasTxtTexto.SelectionStart = Math.Max(Simbolo.Length + 1, PosicionCursor + Simbolo.Length);
+                }
+                _ProtegiendoMoneda = false;
+            }
+            // -- Fin no permitir que el usuario borre el símbolo de moneda al cambiar el texto
             OnTextChanged(Evento);
         }
 
@@ -124,6 +277,7 @@ namespace CapaVista_Componentes.Componentes
 
         [DefaultValue(false)]
         public bool ReadOnly { get => ComprasTxtTexto.ReadOnly; set => ComprasTxtTexto.ReadOnly = value; }
+
         [Category("Compras")]
         [Description("Permite escribir varias líneas cuando es True y una sola línea cuando es False.")]
         [DefaultValue(false)]
@@ -131,6 +285,7 @@ namespace CapaVista_Componentes.Componentes
         [RefreshProperties(RefreshProperties.All)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public bool Multiline { get => ComprasTxtTexto.Multiline; set => ComprasTxtTexto.Multiline = value; }
+
         [Browsable(false)]
         public int SelectionStart { get => ComprasTxtTexto.SelectionStart; set => ComprasTxtTexto.SelectionStart = value; }
         [Browsable(false)]
@@ -247,6 +402,5 @@ namespace CapaVista_Componentes.Componentes
                 ComprasProcActualizarBorde();
             }
         }
-
     }
 }
