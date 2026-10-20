@@ -62,6 +62,8 @@ namespace CapaVista_Componentes.Componentes
         }
 
 
+      
+
         [Category("Compras")]
         [Description("Conjunto de datos del combo. En ejecución el combo se llena solo al elegirlo.")]
         [DefaultValue(EnmTipoDatosCompras.Ninguno)]
@@ -376,7 +378,8 @@ namespace CapaVista_Componentes.Componentes
             }
         }
 
-       
+
+        
         private static void ComprasProcObtenerConfiguracion(EnmTipoDatosCompras Tipo,
             out string Tabla, out string Valor, out string Mostrar)
         {
@@ -389,7 +392,7 @@ namespace CapaVista_Componentes.Componentes
                     break;
 
                 case EnmTipoDatosCompras.Metodos:
-                  
+             
                     Tabla = "tlbmetodopago";
                     Valor = "IDmetodo";
                     Mostrar = "nombreMetodo";
@@ -410,27 +413,28 @@ namespace CapaVista_Componentes.Componentes
                 ComprasProcObtenerConfiguracion(_TipoDatos,
                     out string Tabla, out string Valor, out string Mostrar);
 
-                
+               
                 DataTable Datos = new ModeloCombo().enviarDatos(Tabla, Valor, Mostrar);
                 ComprasMetCargarDatos(Datos);
             }
             catch (Exception Ex)
             {
-                
+               
                 Debug.WriteLine(Ex);
                 ComprasMetMostrarError("No se pudieron cargar los datos: " + Ex.Message);
             }
         }
 
-    
+        
         public void ComprasMetCargarDatos(EnmTipoDatosCompras Tipo, DataTable Tabla,
             string CampoAuto1 = null, string CampoAuto2 = null)
         {
-            _TipoDatos = Tipo;   
+            _TipoDatos = Tipo;  
             ComprasMetCargarDatos(Tabla, CampoAuto1, CampoAuto2);
         }
 
-        
+       
+       
         public void ComprasMetCargarDatos(DataTable Tabla, string CampoAuto1 = null, string CampoAuto2 = null)
         {
             if (Tabla == null) throw new ArgumentNullException(nameof(Tabla));
@@ -464,7 +468,7 @@ namespace CapaVista_Componentes.Componentes
             ComprasCboEntrada.BeginUpdate();
             try
             {
-             
+       
                 ComprasCboEntrada.AutoCompleteMode = AutoCompleteMode.None;
                 ComprasCboEntrada.DataSource = null;
 
@@ -472,28 +476,22 @@ namespace CapaVista_Componentes.Componentes
                 ComprasCboEntrada.DisplayMember = Mostrar;
                 ComprasCboEntrada.DataSource = Tabla;
 
-                ComprasCboEntrada.AutoCompleteCustomSource = Coleccion;
-                ComprasCboEntrada.AutoCompleteSource = AutoCompleteSource.CustomSource;
-                ComprasCboEntrada.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+               
+                ComprasCboEntrada.SelectedIndex = -1;
+
+             
+                if (ComprasCboEntrada.DropDownStyle == ComboBoxStyle.DropDown)
+                {
+                    ComprasCboEntrada.AutoCompleteCustomSource = Coleccion;
+                    ComprasCboEntrada.AutoCompleteSource = AutoCompleteSource.CustomSource;
+                    ComprasCboEntrada.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+                }
             }
             finally
             {
                 ComprasCboEntrada.EndUpdate();
             }
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     }
