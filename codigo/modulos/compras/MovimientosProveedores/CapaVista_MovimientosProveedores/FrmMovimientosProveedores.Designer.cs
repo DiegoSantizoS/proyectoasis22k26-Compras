@@ -94,8 +94,8 @@
             // 
             // ComprasUsrMovimientos
             // 
-            this.ComprasUsrMovimientos.BackColor = CapaVista_Componentes.Componentes.ClsTemaCompras.FondoGeneral;
-            this.ComprasUsrMovimientos.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.PrincipalNavegador;
+            this.ComprasUsrMovimientos.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(246)))), ((int)(((byte)(247)))), ((int)(((byte)(250)))));
+            this.ComprasUsrMovimientos.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(42)))), ((int)(((byte)(90)))));
             this.ComprasUsrMovimientos.Location = new System.Drawing.Point(28, 400);
             this.ComprasUsrMovimientos.Margin = new System.Windows.Forms.Padding(0);
             this.ComprasUsrMovimientos.Name = "ComprasUsrMovimientos";
@@ -104,7 +104,7 @@
             // 
             // ComprasPnlProveedor
             // 
-            this.ComprasPnlProveedor.BackColor = CapaVista_Componentes.Componentes.ClsTemaCompras.FondoGeneral;
+            this.ComprasPnlProveedor.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(246)))), ((int)(((byte)(247)))), ((int)(((byte)(250)))));
             this.ComprasPnlProveedor.Controls.Add(this.ComprasLblCorreo);
             this.ComprasPnlProveedor.Controls.Add(this.ComprasLblSeparadorCorreo);
             this.ComprasPnlProveedor.Controls.Add(this.ComprasLblSeparadorTelefono);
@@ -113,7 +113,7 @@
             this.ComprasPnlProveedor.Controls.Add(this.ComprasLblNit);
             this.ComprasPnlProveedor.Controls.Add(this.ComprasLblTituloNit);
             this.ComprasPnlProveedor.Controls.Add(this.ComprasLblNombreProveedor);
-            this.ComprasPnlProveedor.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.PrincipalNavegador;
+            this.ComprasPnlProveedor.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(42)))), ((int)(((byte)(90)))));
             this.ComprasPnlProveedor.Location = new System.Drawing.Point(28, 263);
             this.ComprasPnlProveedor.Name = "ComprasPnlProveedor";
             this.ComprasPnlProveedor.Size = new System.Drawing.Size(1222, 107);
@@ -193,7 +193,7 @@
             // 
             // ComprasPnlFiltros
             // 
-            this.ComprasPnlFiltros.BackColor = CapaVista_Componentes.Componentes.ClsTemaCompras.FondoGeneral;
+            this.ComprasPnlFiltros.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(246)))), ((int)(((byte)(247)))), ((int)(((byte)(250)))));
             this.ComprasPnlFiltros.Controls.Add(this.ComprasCboEstado);
             this.ComprasPnlFiltros.Controls.Add(this.ComprasCboTipoMovimiento);
             this.ComprasPnlFiltros.Controls.Add(this.ComprasCboProveedores);
@@ -205,7 +205,7 @@
             this.ComprasPnlFiltros.Controls.Add(this.ComprasLblEstado);
             this.ComprasPnlFiltros.Controls.Add(this.ComprasLblTipoDeMovimiento);
             this.ComprasPnlFiltros.Controls.Add(this.ComprasLblProveedor);
-            this.ComprasPnlFiltros.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.PrincipalNavegador;
+            this.ComprasPnlFiltros.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(42)))), ((int)(((byte)(90)))));
             this.ComprasPnlFiltros.Location = new System.Drawing.Point(28, 45);
             this.ComprasPnlFiltros.Name = "ComprasPnlFiltros";
             this.ComprasPnlFiltros.Size = new System.Drawing.Size(1222, 191);
@@ -213,9 +213,9 @@
             // 
             // ComprasCboEstado
             // 
-            this.ComprasCboEstado.BackColor = CapaVista_Componentes.Componentes.ClsTemaCompras.FondoGeneral;
+            this.ComprasCboEstado.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(246)))), ((int)(((byte)(247)))), ((int)(((byte)(250)))));
             this.ComprasCboEstado.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.ComprasCboEstado.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.PrincipalNavegador;
+            this.ComprasCboEstado.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(42)))), ((int)(((byte)(90)))));
             this.ComprasCboEstado.Location = new System.Drawing.Point(554, 55);
             this.ComprasCboEstado.Margin = new System.Windows.Forms.Padding(0);
             this.ComprasCboEstado.MaxLength = 0;
@@ -226,9 +226,9 @@
             // 
             // ComprasCboTipoMovimiento
             // 
-            this.ComprasCboTipoMovimiento.BackColor = CapaVista_Componentes.Componentes.ClsTemaCompras.FondoGeneral;
+            this.ComprasCboTipoMovimiento.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(246)))), ((int)(((byte)(247)))), ((int)(((byte)(250)))));
             this.ComprasCboTipoMovimiento.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.ComprasCboTipoMovimiento.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.PrincipalNavegador;
+            this.ComprasCboTipoMovimiento.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(42)))), ((int)(((byte)(90)))));
             this.ComprasCboTipoMovimiento.Location = new System.Drawing.Point(285, 55);
             this.ComprasCboTipoMovimiento.Margin = new System.Windows.Forms.Padding(0);
             this.ComprasCboTipoMovimiento.MaxLength = 0;
@@ -239,9 +239,9 @@
             // 
             // ComprasCboProveedores
             // 
-            this.ComprasCboProveedores.BackColor = CapaVista_Componentes.Componentes.ClsTemaCompras.FondoGeneral;
+            this.ComprasCboProveedores.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(246)))), ((int)(((byte)(247)))), ((int)(((byte)(250)))));
             this.ComprasCboProveedores.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.ComprasCboProveedores.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.PrincipalNavegador;
+            this.ComprasCboProveedores.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(42)))), ((int)(((byte)(90)))));
             this.ComprasCboProveedores.Location = new System.Drawing.Point(19, 55);
             this.ComprasCboProveedores.Margin = new System.Windows.Forms.Padding(0);
             this.ComprasCboProveedores.MaxLength = 0;
@@ -249,21 +249,22 @@
             this.ComprasCboProveedores.Name = "ComprasCboProveedores";
             this.ComprasCboProveedores.Size = new System.Drawing.Size(211, 39);
             this.ComprasCboProveedores.TabIndex = 11;
+            this.ComprasCboProveedores.TipoDatos = CapaVista_Componentes.Componentes.EnmTipoDatosCompras.Metodos;
             // 
             // ComprasBtnConsultar
             // 
             this.ComprasBtnConsultar.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.ComprasBtnConsultar.BackColor = CapaVista_Componentes.Componentes.ClsTemaCompras.FondoBotones;
+            this.ComprasBtnConsultar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(220)))), ((int)(((byte)(239)))));
             this.ComprasBtnConsultar.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ComprasBtnConsultar.BackgroundImage")));
             this.ComprasBtnConsultar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ComprasBtnConsultar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.ComprasBtnConsultar.FlatAppearance.BorderColor = CapaVista_Componentes.Componentes.ClsTemaCompras.PrincipalNavegador;
+            this.ComprasBtnConsultar.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(42)))), ((int)(((byte)(90)))));
             this.ComprasBtnConsultar.FlatAppearance.BorderSize = 0;
             this.ComprasBtnConsultar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(173)))), ((int)(((byte)(213)))));
             this.ComprasBtnConsultar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(182)))), ((int)(((byte)(193)))), ((int)(((byte)(224)))));
             this.ComprasBtnConsultar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ComprasBtnConsultar.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ComprasBtnConsultar.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.PrincipalNavegador;
+            this.ComprasBtnConsultar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(42)))), ((int)(((byte)(90)))));
             this.ComprasBtnConsultar.Location = new System.Drawing.Point(1025, 61);
             this.ComprasBtnConsultar.Margin = new System.Windows.Forms.Padding(0);
             this.ComprasBtnConsultar.MaximumSize = new System.Drawing.Size(80, 80);
@@ -310,7 +311,7 @@
             this.ComprasLblEstado.AutoSize = true;
             this.ComprasLblEstado.Location = new System.Drawing.Point(550, 22);
             this.ComprasLblEstado.Name = "ComprasLblEstado";
-            this.ComprasLblEstado.Size = new System.Drawing.Size(135, 20);
+            this.ComprasLblEstado.Size = new System.Drawing.Size(54, 20);
             this.ComprasLblEstado.TabIndex = 4;
             this.ComprasLblEstado.Text = "Estado";
             // 
@@ -391,12 +392,12 @@
             // FrmMovimientosProveedores
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.BackColor = CapaVista_Componentes.Componentes.ClsTemaCompras.FondoGeneral;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(246)))), ((int)(((byte)(247)))), ((int)(((byte)(250)))));
             this.ClientSize = new System.Drawing.Size(1300, 700);
             this.Controls.Add(this.ComprasPnlDesplazamiento);
             this.DoubleBuffered = true;
             this.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.PrincipalNavegador;
+            this.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(42)))), ((int)(((byte)(90)))));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Margin = new System.Windows.Forms.Padding(0);
             this.MaximizeBox = false;

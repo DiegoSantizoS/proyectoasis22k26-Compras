@@ -53,12 +53,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="UsrArticulosCompras.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UsrArticulosCompras.Designer.cs">
-      <DependentUpon>UsrArticulosCompras.cs</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="CapaControlador_OrdenesCompra">
@@ -83,9 +77,6 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UsrArticulosCompras.resx">
-      <DependentUpon>UsrArticulosCompras.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
