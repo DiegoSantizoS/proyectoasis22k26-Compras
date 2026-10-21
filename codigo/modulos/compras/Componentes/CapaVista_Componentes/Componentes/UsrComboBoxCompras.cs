@@ -1,10 +1,21 @@
-﻿using System;
+﻿using CapaControlador_Cbo_Compras;
+using System;
 using System.ComponentModel;
+using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
 
 namespace CapaVista_Componentes.Componentes
 {
+    public enum EnmTipoDatosCompras
+    {
+        Ninguno = 0,
+        Proveedores = 1,
+        Metodos = 2
+    }
+
+
     [DefaultBindingProperty("SelectedValue")]
     [DefaultEvent("SelectedIndexChanged")]
     public partial class UsrComboBoxCompras : UserControl
@@ -16,6 +27,8 @@ namespace CapaVista_Componentes.Componentes
         private int _AlturaErrorAmpliada;
         private int _AlturaFilaErrorAplicada = 30;
         private int _VersionTexto;
+        private EnmTipoDatosCompras _TipoDatos = EnmTipoDatosCompras.Ninguno;
+        private bool _Iniciado;
 
         [Category("Compras")]
         [Description("Muestra la etiqueta de error y reserva su espacio. Al desactivarla, solo se conserva el borde de error.")]
@@ -47,6 +60,35 @@ namespace CapaVista_Componentes.Componentes
                 ComprasProcActualizarEspacioError();
             }
         }
+
+
+      
+
+        [Category("Compras")]
+        [Description("Conjunto de datos del combo. En ejecución el combo se llena solo al elegirlo.")]
+        [DefaultValue(EnmTipoDatosCompras.Ninguno)]
+        public EnmTipoDatosCompras TipoDatos
+        {
+            get => _TipoDatos;
+            set
+            {
+                if (_TipoDatos == value) return;
+                _TipoDatos = value;
+                if (_Iniciado) ComprasProcCargarSegunTipo();
+            }
+        }
+
+        private bool ComprasEnDiseno =>
+            DesignMode || LicenseManager.UsageMode == LicenseUsageMode.Designtime;
+
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+            _Iniciado = true;
+            ComprasProcCargarSegunTipo();
+        }
+
+
 
         private void ComprasProcActualizarEspacioError()
         {
@@ -336,5 +378,122 @@ namespace CapaVista_Componentes.Componentes
             }
         }
 
+
+        
+        private static void ComprasProcObtenerConfiguracion(EnmTipoDatosCompras Tipo,
+            out string Tabla, out string Valor, out string Mostrar)
+        {
+            switch (Tipo)
+            {
+                case EnmTipoDatosCompras.Proveedores:
+                    Tabla = "tblProveedor";
+                    Valor = "Pk_Proveedor";
+                    Mostrar = "nombreProveedor";
+                    break;
+
+                case EnmTipoDatosCompras.Metodos:
+             
+                    Tabla = "tlbmetodopago";
+                    Valor = "IDmetodo";
+                    Mostrar = "nombreMetodo";
+                    break;
+
+                default:
+                    throw new InvalidOperationException(
+                        "Debe definir TipoDatos antes de cargar datos en el combo.");
+            }
+        }
+
+        private void ComprasProcCargarSegunTipo()
+        {
+            if (_TipoDatos == EnmTipoDatosCompras.Ninguno || ComprasEnDiseno) return;
+
+            try
+            {
+                ComprasProcObtenerConfiguracion(_TipoDatos,
+                    out string Tabla, out string Valor, out string Mostrar);
+
+               
+                DataTable Datos = new ModeloCombo().enviarDatos(Tabla, Valor, Mostrar);
+                ComprasMetCargarDatos(Datos);
+            }
+            catch (Exception Ex)
+            {
+               
+                Debug.WriteLine(Ex);
+                ComprasMetMostrarError("No se pudieron cargar los datos: " + Ex.Message);
+            }
+        }
+
+        
+        public void ComprasMetCargarDatos(EnmTipoDatosCompras Tipo, DataTable Tabla,
+            string CampoAuto1 = null, string CampoAuto2 = null)
+        {
+            _TipoDatos = Tipo;  
+            ComprasMetCargarDatos(Tabla, CampoAuto1, CampoAuto2);
+        }
+
+       
+       
+        public void ComprasMetCargarDatos(DataTable Tabla, string CampoAuto1 = null, string CampoAuto2 = null)
+        {
+            if (Tabla == null) throw new ArgumentNullException(nameof(Tabla));
+
+            ComprasProcObtenerConfiguracion(_TipoDatos,
+                out string _, out string Valor, out string Mostrar);
+
+            string Auto1 = CampoAuto1 ?? Valor;
+            string Auto2 = CampoAuto2 ?? Mostrar;
+
+            foreach (string Columna in new[] { Valor, Mostrar, Auto1, Auto2 })
+            {
+                if (!Tabla.Columns.Contains(Columna))
+                    throw new ArgumentException(
+                        "La tabla no contiene la columna '" + Columna + "' requerida por " + _TipoDatos + ".");
+            }
+
+            string[] Sugerencias = new string[Tabla.Rows.Count * 2];
+            int Indice = 0;
+            foreach (DataRow Fila in Tabla.Rows)
+            {
+                string A = Convert.ToString(Fila[Auto1]);
+                string B = Convert.ToString(Fila[Auto2]);
+                Sugerencias[Indice++] = A + "-" + B;
+                Sugerencias[Indice++] = B + "-" + A;
+            }
+
+            AutoCompleteStringCollection Coleccion = new AutoCompleteStringCollection();
+            Coleccion.AddRange(Sugerencias);
+
+            ComprasCboEntrada.BeginUpdate();
+            try
+            {
+       
+                ComprasCboEntrada.AutoCompleteMode = AutoCompleteMode.None;
+                ComprasCboEntrada.DataSource = null;
+
+                ComprasCboEntrada.ValueMember = Valor;
+                ComprasCboEntrada.DisplayMember = Mostrar;
+                ComprasCboEntrada.DataSource = Tabla;
+
+               
+                ComprasCboEntrada.SelectedIndex = -1;
+
+             
+                if (ComprasCboEntrada.DropDownStyle == ComboBoxStyle.DropDown)
+                {
+                    ComprasCboEntrada.AutoCompleteCustomSource = Coleccion;
+                    ComprasCboEntrada.AutoCompleteSource = AutoCompleteSource.CustomSource;
+                    ComprasCboEntrada.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+                }
+            }
+            finally
+            {
+                ComprasCboEntrada.EndUpdate();
+            }
+        }
+
+
     }
 }
+
