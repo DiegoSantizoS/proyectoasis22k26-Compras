@@ -29230,14 +29230,4 @@
         v3HkJra55Q3ppt3jW/ZMbtvz/wIi6gTno9XUYAAAAABJRU5ErkJggg==
 </value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="Ver_Tabla" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\..\..\..\..\recursos\modulos\compras\Botones_Compras\Ver_Tabla.png;System.Drawing.Bitmap, System.Drawing</value>
-  </data>
-  <data name="Modificar_Tabla" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\..\..\..\..\recursos\modulos\compras\Botones_Compras\Modificar_Tabla.png;System.Drawing.Bitmap, System.Drawing</value>
-  </data>
-  <data name="Eliminar_Tabla" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\..\..\..\..\recursos\modulos\compras\Botones_Compras\Eliminar_Tabla.png;System.Drawing.Bitmap, System.Drawing</value>
-  </data>
 </root>
