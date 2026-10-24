@@ -36,8 +36,11 @@ namespace CapaVista_Compras
             TableLayoutPanel[] PanelesIndicadores = { ComprasTlpKpi1, ComprasTlpKpi2, ComprasTlpKpi3, ComprasTlpKpi4, ComprasTlpKpi5, ComprasTlpKpi6 };
             foreach (TableLayoutPanel Panel in PanelesIndicadores)
             {
-                Panel.RowStyles[0].Height = 56F;
-                Panel.RowStyles[1].Height = 28F;
+                for (int Fila = 0; Fila < ComprasTlpKpi1.RowStyles.Count; Fila++)
+                {
+                    Panel.RowStyles[Fila].SizeType = ComprasTlpKpi1.RowStyles[Fila].SizeType;
+                    Panel.RowStyles[Fila].Height = ComprasTlpKpi1.RowStyles[Fila].Height;
+                }
                 foreach (Control Elemento in Panel.Controls)
                     if (Panel.GetRow(Elemento) == 2) Elemento.Margin = new Padding(2);
             }
@@ -220,11 +223,6 @@ namespace CapaVista_Compras
         private void ComprasMetAbrirProveedores(object Remitente, EventArgs Evento)
         {
             ComprasMetAbrirSubproceso<FrmMantenimientoProveedor>(ComprasTlpProveedores);
-        }
-
-        private void ComprasMetAbrirMetodosPago(object Remitente, EventArgs Evento)
-        {
-            ComprasMetAbrirSubproceso<FrmMantenimientoMetodoPago>(ComprasTlpMetodosPago);
         }
 
         private void ComprasMetOpcionPendienteClick(object Remitente, EventArgs Evento)

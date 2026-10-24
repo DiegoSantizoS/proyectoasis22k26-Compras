@@ -393,7 +393,7 @@ namespace CapaVista_Componentes.Componentes
 
                 case EnmTipoDatosCompras.Metodos:
              
-                    Tabla = "tlbmetodopago";
+                    Tabla = string.Empty;
                     Valor = "IDmetodo";
                     Mostrar = "nombreMetodo";
                     break;
@@ -410,6 +410,17 @@ namespace CapaVista_Componentes.Componentes
 
             try
             {
+                if (_TipoDatos == EnmTipoDatosCompras.Metodos)
+                {
+                    DataTable Metodos = new DataTable();
+                    Metodos.Columns.Add("IDmetodo", typeof(string));
+                    Metodos.Columns.Add("nombreMetodo", typeof(string));
+                    foreach (string Metodo in new[] { "Transferencia", "Cheque", "Efectivo", "Deposito" })
+                        Metodos.Rows.Add(Metodo, Metodo);
+                    ComprasMetCargarDatos(Metodos);
+                    return;
+                }
+
                 ComprasProcObtenerConfiguracion(_TipoDatos,
                     out string Tabla, out string Valor, out string Mostrar);
 
