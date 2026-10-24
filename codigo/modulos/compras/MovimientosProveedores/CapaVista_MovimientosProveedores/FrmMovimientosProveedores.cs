@@ -86,8 +86,6 @@ namespace CapaVista_MovimientosProveedores
 
             this.BackColor = ClsTemaCompras.FondoGeneral;
 
-            ComprasCboProveedores.DropDownStyle = ComboBoxStyle.DropDown;
-            ComprasCboProveedores.Text = "Buscar Proveedor...";
             ComprasProcInicializarTablaMovimientos();
             ComprasProcCargarMovimientos();
             ComprasUsrMovimientos.DataBindingComplete += (Remitente, Evento) => ComprasProcFormatearMovimientos();
