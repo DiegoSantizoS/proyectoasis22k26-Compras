@@ -21,7 +21,6 @@ namespace CapaVista_OrdenesCompra
             var Tabla = ComprasUsrProductos.Tabla;
             Tabla.RowTemplate.MinimumHeight = ComprasIntAlturaMinimaArticulo;
             Tabla.RowTemplate.Height = Math.Max(Tabla.RowTemplate.Height, ComprasIntAlturaMinimaArticulo);
-            // Size rows from their content, independently of the available panel height.
             Tabla.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             ComprasPnlContenido.MinimumSize = System.Drawing.Size.Empty;
             ComprasTlpPrincipal.RowStyles[1].SizeType = System.Windows.Forms.SizeType.Absolute;

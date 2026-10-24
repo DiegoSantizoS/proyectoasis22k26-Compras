@@ -610,6 +610,7 @@
             this.ComprasTxtNombreProveedor.Name = "ComprasTxtNombreProveedor";
             this.ComprasTxtNombreProveedor.Size = new System.Drawing.Size(310, 40);
             this.ComprasTxtNombreProveedor.TabIndex = 11;
+            this.ComprasTxtNombreProveedor.TipoDatos = CapaVista_Componentes.Componentes.EnmTipoDatosCompras.Proveedores;
             // 
             // ComprasTlpResponsable
             // 
@@ -1511,9 +1512,9 @@
             this.ComprasLblTotalesDeProducto.TabIndex = 3;
             this.ComprasLblTotalesDeProducto.TabStop = false;
             this.ComprasLblTotalesDeProducto.TamanoTipografia = 10F;
-            this.ComprasLblTotalesDeProducto.Text = "Total antes de impuesto";
+            this.ComprasLblTotalesDeProducto.Text = "Total antes de impuesto:   Impuesto:   Total:   ";
             this.ComprasLblTotalesDeProducto.TextAlign = System.Drawing.ContentAlignment.BottomRight;
-            this.ComprasLblTotalesDeProducto.Texto = "Total antes de impuesto";
+            this.ComprasLblTotalesDeProducto.Texto = "Total antes de impuesto:   Impuesto:   Total:   ";
             // 
             // ComprasLblPrecioUnitarioValor
             // 
