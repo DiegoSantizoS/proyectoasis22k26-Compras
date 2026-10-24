@@ -1406,6 +1406,7 @@
             this.ComprasTxtCantidad.SelectionLength = 0;
             this.ComprasTxtCantidad.SelectionStart = 0;
             this.ComprasTxtCantidad.Size = new System.Drawing.Size(156, 36);
+            this.ComprasTxtCantidad.SoloEnteros = true;
             this.ComprasTxtCantidad.TabIndex = 5;
             // 
             // ComprasLblCantidad
@@ -1677,17 +1678,18 @@
             // 
             this.ComprasUsrEncabezado.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(42)))), ((int)(((byte)(90)))));
             this.ComprasUsrEncabezado.Codigo = "6003";
-            this.ComprasUsrEncabezado.Descripcion = "Registra órdenes de compra con los datos del proveedor, los artículos solicitados y el detalle de importes, descuentos e impuestos.";
+            this.ComprasUsrEncabezado.Descripcion = "Registra órdenes de compra con los datos del proveedor, los artículos solicitados" +
+    " y el detalle de importes, descuentos e impuestos.";
             this.ComprasUsrEncabezado.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ComprasUsrEncabezado.Location = new System.Drawing.Point(10, 10);
-            this.ComprasUsrEncabezado.Margin = new System.Windows.Forms.Padding(10);
+            this.ComprasUsrEncabezado.Location = new System.Drawing.Point(0, 0);
+            this.ComprasUsrEncabezado.Margin = new System.Windows.Forms.Padding(0);
             this.ComprasUsrEncabezado.MaximumSize = new System.Drawing.Size(1500, 130);
             this.ComprasUsrEncabezado.MinimumSize = new System.Drawing.Size(0, 130);
             this.ComprasUsrEncabezado.Name = "ComprasUsrEncabezado";
-            this.ComprasUsrEncabezado.Size = new System.Drawing.Size(1280, 130);
+            this.ComprasUsrEncabezado.Size = new System.Drawing.Size(1300, 130);
             this.ComprasUsrEncabezado.TabIndex = 7;
             this.ComprasUsrEncabezado.TabStop = false;
-            this.ComprasUsrEncabezado.Titulo = "Ordenes de Compra";
+            this.ComprasUsrEncabezado.Titulo = "ORDENES DE COMPRA";
             // 
             // FrmOrdenesCompra
             // 

@@ -6,9 +6,13 @@ namespace CapaVista_Componentes.Componentes
     [DefaultProperty("Titulo")]
     public partial class UsrEncabezadoCompras : UserControl
     {
+        private string _Titulo = "Titulo";
+        private string _Codigo = "6000";
+
         public UsrEncabezadoCompras()
         {
             InitializeComponent();
+            ComprasProcActualizarTitulo();
             DoubleBuffered = true;
             TabStop = false;
         }
@@ -22,8 +26,12 @@ namespace CapaVista_Componentes.Componentes
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public string Titulo
         {
-            get => ComprasLblTitulo.Texto;
-            set => ComprasLblTitulo.Texto = value ?? string.Empty;
+            get => _Titulo;
+            set
+            {
+                _Titulo = value ?? string.Empty;
+                ComprasProcActualizarTitulo();
+            }
         }
 
         [Category("Compras")]
@@ -48,9 +56,17 @@ namespace CapaVista_Componentes.Componentes
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public string Codigo
         {
-            get => ComprasLblCodModulo.Texto;
-            set => ComprasLblCodModulo.Texto = value ?? string.Empty;
+            get => _Codigo;
+            set
+            {
+                _Codigo = value ?? string.Empty;
+                ComprasProcActualizarTitulo();
+            }
         }
 
+        private void ComprasProcActualizarTitulo()
+        {
+            ComprasLblTitulo.Texto = _Titulo;
+        }
     }
 }

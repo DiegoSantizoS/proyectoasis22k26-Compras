@@ -7,9 +7,11 @@ set "CC_CONFIG=%~1"
 set "CC_MORE=%2"
 pushd "%~dp0"
 if errorlevel 1 exit /b 1
+:CC_BUILD
 rem PowerShell forma parte de Windows; el archivo contiene su propio coordinador.
 "%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe" -NoLogo -NoProfile -ExecutionPolicy Bypass -Command "$s=[IO.File]::ReadAllText($env:CC_SELF,[Text.Encoding]::UTF8);$p=[regex]::Split($s,'(?m)^#--COMPRAS-POWERSHELL--\r?$');& ([scriptblock]::Create($p[1]))"
 set "CC_EXIT=%errorlevel%"
+if "%CC_EXIT%"=="10" goto CC_BUILD
 popd
 endlocal & exit /b %CC_EXIT%
 
@@ -19,9 +21,17 @@ $base = [IO.Path]::GetFullPath($env:CC_BASE)
 $steps = New-Object 'System.Collections.Generic.List[object]'
 $projects = @{}
 $temporaryTargets = New-Object 'System.Collections.Generic.List[string]'
+$referenceOverrides = New-Object 'System.Collections.Generic.List[object]'
+$securityExecutable = $null
 $result = 1
 $current = $null
 $shortDrive = $null
+
+function Write-Status([string]$message, [string]$kind = 'Info') {
+    $colors = @{ Info='Cyan'; Build='Yellow'; Success='Green'; Error='Red'; Warning='DarkYellow'; Menu='White' }
+    $labels = @{ Info='INFO'; Build='COMPILANDO'; Success='CORRECTO'; Error='ERROR'; Warning='AVISO'; Menu='MENU' }
+    Write-Host ("[{0}] {1}" -f $labels[$kind], $message) -ForegroundColor $colors[$kind]
+}
 
 function FullPath($folder, $relative) {
     [IO.Path]::GetFullPath([IO.Path]::Combine($folder, $relative))
@@ -156,7 +166,7 @@ try {
     }
     if (!$shortDrive) { throw 'No se pudo crear una unidad temporal libre (D: a Z:) para evitar rutas largas de NuGet.' }
     $base = FullPath ($shortDrive + '\') 'codigo\modulos\compras'
-    Write-Host "Ruta temporal de compilacion: $base (los archivos permanecen en su ubicacion original)."
+    Write-Status "Ruta temporal de compilacion: $base (los archivos permanecen en su ubicacion original)."
     $configuration = $env:CC_CONFIG
     if (!$configuration) { $configuration='Debug' }
     if ($env:CC_MORE -or $configuration -notin @('Debug','Release')) {
@@ -215,7 +225,18 @@ try {
         $null = Add-Step $local[$name]
         if ($executables.ContainsKey($name) -and $executables[$name]) { $null = Add-Step $executables[$name] }
     }
+    $logisticsRoot = FullPath $base '..\Logistica'
+    if (!(Test-Path -LiteralPath $logisticsRoot -PathType Container)) { throw "No se encontro el modulo Logistica: $logisticsRoot" }
+    $logisticsNames = @('Cierre_Inventario.sln','Inventario_Logistica.sln','MuestreoAuditoria_Logistica.sln',
+        'TransporteExterno_Logistica.sln','TransporteInterno_Logistica.sln','Traslados_Logistica.sln','Logistica.sln')
+    $logisticsSolutions = @(Find-Files $logisticsRoot $logisticsNames)
+    foreach ($name in $logisticsNames) {
+        $null = Add-Step (Unique-Path $name $logisticsSolutions)
+    }
+    Write-Status 'Logistica y sus seis subprocesos se compilaran antes de Seguridad.'
     $null = Add-Step $seguridadSolution
+    $securitySolutions = @(Find-Files (Split-Path (Split-Path $seguridadSolution)) @('Ejecucion_Seguridad.sln'))
+    $null = Add-Step (Unique-Path 'Ejecucion_Seguridad.sln' $securitySolutions)
 
     # VS 2022, incluidas Build Tools; PATH es un segundo mecanismo, no dotnet build.
     $candidates = @()
@@ -245,12 +266,12 @@ try {
         Join-Path $_ 'Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\mscorlib.dll'
     } | Where-Object { Test-Path -LiteralPath $_ -PathType Leaf })
     if (!$targetPacks.Count) { throw 'Falta el Developer/Targeting Pack de .NET Framework 4.8.' }
-    Write-Host "MSBuild: $msbuild"
-    Write-Host "Configuracion: $configuration. Validando proyectos y dependencias antes de compilar..."
+    Write-Status "MSBuild: $msbuild"
+    Write-Status "Configuracion: $configuration. Validando proyectos y dependencias antes de compilar..."
 
     foreach ($step in $steps) {
         $current = $step
-        Write-Host "Validando: $($step.Name)"
+        Write-Status "Validando: $($step.Name)"
         if ([IO.Path]::GetExtension($step.Path) -eq '.csproj') {
             [xml]$xml = Get-Content -LiteralPath $step.Path -Raw
             $platforms = @($xml.SelectNodes('//*[local-name()="PropertyGroup"]/@Condition') | ForEach-Object {
@@ -289,13 +310,23 @@ try {
         if ($outputs.ContainsKey($project.Output)) { throw "Dos productores para $($project.Output)" }
         $outputs[$project.Output] = $project
     }
+    $referenceTargets = Join-Path ([IO.Path]::GetTempPath()) ('Compras_References_' + [guid]::NewGuid().ToString('N') + '.targets')
+    $temporaryTargets.Add($referenceTargets)
     foreach ($project in $projects.Values) {
         $current=$project.Step
         foreach ($reference in @($project.Data.Items.Reference)) {
             if (!$reference.PSObject.Properties['HintPath'] -or !$reference.HintPath) { continue }
             $hint = FullPath (Split-Path $project.Path) $reference.HintPath
             if ($outputs.ContainsKey($hint)) { $project.Dependencies += $outputs[$hint] }
-            elseif ($hint -notmatch '[\\/]packages[\\/]') { throw "Referencia sin productor para $configuration en $($project.Path): $hint" }
+            elseif ($hint -notmatch '[\\/]packages[\\/]') {
+                $assembly = ($reference.Identity -split ',')[0].Trim() + '.dll'
+                $producers = @($projects.Values | Where-Object { [IO.Path]::GetFileName($_.Output) -ieq $assembly })
+                if ($producers.Count -ne 1) { throw "Referencia sin productor unico para $configuration en $($project.Path): $hint" }
+                $producer = $producers[0]
+                $project.Dependencies += $producer
+                $referenceOverrides.Add([pscustomobject]@{ Project=$project.Path; Identity=$reference.Identity; Output=$producer.Output })
+                Write-Status "Referencia corregida: $assembly -> $($producer.Output)" Warning
+            }
         }
         foreach ($reference in @($project.Data.Items.ProjectReference)) {
             $path = FullPath (Split-Path $project.Path) $reference.Identity
@@ -309,14 +340,25 @@ try {
             }
         }
     }
+    $referenceBody = '<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003"><Target Name="CorregirReferenciasCompras" BeforeTargets="ResolveAssemblyReferences"><ItemGroup>'
+    foreach ($override in $referenceOverrides) {
+        $condition = "'`$(MSBuildProjectFullPath)' == '" + (MsbuildEscape $override.Project) + "' And '%(Reference.Identity)' == '" + (MsbuildEscape $override.Identity) + "'"
+        $referenceBody += '<Reference Condition="' + (XmlEscape $condition) + '"><HintPath>' + (XmlEscape $override.Output) + '</HintPath></Reference>'
+    }
+    $referenceBody += '</ItemGroup></Target></Project>'
+    [IO.File]::WriteAllText($referenceTargets,$referenceBody,[Text.UTF8Encoding]::new($false))
+    $securityProject = @($projects.Values | Where-Object { [IO.Path]::GetFileName($_.Path) -ieq 'Ejecucion_Seguridad.csproj' })
+    if ($securityProject.Count -eq 1) {
+        $securityExecutable = $repositoryRoot + $securityProject[0].Output.Substring($shortDrive.Length)
+    }
     foreach ($step in $steps) { foreach ($project in $step.Projects) { Order-Project $project $step } }
     $current=$null
     $steps | Select-Object Name,Path,Platform | Format-Table -AutoSize | Out-String | Write-Host
 
     for ($index=0; $index -lt $steps.Count; $index++) {
         $step=$steps[$index]; $current=$step
-        Write-Host "[$($index+1)/$($steps.Count)] $($step.Name) - $configuration | $($step.Platform)"
-        $arguments = @($step.Path,'/t:Build','/nologo','/verbosity:minimal',"/p:Configuration=$configuration", "/p:Platform=$($step.Platform)",'/warnAsError:MSB3245')
+        Write-Status "[$($index+1)/$($steps.Count)] $($step.Name) - $configuration | $($step.Platform)" Build
+        $arguments = @($step.Path,'/t:Build','/nologo','/verbosity:minimal',"/p:Configuration=$configuration", "/p:Platform=$($step.Platform)",'/warnAsError:MSB3245','/consoleloggerparameters:ForceConsoleColor;Summary')
         if ([IO.Path]::GetExtension($step.Path) -eq '.sln') {
             # Orden interno por DLL/ProjectReference, sin alterar los .sln originales.
             # Un target previo compila el grafo una vez y vacia la lista del Build normal.
@@ -334,6 +376,7 @@ try {
             [IO.File]::WriteAllText($targets,$body,[Text.UTF8Encoding]::new($false))
             $arguments += "/p:DirectorySolutionTargetsPath=$targets"
         }
+        $arguments += "/p:CustomAfterMicrosoftCommonTargets=$referenceTargets"
         if ($step.Packages) {
             $arguments += @('/restore','/p:RestorePackagesConfig=true')
             $packageRoot = Join-Path (Split-Path $step.Path) 'packages'
@@ -348,20 +391,21 @@ try {
             if (!(Test-Path -LiteralPath $project.Output -PathType Leaf)) { throw "MSBuild termino sin la salida esperada: $($project.Output)" }
         }
         $step.State='Correcta'
-        Write-Host "[$($index+1)/$($steps.Count)] $($step.Name): CORRECTA"
+        Write-Status "[$($index+1)/$($steps.Count)] $($step.Name)" Success
     }
     $result=0
 } catch {
     if ($current -and $current.State -ne 'Correcta') { $current.State='Fallida' }
-    Write-Host "ERROR: $($_.Exception.Message)" -ForegroundColor Red
+    Write-Status $_.Exception.Message Error
 } finally {
-    $summary = @(
-        ('Correctas: {0}' -f @($steps | Where-Object State -eq 'Correcta').Count)
-        ('Fallidas: {0}' -f @($steps | Where-Object State -eq 'Fallida').Count)
-        ('No ejecutadas: {0}' -f @($steps | Where-Object State -eq 'No ejecutada').Count)
-    )
-    $summary += @($steps | ForEach-Object { '{0}: {1}' -f $_.State,$_.Name })
-    $summary | ForEach-Object { Write-Host $_ }
+    Write-Status 'RESUMEN DE COMPILACION'
+    Write-Status ('Correctas: {0}' -f @($steps | Where-Object State -eq 'Correcta').Count) Success
+    Write-Status ('Fallidas: {0}' -f @($steps | Where-Object State -eq 'Fallida').Count) $(if ($result -eq 0) { 'Success' } else { 'Error' })
+    Write-Status ('No ejecutadas: {0}' -f @($steps | Where-Object State -eq 'No ejecutada').Count) Warning
+    foreach ($step in $steps) {
+        $kind = switch ($step.State) { 'Correcta' { 'Success' } 'Fallida' { 'Error' } default { 'Warning' } }
+        Write-Status ("{0}: {1}" -f $step.State, $step.Name) $kind
+    }
     foreach ($targets in $temporaryTargets) {
         try { [IO.File]::Delete($targets) } catch { Write-Warning "No se pudo eliminar el archivo temporal: $targets" }
     }
@@ -370,4 +414,26 @@ try {
         if ($LASTEXITCODE -ne 0) { Write-Warning "No se pudo quitar el alias temporal $shortDrive" }
     }
 }
-exit $result
+while ($true) {
+    Write-Status 'Seleccione la siguiente accion' Menu
+    Write-Host '1. Volver a compilar' -ForegroundColor Yellow
+    Write-Host '2. Ejecutar Ejecucion_Seguridad' -ForegroundColor Green
+    Write-Host '3. Salir' -ForegroundColor Gray
+    Write-Host 'Presione 1, 2 o 3: ' -NoNewline -ForegroundColor Cyan
+    $option = [Console]::ReadKey($true).KeyChar.ToString()
+    Write-Host $option
+    if ($option -eq '1') { exit 10 }
+    if ($option -eq '3') { exit $result }
+    if ($option -eq '2') {
+        if ($result -ne 0) { Write-Status 'Corrija los errores y vuelva a compilar antes de ejecutar.' Warning; continue }
+        if (!$securityExecutable -or !(Test-Path -LiteralPath $securityExecutable -PathType Leaf)) {
+            Write-Status 'No se encontro Ejecucion_Seguridad.exe.' Error
+            continue
+        }
+        Write-Status "Iniciando: $securityExecutable" Success
+        Start-Process -FilePath $securityExecutable -WorkingDirectory (Split-Path $securityExecutable)
+        exit 0
+    }
+    Write-Status 'Opcion no valida. Escriba 1, 2 o 3.' Warning
+}
+
