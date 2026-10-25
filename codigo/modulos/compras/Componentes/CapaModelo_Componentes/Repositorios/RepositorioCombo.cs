@@ -12,6 +12,31 @@ namespace CapaModelo_Cbo_Compras.Repositorios
     {
 
 
+        public DataTable ObtenerProveedores()
+        {
+            using (OdbcConnection Conexion = ObtenerConexion())
+            using (OdbcCommand Comando = new OdbcCommand("SELECT * FROM tblProveedor ORDER BY nombreProveedor", Conexion))
+            using (OdbcDataAdapter Adaptador = new OdbcDataAdapter(Comando))
+            {
+                DataTable Datos = new DataTable();
+                Adaptador.Fill(Datos);
+                return Datos;
+            }
+        }
+
+        public DataTable ObtenerProveedor(int IdProveedor)
+        {
+            using (OdbcConnection Conexion = ObtenerConexion())
+            using (OdbcCommand Comando = new OdbcCommand("SELECT * FROM tblProveedor WHERE Pk_Proveedor = ?", Conexion))
+            using (OdbcDataAdapter Adaptador = new OdbcDataAdapter(Comando))
+            {
+                Comando.Parameters.Add("IdProveedor", OdbcType.Int).Value = IdProveedor;
+                DataTable Datos = new DataTable();
+                Adaptador.Fill(Datos);
+                return Datos;
+            }
+        }
+
         public DataTable obtenerDatos(string _tabla, string _campo1, string _campo2)
         {
 

@@ -23,11 +23,109 @@ namespace CapaVista_Componentes.Componentes
         private int _AlturaErrorAmpliada;
         private int _AlturaFilaErrorAplicada = 30;
         private int _VersionTexto;
+        private HorizontalAlignment _AlineacionTexto = HorizontalAlignment.Left;
+        private int _SangriaTexto;
+        private bool _AplicandoFormatoTexto;
+        private bool _SoloEnteros;
+        private bool _RestaurandoEntero;
+        private string _UltimoTextoEntero = string.Empty;
 
         // --- Variables privadas para el control de moneda ---
         private bool _ModoMoneda = false;
         private ComprasEnumTipoMoneda _TipoMoneda = ComprasEnumTipoMoneda.Quetzales;
         private bool _ProtegiendoMoneda = false;
+
+        [Category("Compras")]
+        [Description("Alineaci?n del texto: izquierda, centro o derecha. El modo moneda utiliza derecha.")]
+        [DefaultValue(HorizontalAlignment.Left)]
+        public HorizontalAlignment AlineacionTexto
+        {
+            get => _AlineacionTexto;
+            set
+            {
+                if (!Enum.IsDefined(typeof(HorizontalAlignment), value))
+                    throw new InvalidEnumArgumentException(nameof(value), (int)value, typeof(HorizontalAlignment));
+                _AlineacionTexto = value;
+                ComprasProcAplicarFormatoTexto();
+            }
+        }
+
+        [Category("Compras")]
+        [Description("Sangr?a del p?rrafo en p?xeles desde el margen izquierdo.")]
+        [DefaultValue(0)]
+        public int SangriaTexto
+        {
+            get => _SangriaTexto;
+            set
+            {
+                if (value < 0) throw new ArgumentOutOfRangeException(nameof(value));
+                _SangriaTexto = value;
+                ComprasProcAplicarFormatoTexto();
+            }
+        }
+
+        [Category("Compras")]
+        [Description("Espacio interior en p?xeles entre el borde y el texto.")]
+        [DefaultValue(typeof(Padding), "6, 1, 6, 1")]
+        public Padding EspaciadoTexto
+        {
+            get => ComprasPnlInterior.Padding;
+            set
+            {
+                if (value.Left < 0 || value.Top < 0 || value.Right < 0 || value.Bottom < 0)
+                    throw new ArgumentOutOfRangeException(nameof(value));
+                ComprasPnlInterior.Padding = value;
+            }
+        }
+
+        private void ComprasProcAplicarFormatoTexto()
+        {
+            if (ComprasTxtTexto == null || _AplicandoFormatoTexto) return;
+            _AplicandoFormatoTexto = true;
+            int Inicio = ComprasTxtTexto.SelectionStart;
+            int Longitud = ComprasTxtTexto.SelectionLength;
+            try
+            {
+                ComprasTxtTexto.SelectAll();
+                ComprasTxtTexto.SelectionAlignment = _ModoMoneda ? HorizontalAlignment.Right : _AlineacionTexto;
+                ComprasTxtTexto.SelectionIndent = _SangriaTexto;
+                ComprasTxtTexto.Select(Inicio, Longitud);
+            }
+            finally
+            {
+                _AplicandoFormatoTexto = false;
+            }
+        }
+
+        [Category("Compras")]
+        [Description("Permite solo d?gitos del 0 al 9, sin signos, decimales ni s?mbolos de moneda. Rechaza texto pegado no v?lido y desactiva ModoMoneda.")]
+        [DefaultValue(false)]
+        [RefreshProperties(RefreshProperties.All)]
+        public bool SoloEnteros
+        {
+            get => _SoloEnteros;
+            set
+            {
+                if (_SoloEnteros == value) return;
+                if (value) ModoMoneda = false;
+                _SoloEnteros = value;
+                if (value)
+                {
+                    _UltimoTextoEntero = ComprasFuncEsTextoEntero(Text) ? Text : string.Empty;
+                    if (Text != _UltimoTextoEntero) Text = _UltimoTextoEntero;
+                }
+            }
+        }
+
+        private static bool ComprasFuncEsTextoEntero(string Texto)
+        {
+            for (int Indice = 0; Indice < Texto.Length; Indice++)
+            {
+                char Caracter = Texto[Indice];
+                if (Caracter < '0' || Caracter > '9') return false;
+            }
+            return true;
+        }
 
         [Category("Compras")]
         [Description("Muestra la etiqueta de error y reserva su espacio. Al desactivarla, solo se conserva el borde de error.")]
@@ -68,6 +166,7 @@ namespace CapaVista_Componentes.Componentes
             get => _ModoMoneda;
             set
             {
+                if (value) SoloEnteros = false;
                 _ModoMoneda = value;
                 if (_ModoMoneda)
                 {
@@ -76,7 +175,7 @@ namespace CapaVista_Componentes.Componentes
                 }
                 else
                 {
-                    ComprasTxtTexto.SelectionAlignment = HorizontalAlignment.Left;
+                    ComprasProcAplicarFormatoTexto();
                 }
             }
         }
@@ -118,6 +217,7 @@ namespace CapaVista_Componentes.Componentes
             ComprasUsrError.ComprasProcConservarRojo();
 
             ComprasTxtTexto.TextChanged += (Sender, Evento) => ComprasProcTextoCambiado(Evento);
+            ComprasTxtTexto.HandleCreated += (Sender, Evento) => ComprasProcAplicarFormatoTexto();
             Enter += (Sender, Evento) => ComprasTxtTexto.Focus();
 
             ComprasTxtTexto.KeyDown += (Sender, Evento) => OnKeyDown(Evento);
@@ -126,6 +226,12 @@ namespace CapaVista_Componentes.Componentes
             {
                 if (_ModoMoneda) ComprasProcValidarTeclasMoneda(Evento);
                 OnKeyPress(Evento);
+                if (_SoloEnteros && !char.IsControl(Evento.KeyChar))
+                {
+                    string Propuesto = Text.Remove(SelectionStart, SelectionLength)
+                        .Insert(SelectionStart, Evento.KeyChar.ToString());
+                    if (!ComprasFuncEsTextoEntero(Propuesto)) Evento.Handled = true;
+                }
             };
             // -- Fin Validación de teclas para el modo moneda
             ComprasTxtTexto.KeyUp += (Sender, Evento) => OnKeyUp(Evento);
@@ -218,6 +324,26 @@ namespace CapaVista_Componentes.Componentes
 
         private void ComprasProcTextoCambiado(EventArgs Evento)
         {
+            if (_RestaurandoEntero) return;
+            if (_SoloEnteros)
+            {
+                if (!ComprasFuncEsTextoEntero(ComprasTxtTexto.Text))
+                {
+                    int Posicion = ComprasTxtTexto.SelectionStart;
+                    _RestaurandoEntero = true;
+                    try
+                    {
+                        ComprasTxtTexto.Text = _UltimoTextoEntero;
+                        ComprasTxtTexto.SelectionStart = Math.Min(Posicion, _UltimoTextoEntero.Length);
+                    }
+                    finally
+                    {
+                        _RestaurandoEntero = false;
+                    }
+                    return;
+                }
+                _UltimoTextoEntero = ComprasTxtTexto.Text;
+            }
             _VersionTexto++;
             ComprasMetLimpiarError();
 
@@ -238,6 +364,7 @@ namespace CapaVista_Componentes.Componentes
                 _ProtegiendoMoneda = false;
             }
             // -- Fin no permitir que el usuario borre el símbolo de moneda al cambiar el texto
+            ComprasProcAplicarFormatoTexto();
             OnTextChanged(Evento);
         }
 
@@ -319,6 +446,7 @@ namespace CapaVista_Componentes.Componentes
         {
             base.OnBackColorChanged(Evento);
             if (ComprasTxtTexto != null) ComprasTxtTexto.BackColor = BackColor;
+            if (ComprasPnlInterior != null) ComprasPnlInterior.BackColor = BackColor;
             if (ComprasTlpMain != null) ComprasTlpMain.BackColor = BackColor;
         }
 
