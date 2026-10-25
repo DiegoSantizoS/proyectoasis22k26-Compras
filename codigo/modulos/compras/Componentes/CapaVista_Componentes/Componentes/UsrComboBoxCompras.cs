@@ -425,7 +425,9 @@ namespace CapaVista_Componentes.Componentes
                     out string Tabla, out string Valor, out string Mostrar);
 
                
-                DataTable Datos = new ModeloCombo().enviarDatos(Tabla, Valor, Mostrar);
+                DataTable Datos = _TipoDatos == EnmTipoDatosCompras.Proveedores
+                    ? new ModeloCombo().ObtenerProveedores()
+                    : new ModeloCombo().enviarDatos(Tabla, Valor, Mostrar);
                 ComprasMetCargarDatos(Datos);
             }
             catch (Exception Ex)
@@ -437,6 +439,35 @@ namespace CapaVista_Componentes.Componentes
         }
 
         
+        public string ComprasFuncObtenerCampoProveedor(string Campo)
+        {
+            if (string.IsNullOrWhiteSpace(Campo))
+                throw new ArgumentException("Indique el nombre del campo del proveedor.", nameof(Campo));
+            var Proveedor = ComprasFuncObtenerProveedorSeleccionado();
+            if (Proveedor == null) return string.Empty;
+            if (!Proveedor.Campos.TryGetValue(Campo.Trim(), out object Valor))
+                throw new ArgumentException("El proveedor no contiene el campo '" + Campo + "'.", nameof(Campo));
+            return Convert.ToString(Valor);
+        }
+
+        public ClsProveedorCompras ComprasFuncObtenerProveedorSeleccionado()
+        {
+            if (_TipoDatos != EnmTipoDatosCompras.Proveedores)
+                throw new InvalidOperationException("El combo debe tener TipoDatos = Proveedores.");
+            if (ComprasCboEntrada.SelectedIndex < 0) return null;
+            DataRowView Seleccion = ComprasCboEntrada.SelectedItem as DataRowView;
+            if (Seleccion == null || Seleccion.Row.RowState == DataRowState.Deleted ||
+                Seleccion.Row.IsNull("Pk_Proveedor")) return null;
+            string[] Columnas = { "Pk_Proveedor", "nombreProveedor", "nitProveedor", "telefonoProveedor",
+                "correoProveedor", "direccionProveedor", "estadoProveedor", "created_at", "updated_at" };
+            foreach (string Columna in Columnas)
+            {
+                if (!Seleccion.Row.Table.Columns.Contains(Columna))
+                    return new ModeloCombo().ObtenerProveedor(Convert.ToInt32(Seleccion.Row["Pk_Proveedor"]));
+            }
+            return new ClsProveedorCompras(Seleccion.Row);
+        }
+
         public void ComprasMetCargarDatos(EnmTipoDatosCompras Tipo, DataTable Tabla,
             string CampoAuto1 = null, string CampoAuto2 = null)
         {

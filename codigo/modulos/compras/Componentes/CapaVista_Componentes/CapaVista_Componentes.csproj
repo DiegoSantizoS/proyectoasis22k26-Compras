@@ -157,6 +157,9 @@
       <DependentUpon>UsrLabelCompras.cs</DependentUpon>
       <LogicalName>CapaVista_Componentes.Componentes.UsrLabelCompras.resources</LogicalName>
     </EmbeddedResource>
+    <EmbeddedResource Include="Componentes\UsrRangoFechasCompras.resx">
+      <DependentUpon>UsrRangoFechasCompras.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Componentes\UsrTextBoxCompras.resx">
       <DependentUpon>UsrTextBoxCompras.cs</DependentUpon>
       <LogicalName>CapaVista_Componentes.Componentes.UsrTextBoxCompras.resources</LogicalName>
