@@ -817,6 +817,7 @@
             this.ComprasBtnIconoHerramientas.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.ComprasBtnIconoHerramientas.AplicarColoresEstado = false;
             this.ComprasBtnIconoHerramientas.BackColor = System.Drawing.Color.Transparent;
+            this.ComprasBtnIconoHerramientas.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ComprasBtnIconoHerramientas.BackgroundImage")));
             this.ComprasBtnIconoHerramientas.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.ComprasBtnIconoHerramientas.Cursor = System.Windows.Forms.Cursors.Hand;
             this.ComprasBtnIconoHerramientas.FlatAppearance.BorderColor = System.Drawing.Color.White;
@@ -1283,7 +1284,7 @@
             this.ComprasTlpKpi1.RowCount = 3;
             this.ComprasTlpKpi1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.ComprasTlpKpi1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 36F));
-            this.ComprasTlpKpi1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 36F));
+            this.ComprasTlpKpi1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.ComprasTlpKpi1.Size = new System.Drawing.Size(176, 150);
             this.ComprasTlpKpi1.TabIndex = 0;
             // 
@@ -1295,7 +1296,7 @@
             this.ComprasPbKpi1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ComprasPbKpi1.Location = new System.Drawing.Point(3, 3);
             this.ComprasPbKpi1.Name = "ComprasPbKpi1";
-            this.ComprasPbKpi1.Size = new System.Drawing.Size(170, 72);
+            this.ComprasPbKpi1.Size = new System.Drawing.Size(170, 68);
             this.ComprasPbKpi1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.ComprasPbKpi1.TabIndex = 0;
             this.ComprasPbKpi1.TabStop = false;
@@ -1307,7 +1308,7 @@
             this.ComprasLblValorKpi1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ComprasLblValorKpi1.Font = new System.Drawing.Font("Tahoma", 16F);
             this.ComprasLblValorKpi1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(42)))), ((int)(((byte)(90)))));
-            this.ComprasLblValorKpi1.Location = new System.Drawing.Point(5, 84);
+            this.ComprasLblValorKpi1.Location = new System.Drawing.Point(5, 80);
             this.ComprasLblValorKpi1.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
             this.ComprasLblValorKpi1.MaximumSize = new System.Drawing.Size(1875, 0);
             this.ComprasLblValorKpi1.MostrarAsterisco = false;
@@ -1327,12 +1328,12 @@
             this.ComprasLblKpi1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ComprasLblKpi1.Font = new System.Drawing.Font("Tahoma", 11F);
             this.ComprasLblKpi1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(42)))), ((int)(((byte)(90)))));
-            this.ComprasLblKpi1.Location = new System.Drawing.Point(3, 118);
+            this.ComprasLblKpi1.Location = new System.Drawing.Point(3, 114);
             this.ComprasLblKpi1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.ComprasLblKpi1.MaximumSize = new System.Drawing.Size(1125, 0);
             this.ComprasLblKpi1.MostrarAsterisco = false;
             this.ComprasLblKpi1.Name = "ComprasLblKpi1";
-            this.ComprasLblKpi1.Size = new System.Drawing.Size(170, 28);
+            this.ComprasLblKpi1.Size = new System.Drawing.Size(170, 32);
             this.ComprasLblKpi1.TabIndex = 2;
             this.ComprasLblKpi1.TabStop = false;
             this.ComprasLblKpi1.TamanoTipografia = 11F;
@@ -1369,7 +1370,7 @@
             this.ComprasTlpKpi2.RowCount = 3;
             this.ComprasTlpKpi2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.ComprasTlpKpi2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 36F));
-            this.ComprasTlpKpi2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 36F));
+            this.ComprasTlpKpi2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.ComprasTlpKpi2.Size = new System.Drawing.Size(176, 150);
             this.ComprasTlpKpi2.TabIndex = 0;
             // 
@@ -1381,7 +1382,7 @@
             this.ComprasPbKpi2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ComprasPbKpi2.Location = new System.Drawing.Point(3, 3);
             this.ComprasPbKpi2.Name = "ComprasPbKpi2";
-            this.ComprasPbKpi2.Size = new System.Drawing.Size(170, 72);
+            this.ComprasPbKpi2.Size = new System.Drawing.Size(170, 68);
             this.ComprasPbKpi2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.ComprasPbKpi2.TabIndex = 0;
             this.ComprasPbKpi2.TabStop = false;
@@ -1393,7 +1394,7 @@
             this.ComprasLblValorKpi2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ComprasLblValorKpi2.Font = new System.Drawing.Font("Tahoma", 16F);
             this.ComprasLblValorKpi2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(42)))), ((int)(((byte)(90)))));
-            this.ComprasLblValorKpi2.Location = new System.Drawing.Point(5, 84);
+            this.ComprasLblValorKpi2.Location = new System.Drawing.Point(5, 80);
             this.ComprasLblValorKpi2.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
             this.ComprasLblValorKpi2.MaximumSize = new System.Drawing.Size(1875, 0);
             this.ComprasLblValorKpi2.MostrarAsterisco = false;
@@ -1413,12 +1414,12 @@
             this.ComprasLblKpi2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ComprasLblKpi2.Font = new System.Drawing.Font("Tahoma", 11F);
             this.ComprasLblKpi2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(42)))), ((int)(((byte)(90)))));
-            this.ComprasLblKpi2.Location = new System.Drawing.Point(3, 118);
+            this.ComprasLblKpi2.Location = new System.Drawing.Point(3, 114);
             this.ComprasLblKpi2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.ComprasLblKpi2.MaximumSize = new System.Drawing.Size(1125, 0);
             this.ComprasLblKpi2.MostrarAsterisco = false;
             this.ComprasLblKpi2.Name = "ComprasLblKpi2";
-            this.ComprasLblKpi2.Size = new System.Drawing.Size(170, 28);
+            this.ComprasLblKpi2.Size = new System.Drawing.Size(170, 32);
             this.ComprasLblKpi2.TabIndex = 2;
             this.ComprasLblKpi2.TabStop = false;
             this.ComprasLblKpi2.TamanoTipografia = 11F;
@@ -1455,7 +1456,7 @@
             this.ComprasTlpKpi3.RowCount = 3;
             this.ComprasTlpKpi3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.ComprasTlpKpi3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 36F));
-            this.ComprasTlpKpi3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 36F));
+            this.ComprasTlpKpi3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.ComprasTlpKpi3.Size = new System.Drawing.Size(176, 150);
             this.ComprasTlpKpi3.TabIndex = 0;
             // 
@@ -1467,7 +1468,7 @@
             this.ComprasPbKpi3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ComprasPbKpi3.Location = new System.Drawing.Point(3, 3);
             this.ComprasPbKpi3.Name = "ComprasPbKpi3";
-            this.ComprasPbKpi3.Size = new System.Drawing.Size(170, 72);
+            this.ComprasPbKpi3.Size = new System.Drawing.Size(170, 68);
             this.ComprasPbKpi3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.ComprasPbKpi3.TabIndex = 0;
             this.ComprasPbKpi3.TabStop = false;
@@ -1479,7 +1480,7 @@
             this.ComprasLblValorKpi3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ComprasLblValorKpi3.Font = new System.Drawing.Font("Tahoma", 16F);
             this.ComprasLblValorKpi3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(42)))), ((int)(((byte)(90)))));
-            this.ComprasLblValorKpi3.Location = new System.Drawing.Point(5, 84);
+            this.ComprasLblValorKpi3.Location = new System.Drawing.Point(5, 80);
             this.ComprasLblValorKpi3.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
             this.ComprasLblValorKpi3.MaximumSize = new System.Drawing.Size(1875, 0);
             this.ComprasLblValorKpi3.MostrarAsterisco = false;
@@ -1499,12 +1500,12 @@
             this.ComprasLblKpi3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ComprasLblKpi3.Font = new System.Drawing.Font("Tahoma", 11F);
             this.ComprasLblKpi3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(42)))), ((int)(((byte)(90)))));
-            this.ComprasLblKpi3.Location = new System.Drawing.Point(3, 118);
+            this.ComprasLblKpi3.Location = new System.Drawing.Point(3, 114);
             this.ComprasLblKpi3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.ComprasLblKpi3.MaximumSize = new System.Drawing.Size(1125, 0);
             this.ComprasLblKpi3.MostrarAsterisco = false;
             this.ComprasLblKpi3.Name = "ComprasLblKpi3";
-            this.ComprasLblKpi3.Size = new System.Drawing.Size(170, 28);
+            this.ComprasLblKpi3.Size = new System.Drawing.Size(170, 32);
             this.ComprasLblKpi3.TabIndex = 2;
             this.ComprasLblKpi3.TabStop = false;
             this.ComprasLblKpi3.TamanoTipografia = 11F;
@@ -1627,7 +1628,7 @@
             this.ComprasTlpKpi5.RowCount = 3;
             this.ComprasTlpKpi5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.ComprasTlpKpi5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 36F));
-            this.ComprasTlpKpi5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 36F));
+            this.ComprasTlpKpi5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.ComprasTlpKpi5.Size = new System.Drawing.Size(176, 150);
             this.ComprasTlpKpi5.TabIndex = 0;
             // 
@@ -1639,7 +1640,7 @@
             this.ComprasPbKpi5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ComprasPbKpi5.Location = new System.Drawing.Point(3, 3);
             this.ComprasPbKpi5.Name = "ComprasPbKpi5";
-            this.ComprasPbKpi5.Size = new System.Drawing.Size(170, 72);
+            this.ComprasPbKpi5.Size = new System.Drawing.Size(170, 68);
             this.ComprasPbKpi5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.ComprasPbKpi5.TabIndex = 0;
             this.ComprasPbKpi5.TabStop = false;
@@ -1651,7 +1652,7 @@
             this.ComprasLblValorKpi5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ComprasLblValorKpi5.Font = new System.Drawing.Font("Tahoma", 16F);
             this.ComprasLblValorKpi5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(42)))), ((int)(((byte)(90)))));
-            this.ComprasLblValorKpi5.Location = new System.Drawing.Point(5, 84);
+            this.ComprasLblValorKpi5.Location = new System.Drawing.Point(5, 80);
             this.ComprasLblValorKpi5.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
             this.ComprasLblValorKpi5.MaximumSize = new System.Drawing.Size(1875, 0);
             this.ComprasLblValorKpi5.MostrarAsterisco = false;
@@ -1671,12 +1672,12 @@
             this.ComprasLblKpi5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ComprasLblKpi5.Font = new System.Drawing.Font("Tahoma", 11F);
             this.ComprasLblKpi5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(42)))), ((int)(((byte)(90)))));
-            this.ComprasLblKpi5.Location = new System.Drawing.Point(3, 118);
+            this.ComprasLblKpi5.Location = new System.Drawing.Point(3, 114);
             this.ComprasLblKpi5.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.ComprasLblKpi5.MaximumSize = new System.Drawing.Size(1125, 0);
             this.ComprasLblKpi5.MostrarAsterisco = false;
             this.ComprasLblKpi5.Name = "ComprasLblKpi5";
-            this.ComprasLblKpi5.Size = new System.Drawing.Size(170, 28);
+            this.ComprasLblKpi5.Size = new System.Drawing.Size(170, 32);
             this.ComprasLblKpi5.TabIndex = 2;
             this.ComprasLblKpi5.TabStop = false;
             this.ComprasLblKpi5.TamanoTipografia = 11F;
@@ -1713,7 +1714,7 @@
             this.ComprasTlpKpi6.RowCount = 3;
             this.ComprasTlpKpi6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.ComprasTlpKpi6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 36F));
-            this.ComprasTlpKpi6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 36F));
+            this.ComprasTlpKpi6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.ComprasTlpKpi6.Size = new System.Drawing.Size(180, 150);
             this.ComprasTlpKpi6.TabIndex = 0;
             // 
@@ -1725,7 +1726,7 @@
             this.ComprasPbKpi6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ComprasPbKpi6.Location = new System.Drawing.Point(3, 3);
             this.ComprasPbKpi6.Name = "ComprasPbKpi6";
-            this.ComprasPbKpi6.Size = new System.Drawing.Size(174, 72);
+            this.ComprasPbKpi6.Size = new System.Drawing.Size(174, 68);
             this.ComprasPbKpi6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.ComprasPbKpi6.TabIndex = 0;
             this.ComprasPbKpi6.TabStop = false;
@@ -1737,7 +1738,7 @@
             this.ComprasLblValorKpi6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ComprasLblValorKpi6.Font = new System.Drawing.Font("Tahoma", 16F);
             this.ComprasLblValorKpi6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(42)))), ((int)(((byte)(90)))));
-            this.ComprasLblValorKpi6.Location = new System.Drawing.Point(5, 84);
+            this.ComprasLblValorKpi6.Location = new System.Drawing.Point(5, 80);
             this.ComprasLblValorKpi6.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
             this.ComprasLblValorKpi6.MaximumSize = new System.Drawing.Size(1875, 0);
             this.ComprasLblValorKpi6.MostrarAsterisco = false;
@@ -1757,12 +1758,12 @@
             this.ComprasLblKpi6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ComprasLblKpi6.Font = new System.Drawing.Font("Tahoma", 11F);
             this.ComprasLblKpi6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(42)))), ((int)(((byte)(90)))));
-            this.ComprasLblKpi6.Location = new System.Drawing.Point(3, 118);
+            this.ComprasLblKpi6.Location = new System.Drawing.Point(3, 114);
             this.ComprasLblKpi6.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.ComprasLblKpi6.MaximumSize = new System.Drawing.Size(1125, 0);
             this.ComprasLblKpi6.MostrarAsterisco = false;
             this.ComprasLblKpi6.Name = "ComprasLblKpi6";
-            this.ComprasLblKpi6.Size = new System.Drawing.Size(174, 28);
+            this.ComprasLblKpi6.Size = new System.Drawing.Size(174, 32);
             this.ComprasLblKpi6.TabIndex = 2;
             this.ComprasLblKpi6.TabStop = false;
             this.ComprasLblKpi6.TamanoTipografia = 11F;

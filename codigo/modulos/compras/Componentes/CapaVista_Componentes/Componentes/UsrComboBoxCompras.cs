@@ -29,6 +29,50 @@ namespace CapaVista_Componentes.Componentes
         private int _VersionTexto;
         private EnmTipoDatosCompras _TipoDatos = EnmTipoDatosCompras.Ninguno;
         private bool _Iniciado;
+        private bool _PermitirEscritura;
+        private ComboBoxStyle _EstiloSinEscritura;
+        private AutoCompleteMode _AutoCompleteSinEscritura;
+        private AutoCompleteSource _AutoSourceSinEscritura;
+
+        [Category("Compras")]
+        [Description("Permite escribir y muestra sugerencias nativas de las opciones del combo conforme se escribe.")]
+        [DefaultValue(false)]
+        [RefreshProperties(RefreshProperties.All)]
+        public bool PermitirEscritura
+        {
+            get => _PermitirEscritura;
+            set
+            {
+                if (_PermitirEscritura == value) return;
+                if (value)
+                {
+                    _EstiloSinEscritura = ComprasCboEntrada.DropDownStyle;
+                    _AutoCompleteSinEscritura = ComprasCboEntrada.AutoCompleteMode;
+                    _AutoSourceSinEscritura = ComprasCboEntrada.AutoCompleteSource;
+                    ComprasCboEntrada.AutoCompleteMode = AutoCompleteMode.None;
+                    ComprasCboEntrada.DropDownStyle = ComboBoxStyle.DropDown;
+                    ComprasCboEntrada.AutoCompleteSource = AutoCompleteSource.ListItems;
+                    ComprasCboEntrada.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+                }
+                else
+                {
+                    ComprasCboEntrada.AutoCompleteMode = AutoCompleteMode.None;
+                    ComprasCboEntrada.DropDownStyle = _EstiloSinEscritura;
+                    ComprasCboEntrada.AutoCompleteSource = _AutoSourceSinEscritura;
+                    ComprasCboEntrada.AutoCompleteMode = _AutoCompleteSinEscritura;
+                }
+                _PermitirEscritura = value;
+                ComprasProcAjustarAlturaEntrada();
+            }
+        }
+
+        [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public bool FiltrarAlEscribir
+        {
+            get => PermitirEscritura;
+            set => PermitirEscritura = value;
+        }
 
         [Category("Compras")]
         [Description("Muestra la etiqueta de error y reserva su espacio. Al desactivarla, solo se conserva el borde de error.")]
@@ -213,7 +257,7 @@ namespace CapaVista_Componentes.Componentes
         public ComboBoxStyle DropDownStyle
         {
             get => ComprasCboEntrada.DropDownStyle;
-            set { ComprasCboEntrada.DropDownStyle = value; ComprasProcAjustarAlturaEntrada(); }
+            set { if (_PermitirEscritura) _EstiloSinEscritura = value; ComprasCboEntrada.DropDownStyle = _PermitirEscritura ? ComboBoxStyle.DropDown : value; ComprasProcAjustarAlturaEntrada(); }
         }
 
         [Category("Comportamiento")]
@@ -229,12 +273,15 @@ namespace CapaVista_Componentes.Componentes
         public bool IntegralHeight { get => ComprasCboEntrada.IntegralHeight; set => ComprasCboEntrada.IntegralHeight = value; }
 
         [Category("Comportamiento")]
-        [DefaultValue(AutoCompleteMode.None)]
         public AutoCompleteMode AutoCompleteMode { get => ComprasCboEntrada.AutoCompleteMode; set => ComprasCboEntrada.AutoCompleteMode = value; }
 
         [Category("Comportamiento")]
-        [DefaultValue(AutoCompleteSource.None)]
         public AutoCompleteSource AutoCompleteSource { get => ComprasCboEntrada.AutoCompleteSource; set => ComprasCboEntrada.AutoCompleteSource = value; }
+
+        public bool ShouldSerializeAutoCompleteMode() => !PermitirEscritura && AutoCompleteMode != AutoCompleteMode.None;
+        public bool ShouldSerializeAutoCompleteSource() => !PermitirEscritura && AutoCompleteSource != AutoCompleteSource.None;
+        public void ResetAutoCompleteMode() => AutoCompleteMode = AutoCompleteMode.None;
+        public void ResetAutoCompleteSource() => AutoCompleteSource = AutoCompleteSource.None;
 
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         public AutoCompleteStringCollection AutoCompleteCustomSource => ComprasCboEntrada.AutoCompleteCustomSource;
@@ -387,7 +434,7 @@ namespace CapaVista_Componentes.Componentes
             {
                 case EnmTipoDatosCompras.Proveedores:
                     Tabla = "tblProveedor";
-                    Valor = "Pk_Proveedor";
+                    Valor = "idProveedor";
                     Mostrar = "nombreProveedor";
                     break;
 
@@ -457,13 +504,13 @@ namespace CapaVista_Componentes.Componentes
             if (ComprasCboEntrada.SelectedIndex < 0) return null;
             DataRowView Seleccion = ComprasCboEntrada.SelectedItem as DataRowView;
             if (Seleccion == null || Seleccion.Row.RowState == DataRowState.Deleted ||
-                Seleccion.Row.IsNull("Pk_Proveedor")) return null;
-            string[] Columnas = { "Pk_Proveedor", "nombreProveedor", "nitProveedor", "telefonoProveedor",
+                Seleccion.Row.IsNull("idProveedor")) return null;
+            string[] Columnas = { "idProveedor", "nombreProveedor", "nitProveedor", "telefonoProveedor",
                 "correoProveedor", "direccionProveedor", "estadoProveedor", "created_at", "updated_at" };
             foreach (string Columna in Columnas)
             {
                 if (!Seleccion.Row.Table.Columns.Contains(Columna))
-                    return new ModeloCombo().ObtenerProveedor(Convert.ToInt32(Seleccion.Row["Pk_Proveedor"]));
+                    return new ModeloCombo().ObtenerProveedor(Convert.ToInt32(Seleccion.Row["idProveedor"]));
             }
             return new ClsProveedorCompras(Seleccion.Row);
         }
@@ -522,7 +569,12 @@ namespace CapaVista_Componentes.Componentes
                 ComprasCboEntrada.SelectedIndex = -1;
 
              
-                if (ComprasCboEntrada.DropDownStyle == ComboBoxStyle.DropDown)
+                if (_PermitirEscritura)
+                {
+                    ComprasCboEntrada.AutoCompleteSource = AutoCompleteSource.ListItems;
+                    ComprasCboEntrada.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+                }
+                else if (ComprasCboEntrada.DropDownStyle == ComboBoxStyle.DropDown)
                 {
                     ComprasCboEntrada.AutoCompleteCustomSource = Coleccion;
                     ComprasCboEntrada.AutoCompleteSource = AutoCompleteSource.CustomSource;

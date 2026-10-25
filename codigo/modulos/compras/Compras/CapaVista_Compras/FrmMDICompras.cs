@@ -145,26 +145,40 @@ namespace CapaVista_Compras
                 if (_FormularioSubproceso != null && !_FormularioSubproceso.IsDisposed) return;
             }
 
-            T Formulario = new T();
-            try
+            Form Formulario = new T();
+            bool FlujoOrdenes = Formulario is CapaVista_OrdenesCompra.FrmEncabezados;
+            while (Formulario != null)
             {
-                Formulario.StartPosition = FormStartPosition.CenterParent;
-                Formulario.ShowInTaskbar = false;
-                Formulario.MaximizeBox = false;
-                Formulario.MinimizeBox = true;
-                Formulario.FormClosed += ComprasMetSubprocesoCerrado;
-                _FormularioSubproceso = Formulario;
-                _OpcionSubproceso = Opcion;
-                ComprasMetActualizarSeleccionSubproceso();
-                Formulario.ShowDialog(this);
-            }
-            finally
-            {
-                Formulario.FormClosed -= ComprasMetSubprocesoCerrado;
-                Formulario.Dispose();
-                _FormularioSubproceso = null;
-                _OpcionSubproceso = null;
-                ComprasMetActualizarSeleccionSubproceso();
+                Func<Form> CrearSiguiente = null;
+                try
+                {
+                    Formulario.StartPosition = FormStartPosition.CenterParent;
+                    Formulario.ShowInTaskbar = false;
+                    Formulario.MaximizeBox = false;
+                    Formulario.MinimizeBox = true;
+                    Formulario.FormClosed += ComprasMetSubprocesoCerrado;
+                    _FormularioSubproceso = Formulario;
+                    _OpcionSubproceso = Opcion;
+                    ComprasMetActualizarSeleccionSubproceso();
+                    Formulario.ShowDialog(this);
+                    if (FlujoOrdenes && !IsDisposed && !Disposing)
+                    {
+                        var Encabezados = Formulario as CapaVista_OrdenesCompra.FrmEncabezados;
+                        if (Encabezados != null && Encabezados.AbrirOrden)
+                            CrearSiguiente = Encabezados.CrearOrdenSeleccionada;
+                        else if (Formulario is CapaVista_OrdenesCompra.FrmOrdenesCompra)
+                            CrearSiguiente = () => new CapaVista_OrdenesCompra.FrmEncabezados();
+                    }
+                }
+                finally
+                {
+                    Formulario.FormClosed -= ComprasMetSubprocesoCerrado;
+                    Formulario.Dispose();
+                    _FormularioSubproceso = null;
+                    _OpcionSubproceso = null;
+                    ComprasMetActualizarSeleccionSubproceso();
+                }
+                Formulario = CrearSiguiente == null ? null : CrearSiguiente();
             }
         }
 
@@ -202,7 +216,7 @@ namespace CapaVista_Compras
 
         private void ComprasMetAbrirOrdenesCompra(object Remitente, EventArgs Evento)
         {
-            ComprasMetAbrirSubproceso<CapaVista_OrdenesCompra.FrmOrdenesCompra>(ComprasTlpOrdenesCompra);
+            ComprasMetAbrirSubproceso<CapaVista_OrdenesCompra.FrmEncabezados>(ComprasTlpOrdenesCompra);
         }
 
         private void ComprasMetAbrirPagosProveedores(object Remitente, EventArgs Evento)

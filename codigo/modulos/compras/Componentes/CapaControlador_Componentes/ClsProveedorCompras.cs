@@ -25,7 +25,7 @@ namespace CapaControlador_Cbo_Compras
             foreach (DataColumn Columna in Fila.Table.Columns)
                 Valores.Add(Columna.ColumnName, Fila.IsNull(Columna) ? null : Fila[Columna]);
             Campos = new ReadOnlyDictionary<string, object>(Valores);
-            IdProveedor = Convert.ToInt32(Fila["Pk_Proveedor"]);
+            IdProveedor = Convert.ToInt32(Fila["idProveedor"]);
             NombreProveedor = Convert.ToString(Fila["nombreProveedor"]);
             NitProveedor = Convert.ToString(Fila["nitProveedor"]);
             TelefonoProveedor = Fila.IsNull("telefonoProveedor") ? null : Convert.ToString(Fila["telefonoProveedor"]);

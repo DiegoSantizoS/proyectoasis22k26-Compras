@@ -1,5 +1,8 @@
 ﻿using CapaVista_Componentes.Componentes;
 using System;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using CapaControlador_OrdenesCompra;
 
 namespace CapaVista_OrdenesCompra
 {
@@ -7,37 +10,138 @@ namespace CapaVista_OrdenesCompra
     {
         private bool ComprasBlnAjustandoAltura;
         private const int ComprasIntAlturaMinimaArticulo = 40;
+        private readonly ClsComprasPorPagar ComprasControlador;
+        private ClsCompraPorPagar ComprasCompra;
+        private bool ComprasBlnAnulando;
+        public bool OrdenGuardada { get; private set; }
 
-        public FrmOrdenesCompra()
+        public FrmOrdenesCompra() : this(null, new ClsComprasPorPagar()) { }
+
+        public FrmOrdenesCompra(ClsCompraPorPagar Compra, ClsComprasPorPagar Controlador)
         {
+            ComprasControlador = Controlador ?? throw new ArgumentNullException(nameof(Controlador));
+            ComprasCompra = Compra;
             InitializeComponent();
             CapaVista_Componentes.Componentes.ClsPresentacionCompras.ComprasMetFijarTamanoFormulario(this);
             ComprasCboNombreProveedor.SelectedIndexChanged += ComprasProcActualizarProveedor;
-            ComprasProcActualizarProveedor(this, EventArgs.Empty);
+            clsDatePickerCompras1.ValueChanged += ComprasProcActualizarVencimiento;
             ComprasProcConfigurarArticulos();
             ComprasProcConfigurarAlturaArticulos();
+            ComprasTlpMantenimientoProductos.Enabled = false;
+            clsButtonCompras2.Enabled = false;
+            clsButtonCompras2.AccessibleDescription = "Se requieren productos para guardar la orden.";
+            ComprasBtnDescartar.AccessibleName = Compra == null ? "Descartar" : "Anular orden";
+            ComprasBtnDescartar.Click += ComprasProcAnular;
+            ComprasBtnRegresar.Click += (s, e) => Close();
+            FormClosing += (s, e) => { if (ComprasBlnAnulando) e.Cancel = true; };
+            ComprasProcMostrarEncabezado();
+        }
+
+        private void ComprasProcMostrarEncabezado()
+        {
+            bool Nueva = ComprasCompra == null;
+            ComprasTxtNumeroDeFacturaValor.Enabled = Nueva;
+            ComprasTxtNumeroDeFacturaValor.MaxLength = 30;
+            clsDatePickerCompras1.Enabled = Nueva;
+            clsDatePickerCompras2.Enabled = Nueva;
+            ComprasCboNombreProveedor.Enabled = Nueva;
+            ComprasUsrComentario.Enabled = false;
+            ComprasTxtEstadoProveedor.Text = string.Empty;
+            ComprasTxtEstadoProveedor.Enabled = false;
+            ComprasTxtDireccionProveedor.Enabled = false;
+            ComprasTxtNumeroDeFacturaValor.Text = Nueva ? string.Empty : ComprasCompra.NumeroFactura;
+            clsDatePickerCompras1.Value = Nueva ? DateTime.Today : ComprasCompra.FechaEmision;
+            clsDatePickerCompras2.Value = Nueva ? clsDatePickerCompras1.Value.Date.AddMonths(3) : ComprasCompra.FechaVencimiento;
+            ComprasTxtSaldoPendienteValor.Text = (Nueva ? 0M : ComprasCompra.Saldo).ToString("N4");
+            ComprasLblEstadoValor.Texto = Nueva ? "Nueva" : ComprasCompra.Estado;
+            ComprasTxtTotalDeLaOrden.Text = (Nueva ? 0M : ComprasCompra.MontoTotal).ToString("N4");
+            foreach (var Campo in new[] { ComprasTxtImporteBruto, ComprasTxtSubtotal,
+                ComprasTxtDescuentoTotal, ComprasTxtImpuestoTotal, ComprasTxtTotalPorcentaje })
+            {
+                Campo.Text = Nueva ? "0.00" : string.Empty;
+                Campo.Enabled = false;
+            }
+            ComprasTxtTotalDeLaOrden.Enabled = false;
+            if (!Nueva)
+            {
+                ComprasCboNombreProveedor.TipoDatos = EnmTipoDatosCompras.Ninguno;
+                ComprasCboNombreProveedor.DataSource = null;
+                ComprasCboNombreProveedor.Items.Clear();
+                ComprasCboNombreProveedor.Items.Add(ComprasCompra.NombreProveedor);
+                ComprasCboNombreProveedor.SelectedIndex = 0;
+                ComprasTxtNitProveedor.Text = ComprasCompra.NitProveedor;
+                ComprasTxtTelefonoProveedor.Text = ComprasCompra.TelefonoProveedor;
+                ComprasTxtCorreoProveedor.Text = ComprasCompra.CorreoProveedor;
+                ComprasTxtDireccionProveedor.Text = ComprasCompra.DireccionProveedor;
+                ComprasTxtEstadoProveedor.Text = ComprasCompra.ProveedorActivo ? "Activo" : "Inactivo";
+            }
+        }
+
+        private void ComprasProcActualizarVencimiento(object Remitente, EventArgs Evento)
+        {
+            if (ComprasCompra != null) return;
+            clsDatePickerCompras2.Value = clsDatePickerCompras1.Value.Date.AddMonths(3);
+        }
+
+        protected override void OnShown(EventArgs e)
+        {
+            base.OnShown(e);
+            if (ComprasCompra == null)
+            {
+                ComprasCboNombreProveedor.SelectedIndex = -1;
+                ComprasProcActualizarProveedor(this, EventArgs.Empty);
+            }
+            else ComprasProcMostrarEncabezado();
+        }
+
+        private async void ComprasProcAnular(object Remitente, EventArgs Evento)
+        {
+            if (ComprasBlnAnulando) return;
+            if (ComprasCompra == null) { Close(); return; }
+            if (MessageBox.Show(this, "¿Anular la factura " + ComprasCompra.NumeroFactura + "?",
+                "Anular orden", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes) return;
+            ComprasBlnAnulando = true;
+            ComprasBtnDescartar.Enabled = false;
+            ComprasBtnRegresar.Enabled = false;
+            UseWaitCursor = true;
+            try
+            {
+                int Id = ComprasCompra.IdCuentaPorPagar;
+                ComprasCompra = await Task.Run(() => ComprasControlador.Anular(Id));
+                OrdenGuardada = true;
+                ComprasProcMostrarEncabezado();
+            }
+            catch (Exception Ex)
+            {
+                MessageBox.Show(this, "No se pudo anular la orden. " + Ex.Message,
+                    "Órdenes de compra", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                ComprasBlnAnulando = false;
+                ComprasBtnDescartar.Enabled = true;
+                ComprasBtnRegresar.Enabled = true;
+                UseWaitCursor = false;
+            }
         }
 
         private void ComprasProcActualizarProveedor(object Remitente, EventArgs Evento)
         {
+            if (ComprasCompra != null) return;
             ComprasTxtTelefonoProveedor.Text = string.Empty;
             ComprasTxtCorreoProveedor.Text = string.Empty;
-            ComprasTxtContactoProveedor.Text = string.Empty;
+            ComprasTxtNitProveedor.Text = string.Empty;
+            ComprasTxtDireccionProveedor.Text = string.Empty;
+            ComprasTxtEstadoProveedor.Text = string.Empty;
             try
             {
-                ComprasTxtTelefonoProveedor.Text = ComprasCboNombreProveedor
-                    .ComprasFuncObtenerCampoProveedor("telefonoProveedor");
-                ComprasTxtCorreoProveedor.Text = ComprasCboNombreProveedor
-                    .ComprasFuncObtenerCampoProveedor("correoProveedor");
-                try
-                {
-                    ComprasTxtContactoProveedor.Text = ComprasCboNombreProveedor
-                        .ComprasFuncObtenerCampoProveedor("contactoProveedor");
-                }
-                catch (ArgumentException)
-                {
-                    ComprasTxtContactoProveedor.Text = string.Empty;
-                }
+                var Proveedor = ComprasCboNombreProveedor.ComprasFuncObtenerProveedorSeleccionado();
+                if (Proveedor == null) return;
+                ComprasTxtTelefonoProveedor.Text = Proveedor.TelefonoProveedor;
+                ComprasTxtCorreoProveedor.Text = Proveedor.CorreoProveedor;
+                ComprasTxtNitProveedor.Text = Proveedor.NitProveedor;
+                ComprasTxtDireccionProveedor.Text = Proveedor.DireccionProveedor;
+                ComprasTxtEstadoProveedor.Text = Proveedor.EstadoProveedor ? "Activo" : "Inactivo";
             }
             catch (Exception Ex)
             {
@@ -126,22 +230,7 @@ namespace CapaVista_OrdenesCompra
             ComprasUsrProductos.AllowUserToAddRows = false;
             ComprasUsrProductos.AllowUserToDeleteRows = false;
 
-            ComprasProcAgregarArticuloEjemplo(1, "Carne de cerdo", "kg", 25M, 32.50M, 25M, 0.12M);
-            ComprasProcAgregarArticuloEjemplo(2, "Carne de res", "kg", 15M, 45M, 0M, 0.12M);
-            ComprasProcAgregarArticuloEjemplo(3, "Sal refinada", "kg", 10M, 4.75M, 0M, 0.12M);
-            ComprasProcAgregarArticuloEjemplo(4, "Mezcla de especias", "kg", 3M, 68M, 10M, 0.12M);
-            ComprasProcAgregarArticuloEjemplo(5, "Tripas para embutidos", "m", 100M, 2.25M, 5M, 0.12M);
-            ComprasProcAgregarArticuloEjemplo(6, "Bolsas de empaque", "unidad", 200M, 0.80M, 0M, 0.12M);
             ComprasUsrProductos.ClearSelection();
-        }
-
-        private void ComprasProcAgregarArticuloEjemplo(int IdArticulo, string Nombre, string Unidad,
-            decimal Cantidad, decimal PrecioUnitario, decimal Descuento, decimal PorcentajeImpuesto)
-        {
-            var Totales = CapaControlador_OrdenesCompra.ClsCalculoOrdenCompra.ComprasFuncCalcularArticulo(
-                Cantidad, PrecioUnitario, Descuento, PorcentajeImpuesto);
-            ComprasUsrProductos.Rows.Add(IdArticulo, Nombre, Unidad, Cantidad, PrecioUnitario,
-                Totales.Subtotal, Descuento, PorcentajeImpuesto, Totales.Impuesto, Totales.Total);
         }
     }
 }

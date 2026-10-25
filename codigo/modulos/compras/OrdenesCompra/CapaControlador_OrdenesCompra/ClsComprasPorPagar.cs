@@ -1,0 +1,91 @@
+﻿using System;
+using System.Data;
+using System.Data.Odbc;
+using System.Globalization;
+using CapaModelo_OrdenesCompra;
+
+namespace CapaControlador_OrdenesCompra
+{
+    public sealed class ClsComprasPorPagar
+    {
+        private readonly IRepositorioComprasPorPagar _Repositorio;
+        public ClsComprasPorPagar() : this(new ClsRepositorioComprasPorPagar()) { }
+        public ClsComprasPorPagar(IRepositorioComprasPorPagar Repositorio)
+        {
+            _Repositorio = Repositorio ?? throw new ArgumentNullException(nameof(Repositorio));
+        }
+
+        public DataTable Listar() => _Repositorio.Listar();
+        public DataTable ListarProveedores() => _Repositorio.ListarProveedores();
+
+        public ClsCompraPorPagar Anular(int Id)
+        {
+            if (Id <= 0) throw new ArgumentOutOfRangeException(nameof(Id));
+            _Repositorio.Anular(Id);
+            var Compra = Obtener(Id);
+            if (Compra == null || !string.Equals(Compra.Estado, "Anulada", StringComparison.OrdinalIgnoreCase))
+                throw new InvalidOperationException("No se pudo anular la orden. Actualiza la lista y vuelve a intentarlo.");
+            return Compra;
+        }
+
+        public void ActualizarVencimiento(int Id, DateTime Emision, DateTime Fecha)
+        {
+            if (Id <= 0) throw new ArgumentOutOfRangeException(nameof(Id));
+            if (Fecha.Date < Emision.Date) throw new ArgumentException("El vencimiento no puede ser anterior a la emisión.");
+            _Repositorio.ActualizarVencimiento(Id, Fecha.Date);
+        }
+
+        public int Crear(int IdProveedor, string Factura, DateTime Emision, DateTime Vencimiento, decimal Monto)
+        {
+            Factura = (Factura ?? string.Empty).Trim();
+            if (IdProveedor <= 0) throw new ArgumentException("Selecciona un proveedor.");
+            if (Factura.Length == 0 || Factura.Length > 30)
+                throw new ArgumentException("La factura debe tener entre 1 y 30 caracteres.");
+            if (Emision.Date > Vencimiento.Date)
+                throw new ArgumentException("El vencimiento no puede ser anterior a la emision.");
+            if (Monto <= 0 || Monto > 99999999.9999M || decimal.Round(Monto, 4) != Monto)
+                throw new ArgumentException("El importe debe ser positivo, con un maximo de ocho enteros y cuatro decimales.");
+            try { return _Repositorio.Crear(IdProveedor, Factura, Emision.Date, Vencimiento.Date, Monto); }
+            catch (OdbcException Ex)
+            {
+                foreach (OdbcError Error in Ex.Errors)
+                    if (Error.NativeError == 1062)
+                        throw new InvalidOperationException("Ya existe una compra con esa factura para el proveedor seleccionado.", Ex);
+                throw;
+            }
+        }
+
+        public ClsCompraPorPagar Obtener(int Id)
+        {
+            if (Id <= 0) throw new ArgumentOutOfRangeException(nameof(Id));
+            DataTable Datos = _Repositorio.Obtener(Id);
+            return Datos.Rows.Count == 0 ? null : new ClsCompraPorPagar(Datos.Rows[0]);
+        }
+
+        public DataTable Filtrar(DataTable Datos, string Palabra, string Estado, DateTime? Inicio, DateTime? Fin)
+        {
+            if (Datos == null) throw new ArgumentNullException(nameof(Datos));
+            if (Inicio.HasValue != Fin.HasValue || (Inicio.HasValue && Inicio.Value.Date > Fin.Value.Date))
+                throw new ArgumentException("El rango de fechas no es valido.");
+            if (!string.IsNullOrEmpty(Estado) && Estado != "Todos" && Estado != "Pendiente" &&
+                Estado != "Parcial" && Estado != "Pagada" && Estado != "Anulada")
+                throw new ArgumentException("Estado no valido.", nameof(Estado));
+            string Buscar = (Palabra ?? string.Empty).Trim();
+            DataTable Resultado = Datos.Clone();
+            foreach (DataRow Fila in Datos.Rows)
+            {
+                if (Fila.RowState == DataRowState.Deleted) continue;
+                if (!string.IsNullOrEmpty(Estado) && Estado != "Todos" &&
+                    !string.Equals(Convert.ToString(Fila["estadoCuentaPorPagar"]), Estado, StringComparison.OrdinalIgnoreCase)) continue;
+                DateTime Emision = Convert.ToDateTime(Fila["fechaEmisionCuentaPorPagar"]).Date;
+                if (Inicio.HasValue && (Emision < Inicio.Value.Date || Emision > Fin.Value.Date)) continue;
+                bool Coincide = Buscar.Length == 0;
+                foreach (string Campo in new[] { "numeroFacturaCuentaPorPagar", "nombreProveedor", "nitProveedor" })
+                    if (CultureInfo.CurrentCulture.CompareInfo.IndexOf(Convert.ToString(Fila[Campo]), Buscar,
+                        CompareOptions.IgnoreCase | CompareOptions.IgnoreNonSpace) >= 0) Coincide = true;
+                if (Coincide) Resultado.ImportRow(Fila);
+            }
+            return Resultado;
+        }
+    }
+}
