@@ -20,12 +20,14 @@ $ErrorActionPreference = 'Stop'
 $base = [IO.Path]::GetFullPath($env:CC_BASE)
 $steps = New-Object 'System.Collections.Generic.List[object]'
 $projects = @{}
-$temporaryTargets = New-Object 'System.Collections.Generic.List[string]'
 $referenceOverrides = New-Object 'System.Collections.Generic.List[object]'
 $securityExecutable = $null
 $result = 1
 $current = $null
 $shortDrive = $null
+$runDirectory = $null
+$timer = [Diagnostics.Stopwatch]::StartNew()
+$workers = [Math]::Max(1, [Math]::Min(8, [Environment]::ProcessorCount))
 
 function Write-Status([string]$message, [string]$kind = 'Info') {
     $colors = @{ Info='Cyan'; Build='Yellow'; Success='Green'; Error='Red'; Warning='DarkYellow'; Menu='White' }
@@ -69,45 +71,67 @@ function Add-Step($path) {
     $step
 }
 
-function Invoke-Query($path, $configuration, $platform) {
-    # /getItem:Reference calcula FullPath incluso para nombres de ensamblado.
-    # Consultar copias con identidad corta evita MAX_PATH sin cambiar los proyectos.
-    if (!$script:queryTargets) {
-        $script:queryTargets = Join-Path ([IO.Path]::GetTempPath()) ('Compras_Query_' + [guid]::NewGuid().ToString('N') + '.targets')
-        $temporaryTargets.Add($script:queryTargets)
-        $queryXml = @'
+function Write-IfChanged([string]$path, [string]$content) {
+    if (!(Test-Path -LiteralPath $path) -or [IO.File]::ReadAllText($path) -cne $content) {
+        [IO.File]::WriteAllText($path, $content, [Text.UTF8Encoding]::new($false))
+    }
+}
+
+function Invoke-ProjectQueries {
+    $queryTargets = Join-Path $cacheDirectory 'Consulta.targets'
+    $queryXml = @'
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Target Name="ConsultarCompras">
     <ItemGroup>
-      <_ComprasReference Include="Reference" Condition="'@(Reference)' != ''">
-        <OriginalIdentity>%(Reference.Identity)</OriginalIdentity>
-        <HintPath>%(Reference.HintPath)</HintPath>
-      </_ComprasReference>
+      <_ComprasDato Include="P|TargetPath|$(TargetPath)" />
+      <_ComprasDato Include="P|PlatformTarget|$(PlatformTarget)" />
+      <_ComprasDato Include="P|TargetFrameworkVersion|$(TargetFrameworkVersion)" />
+      <_ComprasDato Include="P|OutputType|$(OutputType)" />
+      <_ComprasDato Include="P|Prefer32Bit|$(Prefer32Bit)" />
+      <_ComprasDato Include="@(Reference->'R|%(Identity)|%(HintPath)')" />
+      <_ComprasDato Include="@(ProjectReference->'J|%(Identity)|')" />
+      <_ComprasDato Include="@(PackageReference->'N|%(Identity)|')" />
     </ItemGroup>
+    <WriteLinesToFile File="$(ComprasArchivoConsulta)" Lines="@(_ComprasDato)" Overwrite="true" Encoding="Unicode" />
   </Target>
 </Project>
 '@
-        [IO.File]::WriteAllText($script:queryTargets,$queryXml,[Text.UTF8Encoding]::new($false))
+    Write-IfChanged $queryTargets $queryXml
+    $runner = Join-Path $runDirectory 'Consultas.proj'
+    $body = '<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003"><ItemGroup>'
+    $index = 0
+    foreach ($project in $projects.Values | Sort-Object Path) {
+        $project.QueryFile = Join-Path $runDirectory ("consulta_$index.txt")
+        $properties = "Configuration=$($project.Configuration);Platform=$($project.Platform);ComprasArchivoConsulta=$(MsbuildEscape $project.QueryFile)"
+        $body += '<Consulta Include="' + (XmlEscape (MsbuildEscape $project.Path)) + '"><AdditionalProperties>' + (XmlEscape $properties) + '</AdditionalProperties></Consulta>'
+        $index++
     }
-    # Windows PowerShell convierte stderr en errores: capturarlo completo antes de fallar.
-    $previousPreference = $ErrorActionPreference
-    try {
-        $ErrorActionPreference = 'Continue'
-        $output = & $msbuild $path /nologo "/p:Configuration=$configuration" "/p:Platform=$platform" `
-            /t:ConsultarCompras "/p:CustomAfterMicrosoftCommonTargets=$script:queryTargets" `
-            /getProperty:TargetPath,PlatformTarget,TargetFrameworkVersion,OutputType,Prefer32Bit `
-            /getItem:_ComprasReference,ProjectReference,PackageReference 2>&1
-        $code = $LASTEXITCODE
-    } finally {
-        $ErrorActionPreference = $previousPreference
+    $body += '</ItemGroup><Target Name="Consultar"><MSBuild Projects="@(Consulta)" Targets="ConsultarCompras" BuildInParallel="true" StopOnFirstFailure="true" /></Target></Project>'
+    [IO.File]::WriteAllText($runner, $body, [Text.UTF8Encoding]::new($false))
+    & $msbuild $runner /t:Consultar /nologo /verbosity:minimal "/m:$workers" /nr:false "/p:CustomAfterMicrosoftCommonTargets=$queryTargets"
+    if ($LASTEXITCODE -ne 0) { throw 'No se pudieron evaluar los proyectos.' }
+    foreach ($project in $projects.Values) {
+        $properties = @{}
+        $references = @()
+        $projectReferences = @()
+        $packages = @()
+        foreach ($line in [IO.File]::ReadAllLines($project.QueryFile, [Text.Encoding]::Unicode)) {
+            $parts = $line.Split([char[]]@('|'), 3, [StringSplitOptions]::None)
+            if ($parts.Count -ne 3) { throw "Consulta no valida: $($project.Path): $line" }
+            switch ($parts[0]) {
+                'P' { $properties[$parts[1]] = $parts[2] }
+                'R' { $references += [pscustomobject]@{ Identity=$parts[1]; HintPath=$parts[2] } }
+                'J' { $projectReferences += [pscustomobject]@{ Identity=$parts[1] } }
+                'N' { $packages += [pscustomobject]@{ Identity=$parts[1] } }
+                default { throw "Consulta desconocida: $line" }
+            }
+        }
+        $project.Data = [pscustomobject]@{ Properties=[pscustomobject]$properties; Items=[pscustomobject]@{
+            Reference=$references; ProjectReference=$projectReferences; PackageReference=$packages } }
+        $project.Output = $properties.TargetPath
+        if ($properties.TargetFrameworkVersion -ne 'v4.8') { throw "Framework no previsto en $($project.Path)" }
+        if ($packages.Count) { $project.Step.Packages = $true }
     }
-    if ($code -ne 0) { throw "No se pudo evaluar $path (codigo $code):`n$($output -join "`n")" }
-    $data = ($output -join "`n") | ConvertFrom-Json
-    $references = @($data.Items._ComprasReference | ForEach-Object {
-        [pscustomobject]@{ Identity=$_.OriginalIdentity; HintPath=$_.HintPath }
-    })
-    $data.Items | Add-Member -NotePropertyName Reference -NotePropertyValue $references
-    $data
 }
 
 function Add-Project($path, $configuration, $platform, $step) {
@@ -121,27 +145,24 @@ function Add-Project($path, $configuration, $platform, $step) {
         return $projects[$path]
     }
     if (!(Test-Path -LiteralPath $path -PathType Leaf)) { throw "Falta el proyecto: $path" }
-    $data = Invoke-Query $path $configuration $platform
-    if ($data.Properties.TargetFrameworkVersion -ne 'v4.8') { throw "Framework no previsto en $path" }
     $project = [pscustomobject]@{ Path=$path; Configuration=$configuration; Platform=$platform; Step=$step;
-        Data=$data; Output=$data.Properties.TargetPath; Dependencies=@(); Visiting=$false; Visited=$false }
+        Data=$null; Output=$null; Dependencies=@(); QueryFile=$null; Marker=$null; Wave=-1; Visiting=$false; Visited=$false }
     $projects[$path] = $project
     $step.Projects += $project
     $packages = Join-Path (Split-Path $path) 'packages.config'
-    if ((Test-Path -LiteralPath $packages) -or @($data.Items.PackageReference).Count) { $step.Packages=$true }
+    if (Test-Path -LiteralPath $packages) { $step.Packages=$true }
     $project
 }
 
-function Order-Project($project, $step) {
+function Get-ProjectWave($project) {
+    if ($project.Wave -ge 0) { return $project.Wave }
     if ($project.Visiting) { throw "Dependencia circular: $($project.Path)" }
-    if ($project.Visited) { return }
     $project.Visiting = $true
-    foreach ($dependency in $project.Dependencies) {
-        if ($dependency.Step -eq $step) { Order-Project $dependency $step }
-    }
+    $wave = 0
+    foreach ($dependency in $project.Dependencies) { $wave = [Math]::Max($wave, (Get-ProjectWave $dependency) + 1) }
     $project.Visiting = $false
-    $project.Visited = $true
-    $step.Ordered += $project
+    $project.Wave = $wave
+    $wave
 }
 
 function XmlEscape([string]$text) { [Security.SecurityElement]::Escape($text) }
@@ -166,6 +187,13 @@ try {
     }
     if (!$shortDrive) { throw 'No se pudo crear una unidad temporal libre (D: a Z:) para evitar rutas largas de NuGet.' }
     $base = FullPath ($shortDrive + '\') 'codigo\modulos\compras'
+    $hash = [Security.Cryptography.SHA256]::Create()
+    try { $cacheKey = ([BitConverter]::ToString($hash.ComputeHash([Text.Encoding]::UTF8.GetBytes($repositoryRoot.ToUpperInvariant())))).Replace('-', '').Substring(0, 16) }
+    finally { $hash.Dispose() }
+    $cacheDirectory = Join-Path ([IO.Path]::GetTempPath()) ("ComprasBuild_$cacheKey")
+    $null = [IO.Directory]::CreateDirectory($cacheDirectory)
+    $runDirectory = Join-Path $cacheDirectory ([guid]::NewGuid().ToString('N'))
+    $null = [IO.Directory]::CreateDirectory($runDirectory)
     Write-Status "Ruta temporal de compilacion: $base (los archivos permanecen en su ubicacion original)."
     $configuration = $env:CC_CONFIG
     if (!$configuration) { $configuration='Debug' }
@@ -186,16 +214,9 @@ try {
     $executables = @{}
     foreach ($name in $execution) { $executables[$name] = Unique-Path "Ejecucion_$name.sln" $found $true }
 
-    # Busca los productores externos desde los padres, hasta la raiz del repositorio.
     $externalNames = @('Consultas.sln','Navegador.sln','CapaControlador_Seguridad.csproj')
-    $ancestor = (Get-Item -LiteralPath $base).Parent
-    $external = @()
-    while ($ancestor) {
-        $external = @(Find-Files $ancestor.FullName $externalNames | Where-Object { $_ -match '[\\/]componentes[\\/]' })
-        if (@($external | ForEach-Object { [IO.Path]::GetFileName($_) } | Sort-Object -Unique).Count -eq 3) { break }
-        if (Test-Path -LiteralPath (Join-Path $ancestor.FullName '.git')) { break }
-        $ancestor = $ancestor.Parent
-    }
+    $componentRoot = FullPath $base '..\..\componentes'
+    $external = @(Find-Files $componentRoot $externalNames)
     $consultas = Unique-Path 'Consultas.sln' $external
     $seguridad = Unique-Path 'CapaControlador_Seguridad.csproj' $external
     $seguridadSolution = Join-Path (Split-Path (Split-Path $seguridad)) 'Seguridad.sln'
@@ -246,7 +267,7 @@ try {
     $whereTools += @(Get-Command vswhere.exe -ErrorAction SilentlyContinue | ForEach-Object { $_.Source })
     foreach ($where in $whereTools | Select-Object -Unique) {
         if (Test-Path -LiteralPath $where) {
-            $candidates += @(& $where -latest -products '*' -version '[17.0,18.0)' -requires Microsoft.Component.MSBuild -find 'MSBuild\**\Bin\MSBuild.exe')
+            $candidates += @(& $where -latest -products '*' -version '[17.8,)' -requires Microsoft.Component.MSBuild -find 'MSBuild\**\Bin\MSBuild.exe')
         }
     }
     $candidates += @(Get-Command MSBuild.exe -CommandType Application -All -ErrorAction SilentlyContinue | ForEach-Object { $_.Source })
@@ -255,7 +276,7 @@ try {
         if (!(Test-Path -LiteralPath $candidate -PathType Leaf)) { continue }
         $versionOutput = & $candidate /nologo /version 2>&1
         $toolCode = $LASTEXITCODE
-        $versionMatch = [regex]::Match(($versionOutput -join "`n"),'(?m)^17\.\d+(?:\.\d+){1,2}\s*$')
+        $versionMatch = [regex]::Match(($versionOutput -join "`n"),'(?m)^(?:17|18)\.\d+(?:\.\d+){1,2}\s*$')
         # Las consultas sin compilar /getProperty y /getItem requieren 17.8 o posterior.
         if ($toolCode -eq 0 -and $versionMatch.Success -and [version]$versionMatch.Value.Trim() -ge [version]'17.8') {
             $msbuild=$candidate; break
@@ -282,8 +303,9 @@ try {
             $null = Add-Project $step.Path $configuration $step.Platform $step
             # Este productor tiene un ProjectReference real al modelo.
             for ($i=0; $i -lt $step.Projects.Count; $i++) {
-                foreach ($reference in @($step.Projects[$i].Data.Items.ProjectReference)) {
-                    $null = Add-Project (FullPath (Split-Path $step.Projects[$i].Path) $reference.Identity) $configuration $step.Platform $step
+                [xml]$projectXml = [IO.File]::ReadAllText($step.Projects[$i].Path)
+                foreach ($reference in @($projectXml.SelectNodes('//*[local-name()="ProjectReference"]'))) {
+                    $null = Add-Project (FullPath (Split-Path $step.Projects[$i].Path) $reference.Include) $configuration $step.Platform $step
                 }
             }
         } else {
@@ -304,23 +326,29 @@ try {
         }
     }
 
+    Write-Status "Evaluando $($projects.Count) proyectos en paralelo con $workers procesos..."
+    Invoke-ProjectQueries
     $outputs = @{}
+    $assemblies = @{}
     foreach ($project in $projects.Values) {
         if (!$project.Output) { throw "Salida no definida: $($project.Path)" }
         if ($outputs.ContainsKey($project.Output)) { throw "Dos productores para $($project.Output)" }
         $outputs[$project.Output] = $project
+        $name = [IO.Path]::GetFileName($project.Output)
+        if (!$assemblies.ContainsKey($name)) { $assemblies[$name] = @() }
+        $assemblies[$name] += $project
     }
-    $referenceTargets = Join-Path ([IO.Path]::GetTempPath()) ('Compras_References_' + [guid]::NewGuid().ToString('N') + '.targets')
-    $temporaryTargets.Add($referenceTargets)
+    $referenceTargets = Join-Path $cacheDirectory ('References_' + $configuration + '.targets')
     foreach ($project in $projects.Values) {
         $current=$project.Step
         foreach ($reference in @($project.Data.Items.Reference)) {
-            if (!$reference.PSObject.Properties['HintPath'] -or !$reference.HintPath) { continue }
-            $hint = FullPath (Split-Path $project.Path) $reference.HintPath
+            $assembly = ($reference.Identity -split ',')[0].Trim() + '.dll'
+            if (!$reference.HintPath -and !$assemblies.ContainsKey($assembly)) { continue }
+            $hint = if ($reference.HintPath) { FullPath (Split-Path $project.Path) $reference.HintPath } else { $assembly }
             if ($outputs.ContainsKey($hint)) { $project.Dependencies += $outputs[$hint] }
             elseif ($hint -notmatch '[\\/]packages[\\/]') {
                 $assembly = ($reference.Identity -split ',')[0].Trim() + '.dll'
-                $producers = @($projects.Values | Where-Object { [IO.Path]::GetFileName($_.Output) -ieq $assembly })
+                $producers = @($assemblies[$assembly] | Where-Object { $_ })
                 if ($producers.Count -ne 1) { throw "Referencia sin productor unico para $configuration en $($project.Path): $hint" }
                 $producer = $producers[0]
                 $project.Dependencies += $producer
@@ -341,63 +369,74 @@ try {
         }
     }
     $referenceBody = '<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003"><Target Name="CorregirReferenciasCompras" BeforeTargets="ResolveAssemblyReferences"><ItemGroup>'
-    foreach ($override in $referenceOverrides) {
+    foreach ($override in $referenceOverrides | Sort-Object Project,Identity) {
         $condition = "'`$(MSBuildProjectFullPath)' == '" + (MsbuildEscape $override.Project) + "' And '%(Reference.Identity)' == '" + (MsbuildEscape $override.Identity) + "'"
         $referenceBody += '<Reference Condition="' + (XmlEscape $condition) + '"><HintPath>' + (XmlEscape $override.Output) + '</HintPath></Reference>'
     }
-    $referenceBody += '</ItemGroup></Target></Project>'
-    [IO.File]::WriteAllText($referenceTargets,$referenceBody,[Text.UTF8Encoding]::new($false))
+    $referenceBody += '</ItemGroup></Target><Target Name="ComprasMarcarInicio" BeforeTargets="PrepareForBuild" Condition="&apos;$(ComprasEstadoProyecto)&apos; != &apos;&apos;"><WriteLinesToFile File="$(ComprasEstadoProyecto).started" Lines="$(MSBuildProjectFullPath)" Overwrite="true" /></Target><Target Name="ComprasMarcarExito" AfterTargets="Build" Condition="&apos;$(ComprasEstadoProyecto)&apos; != &apos;&apos;"><WriteLinesToFile File="$(ComprasEstadoProyecto).done" Lines="$(MSBuildProjectFullPath)" Overwrite="true" /></Target></Project>'
+    Write-IfChanged $referenceTargets $referenceBody
     $securityProject = @($projects.Values | Where-Object { [IO.Path]::GetFileName($_.Path) -ieq 'Ejecucion_Seguridad.csproj' })
     if ($securityProject.Count -eq 1) {
         $securityExecutable = $repositoryRoot + $securityProject[0].Output.Substring($shortDrive.Length)
     }
-    foreach ($step in $steps) { foreach ($project in $step.Projects) { Order-Project $project $step } }
-    $current=$null
-    $steps | Select-Object Name,Path,Platform | Format-Table -AutoSize | Out-String | Write-Host
-
-    for ($index=0; $index -lt $steps.Count; $index++) {
-        $step=$steps[$index]; $current=$step
-        Write-Status "[$($index+1)/$($steps.Count)] $($step.Name) - $configuration | $($step.Platform)" Build
-        $arguments = @($step.Path,'/t:Build','/nologo','/verbosity:minimal',"/p:Configuration=$configuration", "/p:Platform=$($step.Platform)",'/warnAsError:MSB3245','/consoleloggerparameters:ForceConsoleColor;Summary')
-        if ([IO.Path]::GetExtension($step.Path) -eq '.sln') {
-            # Orden interno por DLL/ProjectReference, sin alterar los .sln originales.
-            # Un target previo compila el grafo una vez y vacia la lista del Build normal.
-            # DirectorySolutionTargetsPath es un punto de extension de MSBuild.
-            $targets = Join-Path ([IO.Path]::GetTempPath()) ('Compras_' + [guid]::NewGuid().ToString('N') + '.targets')
-            $temporaryTargets.Add($targets)
-            $body = '<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003"><Target Name="CompilarComprasEnOrden" BeforeTargets="Build">'
-            foreach ($project in $step.Ordered) {
-                $properties = "Configuration=$($project.Configuration);Platform=$($project.Platform);BuildProjectReferences=false"
-                # El ejecutable AnyCPU debe poder cargar las bibliotecas x64 de Compras.
-                if ($project.Data.Properties.OutputType -in @('Exe','WinExe') -and $project.Data.Properties.PlatformTarget -eq 'AnyCPU') { $properties += ';Prefer32Bit=false' }
-                $body += '<MSBuild Projects="'+(XmlEscape (MsbuildEscape $project.Path))+'" Targets="Build" Properties="'+(XmlEscape $properties)+'" BuildInParallel="false" StopOnFirstFailure="true" />'
-            }
-            $body += '<ItemGroup><ProjectReference Remove="@(ProjectReference)" /></ItemGroup></Target></Project>'
-            [IO.File]::WriteAllText($targets,$body,[Text.UTF8Encoding]::new($false))
-            $arguments += "/p:DirectorySolutionTargetsPath=$targets"
-        }
-        $arguments += "/p:CustomAfterMicrosoftCommonTargets=$referenceTargets"
-        if ($step.Packages) {
-            $arguments += @('/restore','/p:RestorePackagesConfig=true')
-            $packageRoot = Join-Path (Split-Path $step.Path) 'packages'
-            if ([IO.Path]::GetExtension($step.Path) -eq '.csproj') { $packageRoot=Join-Path (Split-Path (Split-Path $step.Path)) 'packages' }
-            $arguments += "/p:RestoreRepositoryPath=$packageRoot"
-        }
-        & $msbuild @arguments
-        $code = $LASTEXITCODE
-        $step.Code=$code
-        if ($code -ne 0) { $step.State='Fallida'; throw "Fallo $($step.Name), codigo $code." }
-        foreach ($project in $step.Projects) {
-            if (!(Test-Path -LiteralPath $project.Output -PathType Leaf)) { throw "MSBuild termino sin la salida esperada: $($project.Output)" }
-        }
-        $step.State='Correcta'
-        Write-Status "[$($index+1)/$($steps.Count)] $($step.Name)" Success
+    foreach ($project in $projects.Values) { $null = Get-ProjectWave $project }
+    $current = $null
+    $runner = Join-Path $runDirectory 'Build.proj'
+    $body = '<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003"><ItemGroup>'
+    foreach ($step in $steps | Where-Object Packages) {
+        $packageRoot = Join-Path (Split-Path $step.Path) 'packages'
+        if ([IO.Path]::GetExtension($step.Path) -eq '.csproj') { $packageRoot = Join-Path (Split-Path (Split-Path $step.Path)) 'packages' }
+        $properties = "Configuration=$configuration;Platform=$($step.Platform);RestorePackagesConfig=true;RestoreRepositoryPath=$(MsbuildEscape $packageRoot)"
+        $body += '<Restauracion Include="' + (XmlEscape (MsbuildEscape $step.Path)) + '"><AdditionalProperties>' + (XmlEscape $properties) + '</AdditionalProperties></Restauracion>'
     }
+    $index = 0
+    foreach ($project in $projects.Values | Sort-Object Path) {
+        $project.Marker = Join-Path $runDirectory ("proyecto_$index")
+        $properties = "Configuration=$($project.Configuration);Platform=$($project.Platform);BuildProjectReferences=false;ComprasEstadoProyecto=$(MsbuildEscape $project.Marker)"
+        if ($project.Data.Properties.OutputType -in @('Exe','WinExe') -and $project.Data.Properties.PlatformTarget -eq 'AnyCPU') { $properties += ';Prefer32Bit=false' }
+        $body += '<Nivel' + $project.Wave + ' Include="' + (XmlEscape (MsbuildEscape $project.Path)) + '"><AdditionalProperties>' + (XmlEscape $properties) + '</AdditionalProperties></Nivel' + $project.Wave + '>'
+        $index++
+    }
+    $body += '</ItemGroup><Target Name="Restaurar"><MSBuild Projects="@(Restauracion)" Targets="Restore" BuildInParallel="false" StopOnFirstFailure="true" /></Target>'
+    $targets = @('Restaurar')
+    $waves = @($projects.Values | Select-Object -ExpandProperty Wave | Sort-Object -Unique)
+    foreach ($wave in $waves) {
+        $targets += "Nivel$wave"
+        $body += '<Target Name="Nivel' + $wave + '"><Message Importance="high" Text="[COMPILANDO] Nivel ' + ($wave + 1) + '/' + $waves.Count + '" /><MSBuild Projects="@(Nivel' + $wave + ')" Targets="Build" BuildInParallel="true" StopOnFirstFailure="true" /></Target>'
+    }
+    $body += '<Target Name="Build" DependsOnTargets="' + ($targets -join ';') + '" /></Project>'
+    [IO.File]::WriteAllText($runner, $body, [Text.UTF8Encoding]::new($false))
+    Write-Status "Compilando $($projects.Count) proyectos en $($waves.Count) niveles, con hasta $workers procesos en paralelo." Build
+    & $msbuild $runner /t:Build /nologo /verbosity:minimal "/m:$workers" /nr:false /warnAsError:MSB3245 '/consoleloggerparameters:ForceConsoleColor;Summary' "/p:CustomAfterMicrosoftCommonTargets=$referenceTargets"
+    $code = $LASTEXITCODE
+    foreach ($step in $steps) {
+        $complete = @($step.Projects | Where-Object { !(Test-Path -LiteralPath ($_.Marker + '.done')) })
+        if (!$complete.Count) {
+            foreach ($project in $step.Projects) {
+                if (!(Test-Path -LiteralPath $project.Output -PathType Leaf)) { throw "Falta la salida esperada: $($project.Output)" }
+            }
+            $step.State = 'Correcta'
+            $step.Code = 0
+        } elseif (@($complete | Where-Object { Test-Path -LiteralPath ($_.Marker + '.started') }).Count) {
+            $step.State = 'Fallida'
+            $step.Code = $code
+        }
+    }
+    if ($code -ne 0) {
+        if (!@($steps | Where-Object State -eq 'Fallida').Count) {
+            $first = $steps | Where-Object State -ne 'Correcta' | Select-Object -First 1
+            if ($first) { $first.State = 'Fallida'; $first.Code = $code }
+        }
+        throw "La compilacion termino con codigo $code."
+    }
+    if (@($steps | Where-Object State -ne 'Correcta').Count) { throw 'La compilacion termino sin completar todos los proyectos.' }
     $result=0
 } catch {
     if ($current -and $current.State -ne 'Correcta') { $current.State='Fallida' }
     Write-Status $_.Exception.Message Error
 } finally {
+    $timer.Stop()
+    Write-Status ('Tiempo total: {0:N1} segundos.' -f $timer.Elapsed.TotalSeconds)
     Write-Status 'RESUMEN DE COMPILACION'
     Write-Status ('Correctas: {0}' -f @($steps | Where-Object State -eq 'Correcta').Count) Success
     Write-Status ('Fallidas: {0}' -f @($steps | Where-Object State -eq 'Fallida').Count) $(if ($result -eq 0) { 'Success' } else { 'Error' })
@@ -406,8 +445,11 @@ try {
         $kind = switch ($step.State) { 'Correcta' { 'Success' } 'Fallida' { 'Error' } default { 'Warning' } }
         Write-Status ("{0}: {1}" -f $step.State, $step.Name) $kind
     }
-    foreach ($targets in $temporaryTargets) {
-        try { [IO.File]::Delete($targets) } catch { Write-Warning "No se pudo eliminar el archivo temporal: $targets" }
+    if ($runDirectory -and [IO.Directory]::Exists($runDirectory)) {
+        try {
+            foreach ($file in [IO.Directory]::GetFiles($runDirectory)) { [IO.File]::Delete($file) }
+            [IO.Directory]::Delete($runDirectory)
+        } catch { Write-Warning "No se pudo limpiar: $runDirectory" }
     }
     if ($shortDrive) {
         & $subst $shortDrive /D
