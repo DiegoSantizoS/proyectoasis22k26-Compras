@@ -66,7 +66,7 @@ namespace CapaVista_Componentes.Componentes
 
         private void ComprasProcActualizarTitulo()
         {
-            ComprasLblTitulo.Texto = _Titulo;
+            ComprasLblTitulo.Texto = _Titulo.ToUpperInvariant();
         }
     }
 }
