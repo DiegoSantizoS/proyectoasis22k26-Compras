@@ -32,6 +32,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CapaControlador_Componentes">
+      <HintPath>..\..\Componentes\CapaControlador_Componentes\bin\$(Configuration)\CapaControlador_Componentes.dll</HintPath>
+    </Reference>
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Drawing" />
     <Reference Include="CapaVista_Consultas">
@@ -85,6 +88,9 @@
     </Compile>
     <EmbeddedResource Include="Auxiliar.resx">
       <DependentUpon>Auxiliar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmEncabezados.resx">
+      <DependentUpon>FrmEncabezados.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmOrdenesCompra.resx">
       <DependentUpon>FrmOrdenesCompra.cs</DependentUpon>

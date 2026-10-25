@@ -2,6 +2,8 @@
 {
     partial class FrmPolizas
     {
+        private System.Windows.Forms.TableLayoutPanel ComprasTlpFormulario;
+        private CapaVista_Componentes.Componentes.UsrEncabezadoCompras ComprasUsrEncabezadoFormulario;
         private System.ComponentModel.IContainer _Componentes = null;
         private CapaVista_Componentes.Componentes.ClsPanelVerticalCompras ComprasPnlDesplazamiento;
         private System.Windows.Forms.Panel ComprasPnlContenido;
@@ -14,6 +16,8 @@
 
         private void InitializeComponent()
         {
+            this.ComprasTlpFormulario = new System.Windows.Forms.TableLayoutPanel();
+            this.ComprasUsrEncabezadoFormulario = new CapaVista_Componentes.Componentes.UsrEncabezadoCompras();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmPolizas));
             this.ComprasPnlDesplazamiento = new CapaVista_Componentes.Componentes.ClsPanelVerticalCompras();
             this.ComprasPnlContenido = new System.Windows.Forms.Panel();
@@ -46,7 +50,21 @@
             // ComprasPnlDesplazamiento
             // 
             this.ComprasPnlDesplazamiento.AutoScroll = true;
-            this.ComprasPnlDesplazamiento.Controls.Add(this.ComprasPnlContenido);
+            this.ComprasTlpFormulario.Name = "ComprasTlpFormulario";
+            this.ComprasTlpFormulario.BackColor = CapaVista_Componentes.Componentes.ClsTemaCompras.FondoGeneral;
+            this.ComprasTlpFormulario.Dock = System.Windows.Forms.DockStyle.Top;
+            this.ComprasTlpFormulario.Margin = new System.Windows.Forms.Padding(0);
+            this.ComprasTlpFormulario.ColumnCount = 1;
+            this.ComprasTlpFormulario.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.ComprasTlpFormulario.RowCount = 2;
+            this.ComprasTlpFormulario.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 150F));
+            this.ComprasTlpFormulario.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.ComprasTlpFormulario.Height = 150 + 723;
+            this.ComprasTlpFormulario.Controls.Add(this.ComprasUsrEncabezadoFormulario, 0, 0);
+            this.ComprasTlpFormulario.Controls.Add(this.ComprasPnlContenido, 0, 1);
+            this.ComprasPnlContenido.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ComprasPnlContenido.Margin = new System.Windows.Forms.Padding(0);
+            this.ComprasPnlDesplazamiento.Controls.Add(this.ComprasTlpFormulario);
             this.ComprasPnlDesplazamiento.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ComprasPnlDesplazamiento.Location = new System.Drawing.Point(0, 0);
             this.ComprasPnlDesplazamiento.Margin = new System.Windows.Forms.Padding(0);
@@ -58,7 +76,6 @@
             // 
             this.ComprasPnlContenido.Controls.Add(this.ComprasGbxDetalle);
             this.ComprasPnlContenido.Controls.Add(this.ComprasGbxEncabezado);
-            this.ComprasPnlContenido.Controls.Add(this.ComprasUsrLblTitulo);
             this.ComprasPnlContenido.Dock = System.Windows.Forms.DockStyle.Top;
             this.ComprasPnlContenido.Location = new System.Drawing.Point(0, 0);
             this.ComprasPnlContenido.Margin = new System.Windows.Forms.Padding(0);
@@ -442,6 +459,14 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = CapaVista_Componentes.Componentes.ClsTemaCompras.FondoGeneral;
             this.ClientSize = new System.Drawing.Size(1300, 700);
+            this.ComprasUsrEncabezadoFormulario.Name = "ComprasUsrEncabezadoFormulario";
+            this.ComprasUsrEncabezadoFormulario.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ComprasUsrEncabezadoFormulario.Height = 130;
+            this.ComprasUsrEncabezadoFormulario.Margin = new System.Windows.Forms.Padding(10);
+            this.ComprasUsrEncabezadoFormulario.TabStop = false;
+            this.ComprasUsrEncabezadoFormulario.Codigo = "6002";
+            this.ComprasUsrEncabezadoFormulario.Titulo = "Pólizas de compras";
+            this.ComprasUsrEncabezadoFormulario.Descripcion = "Registra las cuentas y los movimientos contables de las compras para preparar sus pólizas.";
             this.Controls.Add(this.ComprasPnlDesplazamiento);
             this.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.PrincipalNavegador;

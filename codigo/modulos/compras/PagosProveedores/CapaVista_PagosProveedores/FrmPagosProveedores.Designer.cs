@@ -7,6 +7,8 @@ namespace CapaVista_PagosProveedores
 {
     partial class FrmPagosProveedores
     {
+        private System.Windows.Forms.TableLayoutPanel ComprasTlpFormulario;
+        private CapaVista_Componentes.Componentes.UsrEncabezadoCompras ComprasUsrEncabezadoFormulario;
         private System.ComponentModel.IContainer _Componentes = null;
         private CapaVista_Componentes.Componentes.ClsPanelVerticalCompras ComprasPnlDesplazamiento;
         private System.Windows.Forms.Panel ComprasPnlContenido;
@@ -19,6 +21,8 @@ namespace CapaVista_PagosProveedores
 
         private void InitializeComponent()
         {
+            this.ComprasTlpFormulario = new System.Windows.Forms.TableLayoutPanel();
+            this.ComprasUsrEncabezadoFormulario = new CapaVista_Componentes.Componentes.UsrEncabezadoCompras();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmPagosProveedores));
             this.ComprasPnlDesplazamiento = new CapaVista_Componentes.Componentes.ClsPanelVerticalCompras();
             this.ComprasPnlContenido = new System.Windows.Forms.Panel();
@@ -66,7 +70,21 @@ namespace CapaVista_PagosProveedores
             // ComprasPnlDesplazamiento
             // 
             this.ComprasPnlDesplazamiento.AutoScroll = true;
-            this.ComprasPnlDesplazamiento.Controls.Add(this.ComprasPnlContenido);
+            this.ComprasTlpFormulario.Name = "ComprasTlpFormulario";
+            this.ComprasTlpFormulario.BackColor = CapaVista_Componentes.Componentes.ClsTemaCompras.FondoGeneral;
+            this.ComprasTlpFormulario.Dock = System.Windows.Forms.DockStyle.Top;
+            this.ComprasTlpFormulario.Margin = new System.Windows.Forms.Padding(0);
+            this.ComprasTlpFormulario.ColumnCount = 1;
+            this.ComprasTlpFormulario.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.ComprasTlpFormulario.RowCount = 2;
+            this.ComprasTlpFormulario.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 150F));
+            this.ComprasTlpFormulario.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.ComprasTlpFormulario.Height = 150 + 723;
+            this.ComprasTlpFormulario.Controls.Add(this.ComprasUsrEncabezadoFormulario, 0, 0);
+            this.ComprasTlpFormulario.Controls.Add(this.ComprasPnlContenido, 0, 1);
+            this.ComprasPnlContenido.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ComprasPnlContenido.Margin = new System.Windows.Forms.Padding(0);
+            this.ComprasPnlDesplazamiento.Controls.Add(this.ComprasTlpFormulario);
             this.ComprasPnlDesplazamiento.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ComprasPnlDesplazamiento.Location = new System.Drawing.Point(0, 0);
             this.ComprasPnlDesplazamiento.Margin = new System.Windows.Forms.Padding(0);
@@ -602,7 +620,6 @@ namespace CapaVista_PagosProveedores
             // ComprasPnlEncabezado
             // 
             this.ComprasPnlEncabezado.BackColor = System.Drawing.Color.Transparent;
-            this.ComprasPnlEncabezado.Controls.Add(this.ComprasUsrLblTitulo);
             this.ComprasPnlEncabezado.Controls.Add(this.ComprasBtnNuevoPago);
             this.ComprasPnlEncabezado.Dock = System.Windows.Forms.DockStyle.Top;
             this.ComprasPnlEncabezado.Location = new System.Drawing.Point(16, 16);
@@ -653,6 +670,14 @@ namespace CapaVista_PagosProveedores
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(246)))), ((int)(((byte)(247)))), ((int)(((byte)(250)))));
             this.ClientSize = new System.Drawing.Size(1359, 700);
+            this.ComprasUsrEncabezadoFormulario.Name = "ComprasUsrEncabezadoFormulario";
+            this.ComprasUsrEncabezadoFormulario.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ComprasUsrEncabezadoFormulario.Height = 130;
+            this.ComprasUsrEncabezadoFormulario.Margin = new System.Windows.Forms.Padding(10);
+            this.ComprasUsrEncabezadoFormulario.TabStop = false;
+            this.ComprasUsrEncabezadoFormulario.Codigo = "6004";
+            this.ComprasUsrEncabezadoFormulario.Titulo = "Pagos a proveedores";
+            this.ComprasUsrEncabezadoFormulario.Descripcion = "Consulta, registra y administra los pagos a proveedores, sus fechas y métodos de pago.";
             this.Controls.Add(this.ComprasPnlDesplazamiento);
             this.DoubleBuffered = true;
             this.Font = new System.Drawing.Font("Segoe UI", 9F);

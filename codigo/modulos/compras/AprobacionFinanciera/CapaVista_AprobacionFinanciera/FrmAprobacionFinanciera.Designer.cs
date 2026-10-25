@@ -30,6 +30,10 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.ComprasTlpContenidoVisible = new System.Windows.Forms.TableLayoutPanel();
+            this.ComprasTlpAcciones = new System.Windows.Forms.TableLayoutPanel();
+            this.ComprasTlpFormulario = new System.Windows.Forms.TableLayoutPanel();
+            this.ComprasUsrEncabezadoFormulario = new CapaVista_Componentes.Componentes.UsrEncabezadoCompras();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmAprobacionFinanciera));
             this.ComprasPnlDesplazamiento = new CapaVista_Componentes.Componentes.ClsPanelVerticalCompras();
             this.ComprasPnlContenido = new System.Windows.Forms.Panel();
@@ -45,7 +49,21 @@
             // ComprasPnlDesplazamiento
             // 
             this.ComprasPnlDesplazamiento.AutoScroll = true;
-            this.ComprasPnlDesplazamiento.Controls.Add(this.ComprasPnlContenido);
+            this.ComprasTlpFormulario.Name = "ComprasTlpFormulario";
+            this.ComprasTlpFormulario.BackColor = CapaVista_Componentes.Componentes.ClsTemaCompras.FondoGeneral;
+            this.ComprasTlpFormulario.Dock = System.Windows.Forms.DockStyle.Top;
+            this.ComprasTlpFormulario.Margin = new System.Windows.Forms.Padding(0);
+            this.ComprasTlpFormulario.ColumnCount = 1;
+            this.ComprasTlpFormulario.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.ComprasTlpFormulario.RowCount = 2;
+            this.ComprasTlpFormulario.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 150F));
+            this.ComprasTlpFormulario.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.ComprasTlpFormulario.Height = 700;
+            this.ComprasTlpFormulario.Controls.Add(this.ComprasUsrEncabezadoFormulario, 0, 0);
+            this.ComprasTlpFormulario.Controls.Add(this.ComprasPnlContenido, 0, 1);
+            this.ComprasPnlContenido.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ComprasPnlContenido.Margin = new System.Windows.Forms.Padding(0);
+            this.ComprasPnlDesplazamiento.Controls.Add(this.ComprasTlpFormulario);
             this.ComprasPnlDesplazamiento.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ComprasPnlDesplazamiento.Location = new System.Drawing.Point(0, 0);
             this.ComprasPnlDesplazamiento.Margin = new System.Windows.Forms.Padding(0);
@@ -55,15 +73,40 @@
             // 
             // ComprasPnlContenido
             // 
-            this.ComprasPnlContenido.Controls.Add(this.ComprasBtnRegresar);
-            this.ComprasPnlContenido.Controls.Add(this.ComprasBtnEvaluar);
-            this.ComprasPnlContenido.Controls.Add(this.ComprasBtnVer);
-            this.ComprasPnlContenido.Controls.Add(this.ComprasLblTitulo);
-            this.ComprasPnlContenido.Controls.Add(this.ComprasUsrOrdenesDisponibles);
-            this.ComprasPnlContenido.Dock = System.Windows.Forms.DockStyle.Top;
+            this.ComprasPnlContenido.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ComprasPnlContenido.Location = new System.Drawing.Point(0, 0);
             this.ComprasPnlContenido.Margin = new System.Windows.Forms.Padding(0);
             this.ComprasPnlContenido.Name = "ComprasPnlContenido";
+            this.ComprasPnlContenido.Controls.Add(this.ComprasTlpContenidoVisible);
+            this.ComprasTlpContenidoVisible.Name = "ComprasTlpContenidoVisible";
+            this.ComprasTlpContenidoVisible.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ComprasTlpContenidoVisible.Margin = new System.Windows.Forms.Padding(0);
+            this.ComprasTlpContenidoVisible.Padding = new System.Windows.Forms.Padding(10);
+            this.ComprasTlpContenidoVisible.ColumnCount = 1;
+            this.ComprasTlpContenidoVisible.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.ComprasTlpContenidoVisible.RowCount = 2;
+            this.ComprasTlpContenidoVisible.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.ComprasTlpContenidoVisible.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 100F));
+            this.ComprasTlpContenidoVisible.Controls.Add(this.ComprasUsrOrdenesDisponibles, 0, 0);
+            this.ComprasTlpContenidoVisible.Controls.Add(this.ComprasTlpAcciones, 0, 1);
+            this.ComprasUsrOrdenesDisponibles.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ComprasUsrOrdenesDisponibles.Margin = new System.Windows.Forms.Padding(0, 0, 0, 10);
+            this.ComprasTlpAcciones.Name = "ComprasTlpAcciones";
+            this.ComprasTlpAcciones.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ComprasTlpAcciones.Margin = new System.Windows.Forms.Padding(0);
+            this.ComprasTlpAcciones.RowCount = 1;
+            this.ComprasTlpAcciones.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.ComprasTlpAcciones.ColumnCount = 3;
+            this.ComprasTlpAcciones.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.333333F));
+            this.ComprasTlpAcciones.Controls.Add(this.ComprasBtnVer, 0, 0);
+            this.ComprasBtnVer.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.ComprasTlpAcciones.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.333333F));
+            this.ComprasTlpAcciones.Controls.Add(this.ComprasBtnEvaluar, 1, 0);
+            this.ComprasBtnEvaluar.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.ComprasTlpAcciones.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.333333F));
+            this.ComprasTlpAcciones.Controls.Add(this.ComprasBtnRegresar, 2, 0);
+            this.ComprasBtnRegresar.Anchor = System.Windows.Forms.AnchorStyles.None;
+
             this.ComprasPnlContenido.Size = new System.Drawing.Size(1283, 723);
             this.ComprasPnlContenido.TabIndex = 0;
             // 
@@ -162,6 +205,14 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(246)))), ((int)(((byte)(247)))), ((int)(((byte)(250)))));
             this.ClientSize = new System.Drawing.Size(1300, 700);
+            this.ComprasUsrEncabezadoFormulario.Name = "ComprasUsrEncabezadoFormulario";
+            this.ComprasUsrEncabezadoFormulario.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ComprasUsrEncabezadoFormulario.Height = 130;
+            this.ComprasUsrEncabezadoFormulario.Margin = new System.Windows.Forms.Padding(10);
+            this.ComprasUsrEncabezadoFormulario.TabStop = false;
+            this.ComprasUsrEncabezadoFormulario.Codigo = "6005";
+            this.ComprasUsrEncabezadoFormulario.Titulo = "Aprobación financiera";
+            this.ComprasUsrEncabezadoFormulario.Descripcion = "Consulta las órdenes de compra pendientes y selecciona una para revisar su aprobación financiera.";
             this.Controls.Add(this.ComprasPnlDesplazamiento);
             this.DoubleBuffered = true;
             this.Font = new System.Drawing.Font("Segoe UI", 9F);
@@ -180,6 +231,10 @@
 
         #endregion
 
+        private System.Windows.Forms.TableLayoutPanel ComprasTlpContenidoVisible;
+        private System.Windows.Forms.TableLayoutPanel ComprasTlpAcciones;
+        private System.Windows.Forms.TableLayoutPanel ComprasTlpFormulario;
+        private CapaVista_Componentes.Componentes.UsrEncabezadoCompras ComprasUsrEncabezadoFormulario;
         private CapaVista_Componentes.Componentes.UsrDataGridViewCompras ComprasUsrOrdenesDisponibles;
         private CapaVista_Componentes.Componentes.ClsEtiquetaCompras ComprasLblTitulo;
         private CapaVista_Componentes.Componentes.ClsButtonCompras ComprasBtnVer;

@@ -12,8 +12,38 @@ namespace CapaVista_OrdenesCompra
         {
             InitializeComponent();
             CapaVista_Componentes.Componentes.ClsPresentacionCompras.ComprasMetFijarTamanoFormulario(this);
+            ComprasCboNombreProveedor.SelectedIndexChanged += ComprasProcActualizarProveedor;
+            ComprasProcActualizarProveedor(this, EventArgs.Empty);
             ComprasProcConfigurarArticulos();
             ComprasProcConfigurarAlturaArticulos();
+        }
+
+        private void ComprasProcActualizarProveedor(object Remitente, EventArgs Evento)
+        {
+            ComprasTxtTelefonoProveedor.Text = string.Empty;
+            ComprasTxtCorreoProveedor.Text = string.Empty;
+            ComprasTxtContactoProveedor.Text = string.Empty;
+            try
+            {
+                ComprasTxtTelefonoProveedor.Text = ComprasCboNombreProveedor
+                    .ComprasFuncObtenerCampoProveedor("telefonoProveedor");
+                ComprasTxtCorreoProveedor.Text = ComprasCboNombreProveedor
+                    .ComprasFuncObtenerCampoProveedor("correoProveedor");
+                try
+                {
+                    ComprasTxtContactoProveedor.Text = ComprasCboNombreProveedor
+                        .ComprasFuncObtenerCampoProveedor("contactoProveedor");
+                }
+                catch (ArgumentException)
+                {
+                    ComprasTxtContactoProveedor.Text = string.Empty;
+                }
+            }
+            catch (Exception Ex)
+            {
+                System.Diagnostics.Debug.WriteLine(Ex);
+                ComprasCboNombreProveedor.ComprasMetMostrarError("No se pudieron obtener los datos del proveedor.");
+            }
         }
 
         private void ComprasProcConfigurarAlturaArticulos()

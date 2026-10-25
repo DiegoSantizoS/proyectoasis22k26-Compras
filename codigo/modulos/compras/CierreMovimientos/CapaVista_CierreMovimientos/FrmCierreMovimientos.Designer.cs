@@ -19,6 +19,8 @@
 
         private void InitializeComponent()
         {
+            this.ComprasTlpFormulario = new System.Windows.Forms.TableLayoutPanel();
+            this.ComprasUsrEncabezadoFormulario = new CapaVista_Componentes.Componentes.UsrEncabezadoCompras();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmCierreMovimientos));
             this.ComprasPnlDesplazamiento = new CapaVista_Componentes.Componentes.ClsPanelVerticalCompras();
             this.ComprasPnlContenido = new System.Windows.Forms.Panel();
@@ -59,7 +61,21 @@
             // ComprasPnlDesplazamiento
             // 
             this.ComprasPnlDesplazamiento.AutoScroll = true;
-            this.ComprasPnlDesplazamiento.Controls.Add(this.ComprasPnlContenido);
+            this.ComprasTlpFormulario.Name = "ComprasTlpFormulario";
+            this.ComprasTlpFormulario.BackColor = CapaVista_Componentes.Componentes.ClsTemaCompras.FondoGeneral;
+            this.ComprasTlpFormulario.Dock = System.Windows.Forms.DockStyle.Top;
+            this.ComprasTlpFormulario.Margin = new System.Windows.Forms.Padding(0);
+            this.ComprasTlpFormulario.ColumnCount = 1;
+            this.ComprasTlpFormulario.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.ComprasTlpFormulario.RowCount = 2;
+            this.ComprasTlpFormulario.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 150F));
+            this.ComprasTlpFormulario.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.ComprasTlpFormulario.Height = 150 + 723;
+            this.ComprasTlpFormulario.Controls.Add(this.ComprasUsrEncabezadoFormulario, 0, 0);
+            this.ComprasTlpFormulario.Controls.Add(this.ComprasPnlContenido, 0, 1);
+            this.ComprasPnlContenido.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ComprasPnlContenido.Margin = new System.Windows.Forms.Padding(0);
+            this.ComprasPnlDesplazamiento.Controls.Add(this.ComprasTlpFormulario);
             this.ComprasPnlDesplazamiento.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ComprasPnlDesplazamiento.Location = new System.Drawing.Point(0, 0);
             this.ComprasPnlDesplazamiento.Margin = new System.Windows.Forms.Padding(0);
@@ -82,7 +98,6 @@
             this.ComprasTlpPrincipal.BackColor = CapaVista_Componentes.Componentes.ClsTemaCompras.FondoGeneral;
             this.ComprasTlpPrincipal.ColumnCount = 1;
             this.ComprasTlpPrincipal.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.ComprasTlpPrincipal.Controls.Add(this.ComprasUsrTitulo, 0, 0);
             this.ComprasTlpPrincipal.Controls.Add(this.ComprasGbxPeriodo, 0, 1);
             this.ComprasTlpPrincipal.Controls.Add(this.ComprasTlpContenido, 0, 2);
             this.ComprasTlpPrincipal.Controls.Add(this.ComprasTlpTotales, 0, 3);
@@ -93,7 +108,7 @@
             this.ComprasTlpPrincipal.Name = "ComprasTlpPrincipal";
             this.ComprasTlpPrincipal.Padding = new System.Windows.Forms.Padding(16);
             this.ComprasTlpPrincipal.RowCount = 5;
-            this.ComprasTlpPrincipal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
+            this.ComprasTlpPrincipal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 0F));
             this.ComprasTlpPrincipal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 80F));
             this.ComprasTlpPrincipal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.ComprasTlpPrincipal.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 80F));
@@ -512,6 +527,14 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = CapaVista_Componentes.Componentes.ClsTemaCompras.FondoGeneral;
             this.ClientSize = new System.Drawing.Size(1300, 700);
+            this.ComprasUsrEncabezadoFormulario.Name = "ComprasUsrEncabezadoFormulario";
+            this.ComprasUsrEncabezadoFormulario.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ComprasUsrEncabezadoFormulario.Height = 130;
+            this.ComprasUsrEncabezadoFormulario.Margin = new System.Windows.Forms.Padding(10);
+            this.ComprasUsrEncabezadoFormulario.TabStop = false;
+            this.ComprasUsrEncabezadoFormulario.Codigo = "6006";
+            this.ComprasUsrEncabezadoFormulario.Titulo = "Cierre de movimientos";
+            this.ComprasUsrEncabezadoFormulario.Descripcion = "Revisa los movimientos y totales del período antes de realizar el cierre de compras.";
             this.Controls.Add(this.ComprasPnlDesplazamiento);
             this.DoubleBuffered = true;
             this.Font = new System.Drawing.Font("Segoe UI", 9F);
@@ -536,6 +559,8 @@
 
         #endregion
 
+        private System.Windows.Forms.TableLayoutPanel ComprasTlpFormulario;
+        private CapaVista_Componentes.Componentes.UsrEncabezadoCompras ComprasUsrEncabezadoFormulario;
         private CapaVista_Componentes.Componentes.ClsTableLayoutPanelCompras ComprasTlpPrincipal;
         private CapaVista_Componentes.Componentes.UsrLabelCompras ComprasUsrTitulo;
         private CapaVista_Componentes.Componentes.ClsGroupBoxCompras ComprasGbxPeriodo;
