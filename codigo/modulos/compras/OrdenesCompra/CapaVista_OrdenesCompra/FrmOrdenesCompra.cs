@@ -21,10 +21,9 @@ namespace CapaVista_OrdenesCompra
             var Tabla = ComprasUsrProductos.Tabla;
             Tabla.RowTemplate.MinimumHeight = ComprasIntAlturaMinimaArticulo;
             Tabla.RowTemplate.Height = Math.Max(Tabla.RowTemplate.Height, ComprasIntAlturaMinimaArticulo);
-            // Size rows from their content, independently of the available panel height.
             Tabla.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             ComprasPnlContenido.MinimumSize = System.Drawing.Size.Empty;
-            ComprasTlpPrincipal.RowStyles[1].SizeType = System.Windows.Forms.SizeType.Absolute;
+            ComprasTlpPrincipal.RowStyles[2].SizeType = System.Windows.Forms.SizeType.Absolute;
             ComprasTlpDetalles.RowStyles[1].SizeType = System.Windows.Forms.SizeType.Absolute;
             Tabla.RowsAdded += (Remitente, Evento) => ComprasProcAjustarAlturaArticulos();
             Tabla.RowsRemoved += (Remitente, Evento) => ComprasProcAjustarAlturaArticulos();
@@ -50,7 +49,6 @@ namespace CapaVista_OrdenesCompra
                 }
                 int Altura = Tabla.ColumnHeadersVisible ? Tabla.ColumnHeadersHeight : 0;
                 Altura += Tabla.Rows.GetRowsHeight(System.Windows.Forms.DataGridViewElementStates.Visible);
-                // Include the wrapper border and any visible horizontal scrollbar.
                 Altura += ComprasUsrProductos.Height - Tabla.ClientSize.Height;
                 foreach (System.Windows.Forms.Control Control in Tabla.Controls)
                 {
@@ -61,9 +59,10 @@ namespace CapaVista_OrdenesCompra
                 int AlturaDetalles = (int)ComprasTlpDetalles.RowStyles[0].Height + Math.Max(1, Altura)
                     + ComprasTlpDetalles.Margin.Vertical + ComprasGbxDetalles.Margin.Vertical
                     + ComprasGbxDetalles.Height - ComprasGbxDetalles.DisplayRectangle.Height;
-                ComprasTlpPrincipal.RowStyles[1].Height = AlturaDetalles;
+                ComprasTlpPrincipal.RowStyles[2].Height = AlturaDetalles;
                 ComprasPnlContenido.Height = (int)ComprasTlpPrincipal.RowStyles[0].Height
-                    + AlturaDetalles + (int)ComprasTlpPrincipal.RowStyles[2].Height
+                    + (int)ComprasTlpPrincipal.RowStyles[1].Height
+                    + AlturaDetalles + (int)ComprasTlpPrincipal.RowStyles[3].Height
                     + ComprasTlpPrincipal.Padding.Vertical + ComprasPnlContenido.Padding.Vertical;
             }
             finally

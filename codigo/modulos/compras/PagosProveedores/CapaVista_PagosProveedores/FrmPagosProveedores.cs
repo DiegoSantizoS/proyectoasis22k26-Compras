@@ -19,6 +19,8 @@ using CapaVista_Componentes.Componentes;
  *  Formulario de Pagos a Proveedores. Carga los combos, llena la
  *  lista de pagos con los filtros, y permite registrar, editar y
  *  eliminar pagos llamando a ClsModeloPagoProveedor.
+ *  Editar y Eliminar son botones externos que actúan sobre la fila
+ *  seleccionada del grid.
  * ===================================================================
 */
 
@@ -48,14 +50,11 @@ namespace CapaVista_PagosProveedores
             ComprasBtnNuevoPago.Click += ComprasMetNuevoPagoClick;
             ComprasBtnGuardar.Click += ComprasMetGuardarClick;
             ComprasBtnCancelar.Click += ComprasMetCancelarClick;
+            ComprasBtnEditar.Click += ComprasMetEditarClick;
+            ComprasBtnEliminar.Click += ComprasMetEliminarClick;
             ComprasMetSuscribirEventos();
         }
 
-        private void ComprasUsrLblTitulo_Click(object sender, EventArgs e)
-        {
-        }
-
-        
         private void ComprasMetFormularioLoad(object sender, EventArgs e)
         {
             try
@@ -63,13 +62,8 @@ namespace CapaVista_PagosProveedores
                 _Cargando = true;
 
                 DataTable Proveedores = _Modelo.ComprasMetObtenerProveedores();
-                DataTable ProveedoresFiltro = Proveedores.Copy();
-                DataRow FilaTodos = ProveedoresFiltro.NewRow();
-                FilaTodos["idProveedor"] = 0;
-                FilaTodos["nombre"] = "Todos";
-                ProveedoresFiltro.Rows.InsertAt(FilaTodos, 0);
-
-                ComprasMetLlenarCombo(ComprasUsrCboProveedor, ProveedoresFiltro, "nombre", "idProveedor");
+                // ComprasUsrCboProveedor es un combo inteligente (TipoDatos = Proveedores):
+                // carga solo los proveedores, por eso no se llena a mano.
                 ComprasMetLlenarCombo(ComprasUsrCboProveedorPago, Proveedores, "nombre", "idProveedor");
                 ComprasMetLlenarCombo(ComprasUsrCboEstado, new List<string> { "Todos", "Pagado", "Programado", "Rechazado", "Anulado" }, null, null);
                 ComprasMetLlenarCombo(ComprasUsrCboMetodo, new List<string> { "Transferencia", "Cheque", "Efectivo", "Deposito" }, null, null);
@@ -79,7 +73,6 @@ namespace CapaVista_PagosProveedores
                 ComprasMetFijarTexto(ComprasUsrTxtDesde, PrimerDia.ToString(_FormatoFecha));
                 ComprasMetFijarTexto(ComprasUsrTxtHasta, PrimerDia.AddMonths(1).AddDays(-1).ToString(_FormatoFecha));
 
-                ComprasMetFijarIndiceCombo(ComprasUsrCboProveedor, 0);
                 ComprasMetFijarIndiceCombo(ComprasUsrCboEstado, 0);
 
                 _Cargando = false;
@@ -177,48 +170,51 @@ namespace CapaVista_PagosProveedores
                 ComprasUsrPagos.Columns["monto"].HeaderText = "Monto";
             if (ComprasUsrPagos.Columns.Contains("estado"))
                 ComprasUsrPagos.Columns["estado"].HeaderText = "Estado";
-
-            if (!ComprasUsrPagos.Columns.Contains("colEditar"))
-            {
-                DataGridViewButtonColumn ColumnaEditar = new DataGridViewButtonColumn();
-                ColumnaEditar.Name = "colEditar";
-                ColumnaEditar.HeaderText = "";
-                ColumnaEditar.Text = "Editar";
-                ColumnaEditar.UseColumnTextForButtonValue = true;
-                ComprasUsrPagos.Columns.Add(ColumnaEditar);
-            }
-
-            if (!ComprasUsrPagos.Columns.Contains("colEliminar"))
-            {
-                DataGridViewButtonColumn ColumnaEliminar = new DataGridViewButtonColumn();
-                ColumnaEliminar.Name = "colEliminar";
-                ColumnaEliminar.HeaderText = "";
-                ColumnaEliminar.Text = "Eliminar";
-                ColumnaEliminar.UseColumnTextForButtonValue = true;
-                ComprasUsrPagos.Columns.Add(ColumnaEliminar);
-            }
         }
 
-        private void ComprasMetDgvPagosCellClick(object sender, DataGridViewCellEventArgs e)
+        // Devuelve la fila seleccionada del grid (o false si no hay ninguna).
+        private bool ComprasFuncObtenerSeleccion(out int IdPago, out string NoPago)
         {
-            if (e.RowIndex < 0 || e.ColumnIndex < 0)
+            IdPago = 0;
+            NoPago = "";
+
+            DataGridViewRow Fila = ComprasUsrPagos.CurrentRow;
+            if (Fila == null || Fila.IsNewRow || !ComprasUsrPagos.Columns.Contains("idPago"))
+            {
+                ComprasMetMostrarAviso("Seleccione un pago de la lista.");
+                return false;
+            }
+
+            IdPago = Convert.ToInt32(Fila.Cells["idPago"].Value);
+            NoPago = Convert.ToString(Fila.Cells["noPago"].Value);
+            return true;
+        }
+
+        private void ComprasMetEditarClick(object sender, EventArgs e)
+        {
+            int IdPago;
+            string NoPago;
+            if (!ComprasFuncObtenerSeleccion(out IdPago, out NoPago))
                 return;
 
             try
             {
-                DataGridViewRow Fila = ComprasUsrPagos.Rows[e.RowIndex];
-                int IdPago = Convert.ToInt32(Fila.Cells["idPago"].Value);
-                string Columna = ComprasUsrPagos.Columns[e.ColumnIndex].Name;
-
-                if (Columna == "colEliminar")
-                    ComprasMetEliminarPago(IdPago, Convert.ToString(Fila.Cells["noPago"].Value));
-                else
-                    ComprasMetCargarParaEditar(IdPago);
+                ComprasMetCargarParaEditar(IdPago);
             }
             catch (Exception Ex)
             {
-                ComprasMetMostrarAviso("No se pudo procesar la fila seleccionada. " + Ex.Message);
+                ComprasMetMostrarAviso("No se pudo cargar el pago. " + Ex.Message);
             }
+        }
+
+        private void ComprasMetEliminarClick(object sender, EventArgs e)
+        {
+            int IdPago;
+            string NoPago;
+            if (!ComprasFuncObtenerSeleccion(out IdPago, out NoPago))
+                return;
+
+            ComprasMetEliminarPago(IdPago, NoPago);
         }
 
         private void ComprasMetLimpiarFormulario()
@@ -426,7 +422,6 @@ namespace CapaVista_PagosProveedores
             }
         }
 
-        
         private void ComprasMetFiltroCambio(object sender, EventArgs e)
         {
             if (_Cargando)
@@ -448,7 +443,6 @@ namespace CapaVista_PagosProveedores
             ComprasMetAutocompletarMonto();
         }
 
- 
         private static int? ComprasFuncEntero(object Valor)
         {
             if (Valor == null || Valor == DBNull.Value)
@@ -483,7 +477,6 @@ namespace CapaVista_PagosProveedores
             MessageBox.Show(Texto, _TituloMensajes, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
-        
         private void ComprasMetSuscribirEventos()
         {
             ComprasUsrCboProveedor.SelectedIndexChanged += ComprasMetFiltroCambio;
@@ -542,6 +535,11 @@ namespace CapaVista_PagosProveedores
         private void ComprasMetFijarTexto(UsrTextBoxCompras Caja, string Texto)
         {
             Caja.Text = Texto;
+        }
+
+        private void ComprasUsrPagos_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

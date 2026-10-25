@@ -31,6 +31,14 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMovimientosProveedores));
+            this.ComprasColFecha = new System.Windows.Forms.DataGridViewColumn();
+            this.ComprasColTipoMovimiento = new System.Windows.Forms.DataGridViewColumn();
+            this.ComprasColDocumento = new System.Windows.Forms.DataGridViewColumn();
+            this.ComprasColDescripcion = new System.Windows.Forms.DataGridViewColumn();
+            this.ComprasColDebe = new System.Windows.Forms.DataGridViewColumn();
+            this.ComprasColHaber = new System.Windows.Forms.DataGridViewColumn();
+            this.ComprasColSaldo = new System.Windows.Forms.DataGridViewColumn();
+            this.ComprasColEstado = new System.Windows.Forms.DataGridViewColumn();
             this.ComprasPnlDesplazamiento = new CapaVista_Componentes.Componentes.ClsPanelVerticalCompras();
             this.ComprasPnlContenido = new System.Windows.Forms.Panel();
             this.ComprasUsrMovimientos = new CapaVista_Componentes.Componentes.UsrDataGridViewCompras();
@@ -55,19 +63,67 @@
             this.ComprasLblEstado = new CapaVista_Componentes.Componentes.ClsEtiquetaCompras();
             this.ComprasLblTipoDeMovimiento = new CapaVista_Componentes.Componentes.ClsEtiquetaCompras();
             this.ComprasLblProveedor = new CapaVista_Componentes.Componentes.ClsEtiquetaCompras();
-            this.ComprasColFecha = new System.Windows.Forms.DataGridViewColumn();
-            this.ComprasColTipoMovimiento = new System.Windows.Forms.DataGridViewColumn();
-            this.ComprasColDocumento = new System.Windows.Forms.DataGridViewColumn();
-            this.ComprasColDescripcion = new System.Windows.Forms.DataGridViewColumn();
-            this.ComprasColDebe = new System.Windows.Forms.DataGridViewColumn();
-            this.ComprasColHaber = new System.Windows.Forms.DataGridViewColumn();
-            this.ComprasColSaldo = new System.Windows.Forms.DataGridViewColumn();
-            this.ComprasColEstado = new System.Windows.Forms.DataGridViewColumn();
             this.ComprasPnlDesplazamiento.SuspendLayout();
             this.ComprasPnlContenido.SuspendLayout();
             this.ComprasPnlProveedor.SuspendLayout();
             this.ComprasPnlFiltros.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // ComprasColFecha
+            // 
+            this.ComprasColFecha.MinimumWidth = 6;
+            this.ComprasColFecha.Name = "ComprasColFecha";
+            this.ComprasColFecha.ReadOnly = true;
+            this.ComprasColFecha.Width = 125;
+            // 
+            // ComprasColTipoMovimiento
+            // 
+            this.ComprasColTipoMovimiento.MinimumWidth = 6;
+            this.ComprasColTipoMovimiento.Name = "ComprasColTipoMovimiento";
+            this.ComprasColTipoMovimiento.ReadOnly = true;
+            this.ComprasColTipoMovimiento.Width = 125;
+            // 
+            // ComprasColDocumento
+            // 
+            this.ComprasColDocumento.MinimumWidth = 6;
+            this.ComprasColDocumento.Name = "ComprasColDocumento";
+            this.ComprasColDocumento.ReadOnly = true;
+            this.ComprasColDocumento.Width = 125;
+            // 
+            // ComprasColDescripcion
+            // 
+            this.ComprasColDescripcion.MinimumWidth = 6;
+            this.ComprasColDescripcion.Name = "ComprasColDescripcion";
+            this.ComprasColDescripcion.ReadOnly = true;
+            this.ComprasColDescripcion.Width = 125;
+            // 
+            // ComprasColDebe
+            // 
+            this.ComprasColDebe.MinimumWidth = 6;
+            this.ComprasColDebe.Name = "ComprasColDebe";
+            this.ComprasColDebe.ReadOnly = true;
+            this.ComprasColDebe.Width = 125;
+            // 
+            // ComprasColHaber
+            // 
+            this.ComprasColHaber.MinimumWidth = 6;
+            this.ComprasColHaber.Name = "ComprasColHaber";
+            this.ComprasColHaber.ReadOnly = true;
+            this.ComprasColHaber.Width = 125;
+            // 
+            // ComprasColSaldo
+            // 
+            this.ComprasColSaldo.MinimumWidth = 6;
+            this.ComprasColSaldo.Name = "ComprasColSaldo";
+            this.ComprasColSaldo.ReadOnly = true;
+            this.ComprasColSaldo.Width = 125;
+            // 
+            // ComprasColEstado
+            // 
+            this.ComprasColEstado.MinimumWidth = 6;
+            this.ComprasColEstado.Name = "ComprasColEstado";
+            this.ComprasColEstado.ReadOnly = true;
+            this.ComprasColEstado.Width = 125;
             // 
             // ComprasPnlDesplazamiento
             // 
@@ -216,11 +272,12 @@
             this.usrComboBoxCompras1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(246)))), ((int)(((byte)(247)))), ((int)(((byte)(250)))));
             this.usrComboBoxCompras1.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.usrComboBoxCompras1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(42)))), ((int)(((byte)(90)))));
-            this.usrComboBoxCompras1.Location = new System.Drawing.Point(23, 42);
+            this.usrComboBoxCompras1.Location = new System.Drawing.Point(23, 55);
             this.usrComboBoxCompras1.Margin = new System.Windows.Forms.Padding(0);
             this.usrComboBoxCompras1.MaxLength = 0;
+            this.usrComboBoxCompras1.MostrarEtiquetaError = false;
             this.usrComboBoxCompras1.Name = "usrComboBoxCompras1";
-            this.usrComboBoxCompras1.Size = new System.Drawing.Size(196, 66);
+            this.usrComboBoxCompras1.Size = new System.Drawing.Size(196, 39);
             this.usrComboBoxCompras1.TabIndex = 14;
             this.usrComboBoxCompras1.TipoDatos = CapaVista_Componentes.Componentes.EnmTipoDatosCompras.Proveedores;
             // 
@@ -331,62 +388,6 @@
             this.ComprasLblProveedor.Size = new System.Drawing.Size(77, 20);
             this.ComprasLblProveedor.TabIndex = 1;
             this.ComprasLblProveedor.Text = "Proveedor";
-            // 
-            // ComprasColFecha
-            // 
-            this.ComprasColFecha.MinimumWidth = 6;
-            this.ComprasColFecha.Name = "ComprasColFecha";
-            this.ComprasColFecha.ReadOnly = true;
-            this.ComprasColFecha.Width = 125;
-            // 
-            // ComprasColTipoMovimiento
-            // 
-            this.ComprasColTipoMovimiento.MinimumWidth = 6;
-            this.ComprasColTipoMovimiento.Name = "ComprasColTipoMovimiento";
-            this.ComprasColTipoMovimiento.ReadOnly = true;
-            this.ComprasColTipoMovimiento.Width = 125;
-            // 
-            // ComprasColDocumento
-            // 
-            this.ComprasColDocumento.MinimumWidth = 6;
-            this.ComprasColDocumento.Name = "ComprasColDocumento";
-            this.ComprasColDocumento.ReadOnly = true;
-            this.ComprasColDocumento.Width = 125;
-            // 
-            // ComprasColDescripcion
-            // 
-            this.ComprasColDescripcion.MinimumWidth = 6;
-            this.ComprasColDescripcion.Name = "ComprasColDescripcion";
-            this.ComprasColDescripcion.ReadOnly = true;
-            this.ComprasColDescripcion.Width = 125;
-            // 
-            // ComprasColDebe
-            // 
-            this.ComprasColDebe.MinimumWidth = 6;
-            this.ComprasColDebe.Name = "ComprasColDebe";
-            this.ComprasColDebe.ReadOnly = true;
-            this.ComprasColDebe.Width = 125;
-            // 
-            // ComprasColHaber
-            // 
-            this.ComprasColHaber.MinimumWidth = 6;
-            this.ComprasColHaber.Name = "ComprasColHaber";
-            this.ComprasColHaber.ReadOnly = true;
-            this.ComprasColHaber.Width = 125;
-            // 
-            // ComprasColSaldo
-            // 
-            this.ComprasColSaldo.MinimumWidth = 6;
-            this.ComprasColSaldo.Name = "ComprasColSaldo";
-            this.ComprasColSaldo.ReadOnly = true;
-            this.ComprasColSaldo.Width = 125;
-            // 
-            // ComprasColEstado
-            // 
-            this.ComprasColEstado.MinimumWidth = 6;
-            this.ComprasColEstado.Name = "ComprasColEstado";
-            this.ComprasColEstado.ReadOnly = true;
-            this.ComprasColEstado.Width = 125;
             // 
             // FrmMovimientosProveedores
             // 
