@@ -22,6 +22,7 @@ $steps = New-Object 'System.Collections.Generic.List[object]'
 $projects = @{}
 $referenceOverrides = New-Object 'System.Collections.Generic.List[object]'
 $securityExecutable = $null
+$comprasExecutable = $null
 $result = 1
 $current = $null
 $shortDrive = $null
@@ -379,6 +380,10 @@ try {
     if ($securityProject.Count -eq 1) {
         $securityExecutable = $repositoryRoot + $securityProject[0].Output.Substring($shortDrive.Length)
     }
+    $comprasProject = @($projects.Values | Where-Object { [IO.Path]::GetFileName($_.Path) -ieq 'Ejecucion_Compras.csproj' })
+    if ($comprasProject.Count -eq 1) {
+        $comprasExecutable = $repositoryRoot + $comprasProject[0].Output.Substring($shortDrive.Length)
+    }
     foreach ($project in $projects.Values) { $null = Get-ProjectWave $project }
     $current = $null
     $runner = Join-Path $runDirectory 'Build.proj'
@@ -460,22 +465,25 @@ while ($true) {
     Write-Status 'Seleccione la siguiente accion' Menu
     Write-Host '1. Volver a compilar' -ForegroundColor Yellow
     Write-Host '2. Ejecutar Ejecucion_Seguridad' -ForegroundColor Green
-    Write-Host '3. Salir' -ForegroundColor Gray
-    Write-Host 'Presione 1, 2 o 3: ' -NoNewline -ForegroundColor Cyan
+    Write-Host '3. Ejecutar Ejecucion_Compras' -ForegroundColor Green
+    Write-Host '4. Salir' -ForegroundColor Gray
+    Write-Host 'Presione 1, 2, 3 o 4: ' -NoNewline -ForegroundColor Cyan
     $option = [Console]::ReadKey($true).KeyChar.ToString()
     Write-Host $option
     if ($option -eq '1') { exit 10 }
-    if ($option -eq '3') { exit $result }
-    if ($option -eq '2') {
+    if ($option -eq '4') { exit $result }
+    if ($option -in @('2','3')) {
         if ($result -ne 0) { Write-Status 'Corrija los errores y vuelva a compilar antes de ejecutar.' Warning; continue }
-        if (!$securityExecutable -or !(Test-Path -LiteralPath $securityExecutable -PathType Leaf)) {
-            Write-Status 'No se encontro Ejecucion_Seguridad.exe.' Error
+        $executable = if ($option -eq '2') { $securityExecutable } else { $comprasExecutable }
+        $executableName = if ($option -eq '2') { 'Ejecucion_Seguridad.exe' } else { 'Ejecucion_Compras.exe' }
+        if (!$executable -or !(Test-Path -LiteralPath $executable -PathType Leaf)) {
+            Write-Status "No se encontro $executableName." Error
             continue
         }
-        Write-Status "Iniciando: $securityExecutable" Success
-        Start-Process -FilePath $securityExecutable -WorkingDirectory (Split-Path $securityExecutable)
+        Write-Status "Iniciando: $executable" Success
+        Start-Process -FilePath $executable -WorkingDirectory (Split-Path $executable)
         exit 0
     }
-    Write-Status 'Opcion no valida. Escriba 1, 2 o 3.' Warning
+    Write-Status 'Opcion no valida. Escriba 1, 2, 3 o 4.' Warning
 }
 
