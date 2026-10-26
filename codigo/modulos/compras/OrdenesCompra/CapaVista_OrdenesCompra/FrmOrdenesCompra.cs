@@ -4,6 +4,19 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using CapaControlador_OrdenesCompra;
 
+/*
+ * ==================================================================
+ * Área : Compras
+ * Autor : Diego Fernando Santizo Samayoa
+ * Carné : 0901-22-15950
+ * Fecha : 24/10/2026
+ * ==================================================================
+ * Propósito :
+ *  Presenta la factura y los datos del proveedor de una orden de compra,
+ *  gestiona las fechas, muestra sus importes y permite su anulación.
+ * ===================================================================
+*/
+
 namespace CapaVista_OrdenesCompra
 {
     public partial class FrmOrdenesCompra : System.Windows.Forms.Form

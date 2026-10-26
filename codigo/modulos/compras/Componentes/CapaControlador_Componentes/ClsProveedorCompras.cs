@@ -3,6 +3,18 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
 
+/*
+ * ==================================================================
+ * Área : Compras
+ * Autor : Miguel David Contreras Jacinto
+ * Carné : 0901-21-3878
+ * Fecha : 24/10/2026
+ * ==================================================================
+ * Propósito :
+ *  Representa los datos del proveedor seleccionado para presentarlos en los formularios de Compras.
+ * ===================================================================
+*/
+
 namespace CapaControlador_Componentes
 {
     public sealed class ClsProveedorCompras

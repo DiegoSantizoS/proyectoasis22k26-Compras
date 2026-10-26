@@ -1,13 +1,18 @@
-
-
-
-
-
-
-
-
 using System.Windows.Forms;
-using CapaVista_MovimientosProveedores; 
+using CapaVista_MovimientosProveedores;
+
+/*
+ * ==================================================================
+ * Área : Compras
+ * Autor : Carlos Andres Arriaza Lara
+ * Carné : 0901-23-13862
+ * Fecha : 24/10/2026
+ * ==================================================================
+ * Propósito :
+ *  Abre el formulario de Movimientos de Proveedores en una ventana modal para realizar pruebas de presentación.
+ * ===================================================================
+*/
+
 namespace Ejecucion_PruebaMovimientos
 {
     public partial class FrmPruebaMovimientos : Form

@@ -1,5 +1,17 @@
-﻿using System.Windows.Forms;
+using System.Windows.Forms;
 using System.Drawing;
+
+/*
+ * ==================================================================
+ * Área : Compras
+ * Autor : Diego Fernando Santizo Samayoa
+ * Carné : 0901-22-15950
+ * Fecha : 24/10/2026
+ * ==================================================================
+ * Propósito :
+ *  Centraliza los tamaños de formularios, la presentación monetaria y la configuración visual compartida.
+ * ===================================================================
+*/
 
 namespace CapaVista_Componentes.Componentes
 {

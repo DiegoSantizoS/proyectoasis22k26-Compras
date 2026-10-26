@@ -4,6 +4,19 @@ using CapaModelo_Componentes.Repositorios;
 using System.Globalization;
 using CapaModelo_OrdenesCompra;
 
+/*
+ * ==================================================================
+ * Área : Compras
+ * Autor : Diego Fernando Santizo Samayoa
+ * Carné : 0901-22-15950
+ * Fecha : 24/10/2026
+ * ==================================================================
+ * Propósito :
+ *  Valida y coordina la creación, consulta, filtrado y anulación de
+ *  compras por pagar, así como la actualización de su vencimiento.
+ * ===================================================================
+*/
+
 namespace CapaControlador_OrdenesCompra
 {
     public sealed class ClsComprasPorPagar

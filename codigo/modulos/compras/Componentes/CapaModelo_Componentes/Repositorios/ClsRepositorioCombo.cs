@@ -3,6 +3,18 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Odbc;
 
+/*
+ * ==================================================================
+ * Área : Compras
+ * Autor : Miguel David Contreras Jacinto
+ * Carné : 0901-21-3878
+ * Fecha : 24/10/2026
+ * ==================================================================
+ * Propósito :
+ *  Consulta los datos de proveedores mediante sentencias parametrizadas para los selectores de Compras.
+ * ===================================================================
+*/
+
 namespace CapaModelo_Componentes.Repositorios
 {
     public class ClsRepositorioCombo : ClsRepositorioMaestroCompras

@@ -1,6 +1,18 @@
-﻿using System.ComponentModel;
+using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
+
+/*
+ * ==================================================================
+ * Área : Compras
+ * Autor : Carlos Andres Arriaza Lara
+ * Carné : 0901-23-13862
+ * Fecha : 24/10/2026
+ * ==================================================================
+ * Propósito :
+ *  Aplica la presentación y el comportamiento común de los selectores de fecha de Compras.
+ * ===================================================================
+*/
 
 namespace CapaVista_Componentes.Componentes
 {

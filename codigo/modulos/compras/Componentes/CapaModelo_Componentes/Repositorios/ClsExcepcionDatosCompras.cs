@@ -1,6 +1,18 @@
 using System;
 using System.Data.Odbc;
 
+/*
+ * ==================================================================
+ * Área : Compras
+ * Autor : Diego Fernando Santizo Samayoa
+ * Carné : 0901-22-15950
+ * Fecha : 24/10/2026
+ * ==================================================================
+ * Propósito :
+ *  Representa los errores de acceso a datos y proporciona mensajes comprensibles para Compras.
+ * ===================================================================
+*/
+
 namespace CapaModelo_Componentes.Repositorios
 {
     public sealed class ClsExcepcionDatosCompras : Exception

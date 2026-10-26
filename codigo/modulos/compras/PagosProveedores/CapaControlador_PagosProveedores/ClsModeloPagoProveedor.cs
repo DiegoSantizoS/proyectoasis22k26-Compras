@@ -10,15 +10,13 @@ using CapaModelo_PagosProveedores.Contratos;
 /*
  * ==================================================================
  * Área : Compras
- * Autor : [Tu nombre completo]
- * Carné : [Tu carné]
+ * Autor : Diana Mishel Loeiza Ramírez
+ * Carné : 9959-23-3457
  * Fecha : 20/10/2026
  * ==================================================================
  * Propósito :
- *  La clase de Modelo Controlador del módulo de Pagos a Proveedores.
- *  En esta clase se encuentran las validaciones necesarias para el
- *  buen funcionamiento del sistema, los campos requeridos y el
- *  manejo de errores al grabar, editar o eliminar un pago.
+ *  Valida los datos de los pagos a proveedores y coordina su registro,
+ *  modificación, eliminación y consulta mediante el repositorio.
  * ===================================================================
 */
 

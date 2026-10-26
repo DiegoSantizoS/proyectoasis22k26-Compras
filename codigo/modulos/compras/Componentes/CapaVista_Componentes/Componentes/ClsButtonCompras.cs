@@ -5,6 +5,18 @@ using System.ComponentModel.Design.Serialization;
 using System.Drawing;
 using System.Windows.Forms;
 
+/*
+ * ==================================================================
+ * Área : Compras
+ * Autor : Diego Fernando Santizo Samayoa
+ * Carné : 0901-22-15950
+ * Fecha : 24/10/2026
+ * ==================================================================
+ * Propósito :
+ *  Define los estilos y estados de los botones de Compras y su serialización para el diseñador.
+ * ===================================================================
+*/
+
 namespace CapaVista_Componentes.Componentes
 {
     public enum ComprasTipoBoton

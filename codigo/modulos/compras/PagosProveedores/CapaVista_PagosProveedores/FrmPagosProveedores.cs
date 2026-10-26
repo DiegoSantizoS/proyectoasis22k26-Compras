@@ -11,16 +11,13 @@ using CapaVista_Componentes.Componentes;
 /*
  * ==================================================================
  * Área : Compras
- * Autor : Diana Mishel Loeiza Ramirez
+ * Autor : Diana Mishel Loeiza Ramírez
  * Carné : 9959-23-3457
  * Fecha : 20/10/2026
  * ==================================================================
  * Propósito :
- *  Formulario de Pagos a Proveedores. Carga los combos, llena la
- *  lista de pagos con los filtros, y permite registrar, editar y
- *  eliminar pagos llamando a ClsModeloPagoProveedor.
- *  Editar y Eliminar son botones externos que actúan sobre la fila
- *  seleccionada del grid.
+ *  Presenta los pagos a proveedores, administra los filtros y la selección
+ *  de facturas, y coordina las acciones del usuario con el controlador.
  * ===================================================================
 */
 
@@ -62,8 +59,8 @@ namespace CapaVista_PagosProveedores
                 _Cargando = true;
 
                 DataTable Proveedores = _Modelo.ComprasMetObtenerProveedores();
-                // ComprasUsrCboProveedor es un combo inteligente (TipoDatos = Proveedores):
-                // carga solo los proveedores, por eso no se llena a mano.
+                
+                
                 ComprasMetLlenarCombo(ComprasCboProveedorPago, Proveedores, "nombre", "idProveedor");
                 ComprasMetLlenarCombo(ComprasCboEstado, new List<string> { "Todos", "Pagado", "Programado", "Rechazado", "Anulado" }, null, null);
                 ComprasMetLlenarCombo(ComprasCboMetodo, new List<string> { "Transferencia", "Cheque", "Efectivo", "Deposito" }, null, null);
@@ -172,7 +169,7 @@ namespace CapaVista_PagosProveedores
                 ComprasDgvPagos.Columns["estado"].HeaderText = "Estado";
         }
 
-        // Devuelve la fila seleccionada del grid (o false si no hay ninguna).
+        
         private bool ComprasFuncObtenerSeleccion(out int IdPago, out string NoPago)
         {
             IdPago = 0;

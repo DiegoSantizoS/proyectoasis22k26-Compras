@@ -1,5 +1,17 @@
-﻿using System.ComponentModel;
+using System.ComponentModel;
 using System.Windows.Forms;
+
+/*
+ * ==================================================================
+ * Área : Compras
+ * Autor : Diego Fernando Santizo Samayoa
+ * Carné : 0901-22-15950
+ * Fecha : 24/10/2026
+ * ==================================================================
+ * Propósito :
+ *  Presenta el código, título y descripción de los formularios de Compras.
+ * ===================================================================
+*/
 
 namespace CapaVista_Componentes.Componentes
 {

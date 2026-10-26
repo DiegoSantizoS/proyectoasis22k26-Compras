@@ -2,6 +2,18 @@ using System;
 using System.ComponentModel;
 using System.Windows.Forms;
 
+/*
+ * ==================================================================
+ * Área : Compras
+ * Autor : Carlos Andres Arriaza Lara
+ * Carné : 0901-23-13862
+ * Fecha : 24/10/2026
+ * ==================================================================
+ * Propósito :
+ *  Administra un rango de fechas válido y notifica sus cambios a los formularios de Compras.
+ * ===================================================================
+*/
+
 namespace CapaVista_Componentes.Componentes
 {
     [DefaultProperty("FechaInicio")]

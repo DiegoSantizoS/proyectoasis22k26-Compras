@@ -3,8 +3,17 @@ using CapaModelo_Componentes.Repositorios;
 
 using System.Data;
 
-
-
+/*
+ * ==================================================================
+ * Área : Compras
+ * Autor : Miguel David Contreras Jacinto
+ * Carné : 0901-21-3878
+ * Fecha : 24/10/2026
+ * ==================================================================
+ * Propósito :
+ *  Coordina la consulta de datos que utilizan los selectores de Compras.
+ * ===================================================================
+*/
 
 namespace CapaControlador_Componentes
 {

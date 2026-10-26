@@ -3,9 +3,22 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 
+/*
+ * ==================================================================
+ * Área : Compras
+ * Autor : Pedro José Gómez Villalobos
+ * Carné : 0901-23-4868
+ * Fecha : 24/10/2026
+ * ==================================================================
+ * Propósito :
+ *  Presenta un campo de texto reutilizable con validación, mensajes de
+ *  error y formato monetario para los formularios de Compras.
+ * ===================================================================
+*/
+
 namespace CapaVista_Componentes.Componentes
 {
-    // -- Enumeración para los tipos de moneda disponibles --
+    
     public enum ComprasEnumTipoMoneda
     {
         Quetzales,
@@ -30,7 +43,7 @@ namespace CapaVista_Componentes.Componentes
         private bool _RestaurandoEntero;
         private string _UltimoTextoEntero = string.Empty;
 
-        // --- Variables privadas para el control de moneda ---
+        
         private bool _ModoMoneda = false;
         private ComprasEnumTipoMoneda _TipoMoneda = ComprasEnumTipoMoneda.Quetzales;
         private bool _ProtegiendoMoneda = false;
@@ -157,7 +170,7 @@ namespace CapaVista_Componentes.Componentes
                 ComprasProcActualizarEspacioError();
             }
         }
-        // --- Propiedades de Moneda ---
+        
         [Category("Compras")]
         [Description("Activa o desactiva el comportamiento de máscara de moneda en el TextBox.")]
         [DefaultValue(false)]
@@ -192,7 +205,7 @@ namespace CapaVista_Componentes.Componentes
                 if (_ModoMoneda) ComprasMetAplicarFormatoMoneda();
             }
         }
-        // --- Fin Propiedades de Moneda ---
+        
         private void ComprasProcActualizarEspacioError()
         {
             if (ComprasLblError == null || ComprasTlpMain == null) return;
@@ -222,7 +235,7 @@ namespace CapaVista_Componentes.Componentes
 
             ComprasTxtTexto.KeyDown += (Sender, Evento) => OnKeyDown(Evento);
             ComprasTxtTexto.KeyPress += (Sender, Evento) =>
-            // -- Validación de teclas para el modo moneda
+            
             {
                 if (_ModoMoneda) ComprasProcValidarTeclasMoneda(Evento);
                 OnKeyPress(Evento);
@@ -233,11 +246,11 @@ namespace CapaVista_Componentes.Componentes
                     if (!ComprasFuncEsTextoEntero(Propuesto)) Evento.Handled = true;
                 }
             };
-            // -- Fin Validación de teclas para el modo moneda
+            
             ComprasTxtTexto.KeyUp += (Sender, Evento) => OnKeyUp(Evento);
             ComprasTxtTexto.MouseClick += (Sender, Evento) => OnMouseClick(Evento);
 
-            // Intervención para el formato visual al entrar y salir
+            
             ComprasTxtTexto.Enter += (Sender, Evento) =>
             {
                 ComprasProcActualizarBorde();
@@ -248,11 +261,11 @@ namespace CapaVista_Componentes.Componentes
                 ComprasProcActualizarBorde();
                 if (_ModoMoneda) ComprasMetAplicarFormatoMoneda();
             };
-            // Fin Intervención para el formato visual al entrar y salir
+            
             ComprasMetLimpiarError();
         }
 
-        // --- Lógica de Moneda ---
+        
 
         private string ComprasFuncObtenerSimboloMoneda()
         {
@@ -320,7 +333,7 @@ namespace CapaVista_Componentes.Componentes
             }
         }
 
-        // --- Fin Lógica de Moneda ---
+        
 
         private void ComprasProcTextoCambiado(EventArgs Evento)
         {
@@ -347,7 +360,7 @@ namespace CapaVista_Componentes.Componentes
             _VersionTexto++;
             ComprasMetLimpiarError();
 
-            // -- no permitir que el usuario borre el símbolo de moneda al cambiar el texto
+            
             if (_ModoMoneda && !_ProtegiendoMoneda && ComprasTxtTexto.Focused)
             {
                 _ProtegiendoMoneda = true;
@@ -363,7 +376,7 @@ namespace CapaVista_Componentes.Componentes
                 }
                 _ProtegiendoMoneda = false;
             }
-            // -- Fin no permitir que el usuario borre el símbolo de moneda al cambiar el texto
+            
             ComprasProcAplicarFormatoTexto();
             OnTextChanged(Evento);
         }

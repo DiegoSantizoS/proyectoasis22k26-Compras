@@ -3,13 +3,25 @@ using System.Data;
 using System.Windows.Forms;
 using CapaVista_Componentes.Componentes;
 
+/*
+ * ==================================================================
+ * Área : Compras
+ * Autor : Carlos Andres Arriaza Lara
+ * Carné : 0901-23-13862
+ * Fecha : 24/10/2026
+ * ==================================================================
+ * Propósito :
+ *  Presenta los filtros, los datos del proveedor y la tabla de movimientos de demostración con sus importes y estados.
+ * ===================================================================
+*/
+
 namespace CapaVista_MovimientosProveedores
 {
     public partial class FrmMovimientosProveedores : System.Windows.Forms.Form
     {
         private readonly object[,] _Movimientos =
         {
-            // Fecha, Tipo de movimiento, Documento, Descripción, Debe, Haber, Saldo, Estado
+            
 
             {
                 new DateTime(2026, 10, 1),

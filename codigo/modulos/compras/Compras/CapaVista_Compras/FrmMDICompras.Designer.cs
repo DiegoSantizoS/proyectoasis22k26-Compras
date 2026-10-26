@@ -141,7 +141,7 @@ namespace CapaVista_Compras
             // 
             // ComprasTlpPrincipal
             // 
-            this.ComprasTlpPrincipal.BackColor = CapaVista_Componentes.Componentes.ClsTemaCompras.FondoGeneral;
+            this.ComprasTlpPrincipal.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(246)))), ((int)(((byte)(247)))), ((int)(((byte)(250)))));
             this.ComprasTlpPrincipal.ColumnCount = 2;
             this.ComprasTlpPrincipal.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 286F));
             this.ComprasTlpPrincipal.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
@@ -160,7 +160,7 @@ namespace CapaVista_Compras
             // 
             // ComprasTlpNavegador
             // 
-            this.ComprasTlpNavegador.BackColor = CapaVista_Componentes.Componentes.ClsTemaCompras.FondoGeneral;
+            this.ComprasTlpNavegador.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(246)))), ((int)(((byte)(247)))), ((int)(((byte)(250)))));
             this.ComprasTlpNavegador.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ComprasTlpNavegador.BackgroundImage")));
             this.ComprasTlpNavegador.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ComprasTlpNavegador.ColumnCount = 1;
@@ -222,7 +222,7 @@ namespace CapaVista_Compras
             this.ComprasTlpMovimientosProveedores.Controls.Add(this.ComprasLblMovimientosProveedores, 1, 0);
             this.ComprasTlpMovimientosProveedores.Cursor = System.Windows.Forms.Cursors.Hand;
             this.ComprasTlpMovimientosProveedores.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ComprasTlpMovimientosProveedores.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.FondoGeneral;
+            this.ComprasTlpMovimientosProveedores.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(246)))), ((int)(((byte)(247)))), ((int)(((byte)(250)))));
             this.ComprasTlpMovimientosProveedores.ImagenHover = ((System.Drawing.Image)(resources.GetObject("ComprasTlpMovimientosProveedores.ImagenHover")));
             this.ComprasTlpMovimientosProveedores.ImagenNormal = ((System.Drawing.Image)(resources.GetObject("ComprasTlpMovimientosProveedores.ImagenNormal")));
             this.ComprasTlpMovimientosProveedores.ImagenSeleccionado = ((System.Drawing.Image)(resources.GetObject("ComprasTlpMovimientosProveedores.ImagenSeleccionado")));
@@ -250,7 +250,7 @@ namespace CapaVista_Compras
             this.ComprasBtnIconoMovimientosProveedores.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.ComprasBtnIconoMovimientosProveedores.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ComprasBtnIconoMovimientosProveedores.Font = new System.Drawing.Font("Tahoma", 10F);
-            this.ComprasBtnIconoMovimientosProveedores.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.PrincipalNavegador;
+            this.ComprasBtnIconoMovimientosProveedores.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(42)))), ((int)(((byte)(90)))));
             this.ComprasBtnIconoMovimientosProveedores.Location = new System.Drawing.Point(2, 7);
             this.ComprasBtnIconoMovimientosProveedores.Margin = new System.Windows.Forms.Padding(0);
             this.ComprasBtnIconoMovimientosProveedores.Name = "ComprasBtnIconoMovimientosProveedores";
@@ -263,11 +263,11 @@ namespace CapaVista_Compras
             // 
             this.ComprasLblMovimientosProveedores.AlineacionTexto = System.Drawing.ContentAlignment.MiddleLeft;
             this.ComprasLblMovimientosProveedores.BackColor = System.Drawing.Color.Transparent;
-            this.ComprasLblMovimientosProveedores.ColorTexto = CapaVista_Componentes.Componentes.ClsTemaCompras.FondoGeneral;
+            this.ComprasLblMovimientosProveedores.ColorTexto = System.Drawing.Color.FromArgb(((int)(((byte)(246)))), ((int)(((byte)(247)))), ((int)(((byte)(250)))));
             this.ComprasLblMovimientosProveedores.Cursor = System.Windows.Forms.Cursors.Hand;
             this.ComprasLblMovimientosProveedores.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ComprasLblMovimientosProveedores.Font = new System.Drawing.Font("Tahoma", 10F);
-            this.ComprasLblMovimientosProveedores.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.FondoGeneral;
+            this.ComprasLblMovimientosProveedores.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(246)))), ((int)(((byte)(247)))), ((int)(((byte)(250)))));
             this.ComprasLblMovimientosProveedores.Location = new System.Drawing.Point(67, 4);
             this.ComprasLblMovimientosProveedores.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.ComprasLblMovimientosProveedores.MaximumSize = new System.Drawing.Size(1125, 0);
@@ -294,7 +294,7 @@ namespace CapaVista_Compras
             this.ComprasTlpPolizas.Controls.Add(this.ComprasLblPolizas, 1, 0);
             this.ComprasTlpPolizas.Cursor = System.Windows.Forms.Cursors.Hand;
             this.ComprasTlpPolizas.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ComprasTlpPolizas.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.FondoGeneral;
+            this.ComprasTlpPolizas.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(246)))), ((int)(((byte)(247)))), ((int)(((byte)(250)))));
             this.ComprasTlpPolizas.ImagenHover = ((System.Drawing.Image)(resources.GetObject("ComprasTlpPolizas.ImagenHover")));
             this.ComprasTlpPolizas.ImagenNormal = ((System.Drawing.Image)(resources.GetObject("ComprasTlpPolizas.ImagenNormal")));
             this.ComprasTlpPolizas.ImagenSeleccionado = ((System.Drawing.Image)(resources.GetObject("ComprasTlpPolizas.ImagenSeleccionado")));
@@ -322,7 +322,7 @@ namespace CapaVista_Compras
             this.ComprasBtnIconoPolizas.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.ComprasBtnIconoPolizas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ComprasBtnIconoPolizas.Font = new System.Drawing.Font("Tahoma", 10F);
-            this.ComprasBtnIconoPolizas.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.PrincipalNavegador;
+            this.ComprasBtnIconoPolizas.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(42)))), ((int)(((byte)(90)))));
             this.ComprasBtnIconoPolizas.Location = new System.Drawing.Point(5, 7);
             this.ComprasBtnIconoPolizas.Margin = new System.Windows.Forms.Padding(0, 0, 5, 0);
             this.ComprasBtnIconoPolizas.Name = "ComprasBtnIconoPolizas";
@@ -335,11 +335,11 @@ namespace CapaVista_Compras
             // 
             this.ComprasLblPolizas.AlineacionTexto = System.Drawing.ContentAlignment.MiddleLeft;
             this.ComprasLblPolizas.BackColor = System.Drawing.Color.Transparent;
-            this.ComprasLblPolizas.ColorTexto = CapaVista_Componentes.Componentes.ClsTemaCompras.FondoGeneral;
+            this.ComprasLblPolizas.ColorTexto = System.Drawing.Color.FromArgb(((int)(((byte)(246)))), ((int)(((byte)(247)))), ((int)(((byte)(250)))));
             this.ComprasLblPolizas.Cursor = System.Windows.Forms.Cursors.Hand;
             this.ComprasLblPolizas.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ComprasLblPolizas.Font = new System.Drawing.Font("Tahoma", 10F);
-            this.ComprasLblPolizas.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.FondoGeneral;
+            this.ComprasLblPolizas.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(246)))), ((int)(((byte)(247)))), ((int)(((byte)(250)))));
             this.ComprasLblPolizas.Location = new System.Drawing.Point(67, 4);
             this.ComprasLblPolizas.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.ComprasLblPolizas.MaximumSize = new System.Drawing.Size(1125, 0);
@@ -366,7 +366,7 @@ namespace CapaVista_Compras
             this.ComprasTlpProveedores.Controls.Add(this.ComprasLblProveedores, 1, 0);
             this.ComprasTlpProveedores.Cursor = System.Windows.Forms.Cursors.Hand;
             this.ComprasTlpProveedores.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ComprasTlpProveedores.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.FondoGeneral;
+            this.ComprasTlpProveedores.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(246)))), ((int)(((byte)(247)))), ((int)(((byte)(250)))));
             this.ComprasTlpProveedores.ImagenHover = ((System.Drawing.Image)(resources.GetObject("ComprasTlpProveedores.ImagenHover")));
             this.ComprasTlpProveedores.ImagenNormal = ((System.Drawing.Image)(resources.GetObject("ComprasTlpProveedores.ImagenNormal")));
             this.ComprasTlpProveedores.ImagenSeleccionado = ((System.Drawing.Image)(resources.GetObject("ComprasTlpProveedores.ImagenSeleccionado")));
@@ -394,7 +394,7 @@ namespace CapaVista_Compras
             this.ComprasBtnIconoProveedores.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.ComprasBtnIconoProveedores.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ComprasBtnIconoProveedores.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ComprasBtnIconoProveedores.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.PrincipalNavegador;
+            this.ComprasBtnIconoProveedores.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(42)))), ((int)(((byte)(90)))));
             this.ComprasBtnIconoProveedores.Location = new System.Drawing.Point(5, 7);
             this.ComprasBtnIconoProveedores.Margin = new System.Windows.Forms.Padding(0, 0, 5, 0);
             this.ComprasBtnIconoProveedores.Name = "ComprasBtnIconoProveedores";
@@ -407,11 +407,11 @@ namespace CapaVista_Compras
             // 
             this.ComprasLblProveedores.AlineacionTexto = System.Drawing.ContentAlignment.MiddleLeft;
             this.ComprasLblProveedores.BackColor = System.Drawing.Color.Transparent;
-            this.ComprasLblProveedores.ColorTexto = CapaVista_Componentes.Componentes.ClsTemaCompras.FondoGeneral;
+            this.ComprasLblProveedores.ColorTexto = System.Drawing.Color.FromArgb(((int)(((byte)(246)))), ((int)(((byte)(247)))), ((int)(((byte)(250)))));
             this.ComprasLblProveedores.Cursor = System.Windows.Forms.Cursors.Hand;
             this.ComprasLblProveedores.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ComprasLblProveedores.Font = new System.Drawing.Font("Tahoma", 10F);
-            this.ComprasLblProveedores.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.FondoGeneral;
+            this.ComprasLblProveedores.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(246)))), ((int)(((byte)(247)))), ((int)(((byte)(250)))));
             this.ComprasLblProveedores.Location = new System.Drawing.Point(67, 4);
             this.ComprasLblProveedores.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.ComprasLblProveedores.MaximumSize = new System.Drawing.Size(1125, 0);
@@ -438,7 +438,7 @@ namespace CapaVista_Compras
             this.ComprasTlpOrdenesCompra.Controls.Add(this.ComprasLblOrdenesCompra, 1, 0);
             this.ComprasTlpOrdenesCompra.Cursor = System.Windows.Forms.Cursors.Hand;
             this.ComprasTlpOrdenesCompra.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ComprasTlpOrdenesCompra.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.FondoGeneral;
+            this.ComprasTlpOrdenesCompra.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(246)))), ((int)(((byte)(247)))), ((int)(((byte)(250)))));
             this.ComprasTlpOrdenesCompra.ImagenHover = ((System.Drawing.Image)(resources.GetObject("ComprasTlpOrdenesCompra.ImagenHover")));
             this.ComprasTlpOrdenesCompra.ImagenNormal = ((System.Drawing.Image)(resources.GetObject("ComprasTlpOrdenesCompra.ImagenNormal")));
             this.ComprasTlpOrdenesCompra.ImagenSeleccionado = ((System.Drawing.Image)(resources.GetObject("ComprasTlpOrdenesCompra.ImagenSeleccionado")));
@@ -466,7 +466,7 @@ namespace CapaVista_Compras
             this.ComprasBtnIconoOrdenesCompra.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.ComprasBtnIconoOrdenesCompra.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ComprasBtnIconoOrdenesCompra.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ComprasBtnIconoOrdenesCompra.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.PrincipalNavegador;
+            this.ComprasBtnIconoOrdenesCompra.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(42)))), ((int)(((byte)(90)))));
             this.ComprasBtnIconoOrdenesCompra.Location = new System.Drawing.Point(5, 7);
             this.ComprasBtnIconoOrdenesCompra.Margin = new System.Windows.Forms.Padding(0, 0, 5, 0);
             this.ComprasBtnIconoOrdenesCompra.Name = "ComprasBtnIconoOrdenesCompra";
@@ -479,11 +479,11 @@ namespace CapaVista_Compras
             // 
             this.ComprasLblOrdenesCompra.AlineacionTexto = System.Drawing.ContentAlignment.MiddleLeft;
             this.ComprasLblOrdenesCompra.BackColor = System.Drawing.Color.Transparent;
-            this.ComprasLblOrdenesCompra.ColorTexto = CapaVista_Componentes.Componentes.ClsTemaCompras.FondoGeneral;
+            this.ComprasLblOrdenesCompra.ColorTexto = System.Drawing.Color.FromArgb(((int)(((byte)(246)))), ((int)(((byte)(247)))), ((int)(((byte)(250)))));
             this.ComprasLblOrdenesCompra.Cursor = System.Windows.Forms.Cursors.Hand;
             this.ComprasLblOrdenesCompra.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ComprasLblOrdenesCompra.Font = new System.Drawing.Font("Tahoma", 10F);
-            this.ComprasLblOrdenesCompra.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.FondoGeneral;
+            this.ComprasLblOrdenesCompra.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(246)))), ((int)(((byte)(247)))), ((int)(((byte)(250)))));
             this.ComprasLblOrdenesCompra.Location = new System.Drawing.Point(67, 4);
             this.ComprasLblOrdenesCompra.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.ComprasLblOrdenesCompra.MaximumSize = new System.Drawing.Size(1125, 0);
@@ -510,7 +510,7 @@ namespace CapaVista_Compras
             this.ComprasTlpPagosProveedores.Controls.Add(this.ComprasLblPagosProveedores, 1, 0);
             this.ComprasTlpPagosProveedores.Cursor = System.Windows.Forms.Cursors.Hand;
             this.ComprasTlpPagosProveedores.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ComprasTlpPagosProveedores.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.FondoGeneral;
+            this.ComprasTlpPagosProveedores.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(246)))), ((int)(((byte)(247)))), ((int)(((byte)(250)))));
             this.ComprasTlpPagosProveedores.ImagenHover = ((System.Drawing.Image)(resources.GetObject("ComprasTlpPagosProveedores.ImagenHover")));
             this.ComprasTlpPagosProveedores.ImagenNormal = ((System.Drawing.Image)(resources.GetObject("ComprasTlpPagosProveedores.ImagenNormal")));
             this.ComprasTlpPagosProveedores.ImagenSeleccionado = ((System.Drawing.Image)(resources.GetObject("ComprasTlpPagosProveedores.ImagenSeleccionado")));
@@ -538,7 +538,7 @@ namespace CapaVista_Compras
             this.ComprasBtnIconoPagosProveedores.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.ComprasBtnIconoPagosProveedores.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ComprasBtnIconoPagosProveedores.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ComprasBtnIconoPagosProveedores.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.PrincipalNavegador;
+            this.ComprasBtnIconoPagosProveedores.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(42)))), ((int)(((byte)(90)))));
             this.ComprasBtnIconoPagosProveedores.Location = new System.Drawing.Point(5, 7);
             this.ComprasBtnIconoPagosProveedores.Margin = new System.Windows.Forms.Padding(0, 0, 5, 0);
             this.ComprasBtnIconoPagosProveedores.Name = "ComprasBtnIconoPagosProveedores";
@@ -551,11 +551,11 @@ namespace CapaVista_Compras
             // 
             this.ComprasLblPagosProveedores.AlineacionTexto = System.Drawing.ContentAlignment.MiddleLeft;
             this.ComprasLblPagosProveedores.BackColor = System.Drawing.Color.Transparent;
-            this.ComprasLblPagosProveedores.ColorTexto = CapaVista_Componentes.Componentes.ClsTemaCompras.FondoGeneral;
+            this.ComprasLblPagosProveedores.ColorTexto = System.Drawing.Color.FromArgb(((int)(((byte)(246)))), ((int)(((byte)(247)))), ((int)(((byte)(250)))));
             this.ComprasLblPagosProveedores.Cursor = System.Windows.Forms.Cursors.Hand;
             this.ComprasLblPagosProveedores.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ComprasLblPagosProveedores.Font = new System.Drawing.Font("Tahoma", 10F);
-            this.ComprasLblPagosProveedores.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.FondoGeneral;
+            this.ComprasLblPagosProveedores.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(246)))), ((int)(((byte)(247)))), ((int)(((byte)(250)))));
             this.ComprasLblPagosProveedores.Location = new System.Drawing.Point(67, 4);
             this.ComprasLblPagosProveedores.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.ComprasLblPagosProveedores.MaximumSize = new System.Drawing.Size(1125, 0);
@@ -582,7 +582,7 @@ namespace CapaVista_Compras
             this.ComprasTlpAprobacionFinanciera.Controls.Add(this.ComprasLblAprobacionFinanciera, 1, 0);
             this.ComprasTlpAprobacionFinanciera.Cursor = System.Windows.Forms.Cursors.Hand;
             this.ComprasTlpAprobacionFinanciera.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ComprasTlpAprobacionFinanciera.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.FondoGeneral;
+            this.ComprasTlpAprobacionFinanciera.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(246)))), ((int)(((byte)(247)))), ((int)(((byte)(250)))));
             this.ComprasTlpAprobacionFinanciera.ImagenHover = ((System.Drawing.Image)(resources.GetObject("ComprasTlpAprobacionFinanciera.ImagenHover")));
             this.ComprasTlpAprobacionFinanciera.ImagenNormal = ((System.Drawing.Image)(resources.GetObject("ComprasTlpAprobacionFinanciera.ImagenNormal")));
             this.ComprasTlpAprobacionFinanciera.ImagenSeleccionado = ((System.Drawing.Image)(resources.GetObject("ComprasTlpAprobacionFinanciera.ImagenSeleccionado")));
@@ -610,7 +610,7 @@ namespace CapaVista_Compras
             this.ComprasBtnIconoAprobacionFinanciera.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.ComprasBtnIconoAprobacionFinanciera.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ComprasBtnIconoAprobacionFinanciera.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ComprasBtnIconoAprobacionFinanciera.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.PrincipalNavegador;
+            this.ComprasBtnIconoAprobacionFinanciera.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(42)))), ((int)(((byte)(90)))));
             this.ComprasBtnIconoAprobacionFinanciera.Location = new System.Drawing.Point(5, 7);
             this.ComprasBtnIconoAprobacionFinanciera.Margin = new System.Windows.Forms.Padding(0, 0, 5, 0);
             this.ComprasBtnIconoAprobacionFinanciera.Name = "ComprasBtnIconoAprobacionFinanciera";
@@ -623,11 +623,11 @@ namespace CapaVista_Compras
             // 
             this.ComprasLblAprobacionFinanciera.AlineacionTexto = System.Drawing.ContentAlignment.MiddleLeft;
             this.ComprasLblAprobacionFinanciera.BackColor = System.Drawing.Color.Transparent;
-            this.ComprasLblAprobacionFinanciera.ColorTexto = CapaVista_Componentes.Componentes.ClsTemaCompras.FondoGeneral;
+            this.ComprasLblAprobacionFinanciera.ColorTexto = System.Drawing.Color.FromArgb(((int)(((byte)(246)))), ((int)(((byte)(247)))), ((int)(((byte)(250)))));
             this.ComprasLblAprobacionFinanciera.Cursor = System.Windows.Forms.Cursors.Hand;
             this.ComprasLblAprobacionFinanciera.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ComprasLblAprobacionFinanciera.Font = new System.Drawing.Font("Tahoma", 10F);
-            this.ComprasLblAprobacionFinanciera.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.FondoGeneral;
+            this.ComprasLblAprobacionFinanciera.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(246)))), ((int)(((byte)(247)))), ((int)(((byte)(250)))));
             this.ComprasLblAprobacionFinanciera.Location = new System.Drawing.Point(67, 4);
             this.ComprasLblAprobacionFinanciera.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.ComprasLblAprobacionFinanciera.MaximumSize = new System.Drawing.Size(1125, 0);
@@ -654,7 +654,7 @@ namespace CapaVista_Compras
             this.ComprasTlpCierreMovimientos.Controls.Add(this.ComprasLblCierreMovimientos, 1, 0);
             this.ComprasTlpCierreMovimientos.Cursor = System.Windows.Forms.Cursors.Hand;
             this.ComprasTlpCierreMovimientos.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ComprasTlpCierreMovimientos.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.FondoGeneral;
+            this.ComprasTlpCierreMovimientos.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(246)))), ((int)(((byte)(247)))), ((int)(((byte)(250)))));
             this.ComprasTlpCierreMovimientos.ImagenHover = ((System.Drawing.Image)(resources.GetObject("ComprasTlpCierreMovimientos.ImagenHover")));
             this.ComprasTlpCierreMovimientos.ImagenNormal = ((System.Drawing.Image)(resources.GetObject("ComprasTlpCierreMovimientos.ImagenNormal")));
             this.ComprasTlpCierreMovimientos.ImagenSeleccionado = ((System.Drawing.Image)(resources.GetObject("ComprasTlpCierreMovimientos.ImagenSeleccionado")));
@@ -682,7 +682,7 @@ namespace CapaVista_Compras
             this.ComprasBtnIconoCierreMovimientos.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.ComprasBtnIconoCierreMovimientos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ComprasBtnIconoCierreMovimientos.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ComprasBtnIconoCierreMovimientos.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.PrincipalNavegador;
+            this.ComprasBtnIconoCierreMovimientos.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(42)))), ((int)(((byte)(90)))));
             this.ComprasBtnIconoCierreMovimientos.Location = new System.Drawing.Point(5, 7);
             this.ComprasBtnIconoCierreMovimientos.Margin = new System.Windows.Forms.Padding(0, 0, 5, 0);
             this.ComprasBtnIconoCierreMovimientos.Name = "ComprasBtnIconoCierreMovimientos";
@@ -695,11 +695,11 @@ namespace CapaVista_Compras
             // 
             this.ComprasLblCierreMovimientos.AlineacionTexto = System.Drawing.ContentAlignment.MiddleLeft;
             this.ComprasLblCierreMovimientos.BackColor = System.Drawing.Color.Transparent;
-            this.ComprasLblCierreMovimientos.ColorTexto = CapaVista_Componentes.Componentes.ClsTemaCompras.FondoGeneral;
+            this.ComprasLblCierreMovimientos.ColorTexto = System.Drawing.Color.FromArgb(((int)(((byte)(246)))), ((int)(((byte)(247)))), ((int)(((byte)(250)))));
             this.ComprasLblCierreMovimientos.Cursor = System.Windows.Forms.Cursors.Hand;
             this.ComprasLblCierreMovimientos.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ComprasLblCierreMovimientos.Font = new System.Drawing.Font("Tahoma", 10F);
-            this.ComprasLblCierreMovimientos.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.FondoGeneral;
+            this.ComprasLblCierreMovimientos.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(246)))), ((int)(((byte)(247)))), ((int)(((byte)(250)))));
             this.ComprasLblCierreMovimientos.Location = new System.Drawing.Point(67, 4);
             this.ComprasLblCierreMovimientos.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.ComprasLblCierreMovimientos.MaximumSize = new System.Drawing.Size(1125, 0);
@@ -726,7 +726,7 @@ namespace CapaVista_Compras
             this.ComprasTlpBitacora.Controls.Add(this.ComprasLblBitacora, 1, 0);
             this.ComprasTlpBitacora.Cursor = System.Windows.Forms.Cursors.Hand;
             this.ComprasTlpBitacora.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ComprasTlpBitacora.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.FondoGeneral;
+            this.ComprasTlpBitacora.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(246)))), ((int)(((byte)(247)))), ((int)(((byte)(250)))));
             this.ComprasTlpBitacora.ImagenHover = ((System.Drawing.Image)(resources.GetObject("ComprasTlpBitacora.ImagenHover")));
             this.ComprasTlpBitacora.ImagenNormal = ((System.Drawing.Image)(resources.GetObject("ComprasTlpBitacora.ImagenNormal")));
             this.ComprasTlpBitacora.ImagenSeleccionado = ((System.Drawing.Image)(resources.GetObject("ComprasTlpBitacora.ImagenSeleccionado")));
@@ -754,7 +754,8 @@ namespace CapaVista_Compras
             this.ComprasBtnIconoBitacora.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.ComprasBtnIconoBitacora.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ComprasBtnIconoBitacora.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ComprasBtnIconoBitacora.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.PrincipalNavegador;
+            this.ComprasBtnIconoBitacora.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(42)))), ((int)(((byte)(90)))));
+            this.ComprasBtnIconoBitacora.ImagenDeshabilitado = ((System.Drawing.Image)(resources.GetObject("ComprasBtnIconoBitacora.ImagenDeshabilitado")));
             this.ComprasBtnIconoBitacora.Location = new System.Drawing.Point(5, 7);
             this.ComprasBtnIconoBitacora.Margin = new System.Windows.Forms.Padding(0, 0, 5, 0);
             this.ComprasBtnIconoBitacora.Name = "ComprasBtnIconoBitacora";
@@ -767,11 +768,11 @@ namespace CapaVista_Compras
             // 
             this.ComprasLblBitacora.AlineacionTexto = System.Drawing.ContentAlignment.MiddleLeft;
             this.ComprasLblBitacora.BackColor = System.Drawing.Color.Transparent;
-            this.ComprasLblBitacora.ColorTexto = CapaVista_Componentes.Componentes.ClsTemaCompras.FondoGeneral;
+            this.ComprasLblBitacora.ColorTexto = System.Drawing.Color.FromArgb(((int)(((byte)(246)))), ((int)(((byte)(247)))), ((int)(((byte)(250)))));
             this.ComprasLblBitacora.Cursor = System.Windows.Forms.Cursors.Hand;
             this.ComprasLblBitacora.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ComprasLblBitacora.Font = new System.Drawing.Font("Tahoma", 10F);
-            this.ComprasLblBitacora.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.FondoGeneral;
+            this.ComprasLblBitacora.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(246)))), ((int)(((byte)(247)))), ((int)(((byte)(250)))));
             this.ComprasLblBitacora.Location = new System.Drawing.Point(67, 4);
             this.ComprasLblBitacora.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.ComprasLblBitacora.MaximumSize = new System.Drawing.Size(1125, 0);
@@ -798,7 +799,7 @@ namespace CapaVista_Compras
             this.ComprasTlpHerramientas.Controls.Add(this.ComprasLblHerramientas, 1, 0);
             this.ComprasTlpHerramientas.Cursor = System.Windows.Forms.Cursors.Hand;
             this.ComprasTlpHerramientas.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ComprasTlpHerramientas.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.FondoGeneral;
+            this.ComprasTlpHerramientas.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(246)))), ((int)(((byte)(247)))), ((int)(((byte)(250)))));
             this.ComprasTlpHerramientas.ImagenHover = ((System.Drawing.Image)(resources.GetObject("ComprasTlpHerramientas.ImagenHover")));
             this.ComprasTlpHerramientas.ImagenNormal = ((System.Drawing.Image)(resources.GetObject("ComprasTlpHerramientas.ImagenNormal")));
             this.ComprasTlpHerramientas.ImagenSeleccionado = ((System.Drawing.Image)(resources.GetObject("ComprasTlpHerramientas.ImagenSeleccionado")));
@@ -826,7 +827,8 @@ namespace CapaVista_Compras
             this.ComprasBtnIconoHerramientas.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.ComprasBtnIconoHerramientas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ComprasBtnIconoHerramientas.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ComprasBtnIconoHerramientas.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.PrincipalNavegador;
+            this.ComprasBtnIconoHerramientas.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(42)))), ((int)(((byte)(90)))));
+            this.ComprasBtnIconoHerramientas.ImagenDeshabilitado = ((System.Drawing.Image)(resources.GetObject("ComprasBtnIconoHerramientas.ImagenDeshabilitado")));
             this.ComprasBtnIconoHerramientas.Location = new System.Drawing.Point(5, 7);
             this.ComprasBtnIconoHerramientas.Margin = new System.Windows.Forms.Padding(0, 0, 5, 0);
             this.ComprasBtnIconoHerramientas.Name = "ComprasBtnIconoHerramientas";
@@ -840,11 +842,11 @@ namespace CapaVista_Compras
             // 
             this.ComprasLblHerramientas.AlineacionTexto = System.Drawing.ContentAlignment.MiddleLeft;
             this.ComprasLblHerramientas.BackColor = System.Drawing.Color.Transparent;
-            this.ComprasLblHerramientas.ColorTexto = CapaVista_Componentes.Componentes.ClsTemaCompras.FondoGeneral;
+            this.ComprasLblHerramientas.ColorTexto = System.Drawing.Color.FromArgb(((int)(((byte)(246)))), ((int)(((byte)(247)))), ((int)(((byte)(250)))));
             this.ComprasLblHerramientas.Cursor = System.Windows.Forms.Cursors.Hand;
             this.ComprasLblHerramientas.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ComprasLblHerramientas.Font = new System.Drawing.Font("Tahoma", 10F);
-            this.ComprasLblHerramientas.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.FondoGeneral;
+            this.ComprasLblHerramientas.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(246)))), ((int)(((byte)(247)))), ((int)(((byte)(250)))));
             this.ComprasLblHerramientas.Location = new System.Drawing.Point(67, 4);
             this.ComprasLblHerramientas.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.ComprasLblHerramientas.MaximumSize = new System.Drawing.Size(1125, 0);
@@ -871,7 +873,7 @@ namespace CapaVista_Compras
             this.ComprasTlpSalir.Controls.Add(this.ComprasLblSalir, 1, 0);
             this.ComprasTlpSalir.Cursor = System.Windows.Forms.Cursors.Hand;
             this.ComprasTlpSalir.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ComprasTlpSalir.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.FondoGeneral;
+            this.ComprasTlpSalir.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(246)))), ((int)(((byte)(247)))), ((int)(((byte)(250)))));
             this.ComprasTlpSalir.ImagenHover = ((System.Drawing.Image)(resources.GetObject("ComprasTlpSalir.ImagenHover")));
             this.ComprasTlpSalir.ImagenNormal = ((System.Drawing.Image)(resources.GetObject("ComprasTlpSalir.ImagenNormal")));
             this.ComprasTlpSalir.ImagenSeleccionado = ((System.Drawing.Image)(resources.GetObject("ComprasTlpSalir.ImagenSeleccionado")));
@@ -899,7 +901,7 @@ namespace CapaVista_Compras
             this.ComprasBtnIconoSalir.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.ComprasBtnIconoSalir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ComprasBtnIconoSalir.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ComprasBtnIconoSalir.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.PrincipalNavegador;
+            this.ComprasBtnIconoSalir.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(42)))), ((int)(((byte)(90)))));
             this.ComprasBtnIconoSalir.Location = new System.Drawing.Point(5, 7);
             this.ComprasBtnIconoSalir.Margin = new System.Windows.Forms.Padding(0, 0, 5, 0);
             this.ComprasBtnIconoSalir.Name = "ComprasBtnIconoSalir";
@@ -912,11 +914,11 @@ namespace CapaVista_Compras
             // 
             this.ComprasLblSalir.AlineacionTexto = System.Drawing.ContentAlignment.MiddleLeft;
             this.ComprasLblSalir.BackColor = System.Drawing.Color.Transparent;
-            this.ComprasLblSalir.ColorTexto = CapaVista_Componentes.Componentes.ClsTemaCompras.FondoGeneral;
+            this.ComprasLblSalir.ColorTexto = System.Drawing.Color.FromArgb(((int)(((byte)(246)))), ((int)(((byte)(247)))), ((int)(((byte)(250)))));
             this.ComprasLblSalir.Cursor = System.Windows.Forms.Cursors.Hand;
             this.ComprasLblSalir.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ComprasLblSalir.Font = new System.Drawing.Font("Tahoma", 10F);
-            this.ComprasLblSalir.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.FondoGeneral;
+            this.ComprasLblSalir.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(246)))), ((int)(((byte)(247)))), ((int)(((byte)(250)))));
             this.ComprasLblSalir.Location = new System.Drawing.Point(67, 4);
             this.ComprasLblSalir.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.ComprasLblSalir.MaximumSize = new System.Drawing.Size(1125, 0);
@@ -949,17 +951,17 @@ namespace CapaVista_Compras
             // 
             this.ComprasBtnAlternarNavegador.AccessibleName = "Contraer menú";
             this.ComprasBtnAlternarNavegador.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.ComprasBtnAlternarNavegador.BackColor = CapaVista_Componentes.Componentes.ClsTemaCompras.FondoGeneral;
+            this.ComprasBtnAlternarNavegador.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(246)))), ((int)(((byte)(247)))), ((int)(((byte)(250)))));
             this.ComprasBtnAlternarNavegador.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ComprasBtnAlternarNavegador.BackgroundImage")));
             this.ComprasBtnAlternarNavegador.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.ComprasBtnAlternarNavegador.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.ComprasBtnAlternarNavegador.FlatAppearance.BorderColor = CapaVista_Componentes.Componentes.ClsTemaCompras.PrincipalNavegador;
+            this.ComprasBtnAlternarNavegador.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(42)))), ((int)(((byte)(90)))));
             this.ComprasBtnAlternarNavegador.FlatAppearance.BorderSize = 0;
             this.ComprasBtnAlternarNavegador.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(173)))), ((int)(((byte)(213)))));
             this.ComprasBtnAlternarNavegador.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(182)))), ((int)(((byte)(193)))), ((int)(((byte)(224)))));
             this.ComprasBtnAlternarNavegador.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ComprasBtnAlternarNavegador.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ComprasBtnAlternarNavegador.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.PrincipalNavegador;
+            this.ComprasBtnAlternarNavegador.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(42)))), ((int)(((byte)(90)))));
             this.ComprasBtnAlternarNavegador.Location = new System.Drawing.Point(0, 0);
             this.ComprasBtnAlternarNavegador.Margin = new System.Windows.Forms.Padding(0);
             this.ComprasBtnAlternarNavegador.MaximumSize = new System.Drawing.Size(58, 40);
@@ -973,9 +975,9 @@ namespace CapaVista_Compras
             // ComprasLblUsuario
             // 
             this.ComprasLblUsuario.AlineacionTexto = System.Drawing.ContentAlignment.MiddleLeft;
-            this.ComprasLblUsuario.BackColor = CapaVista_Componentes.Componentes.ClsTemaCompras.FondoGeneral;
+            this.ComprasLblUsuario.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(246)))), ((int)(((byte)(247)))), ((int)(((byte)(250)))));
             this.ComprasLblUsuario.Font = new System.Drawing.Font("Tahoma", 12F);
-            this.ComprasLblUsuario.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.PrincipalNavegador;
+            this.ComprasLblUsuario.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(42)))), ((int)(((byte)(90)))));
             this.ComprasLblUsuario.Location = new System.Drawing.Point(62, 4);
             this.ComprasLblUsuario.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.ComprasLblUsuario.MaximumSize = new System.Drawing.Size(1375, 0);
@@ -992,9 +994,9 @@ namespace CapaVista_Compras
             // ComprasLblRol
             // 
             this.ComprasLblRol.AlineacionTexto = System.Drawing.ContentAlignment.MiddleLeft;
-            this.ComprasLblRol.BackColor = CapaVista_Componentes.Componentes.ClsTemaCompras.FondoGeneral;
+            this.ComprasLblRol.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(246)))), ((int)(((byte)(247)))), ((int)(((byte)(250)))));
             this.ComprasLblRol.Font = new System.Drawing.Font("Tahoma", 12F);
-            this.ComprasLblRol.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.PrincipalNavegador;
+            this.ComprasLblRol.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(42)))), ((int)(((byte)(90)))));
             this.ComprasLblRol.Location = new System.Drawing.Point(250, 4);
             this.ComprasLblRol.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.ComprasLblRol.MaximumSize = new System.Drawing.Size(1375, 0);
@@ -1010,10 +1012,10 @@ namespace CapaVista_Compras
             // 
             // ComprasPnlMain
             // 
-            this.ComprasPnlMain.BackColor = CapaVista_Componentes.Componentes.ClsTemaCompras.FondoContenedor;
+            this.ComprasPnlMain.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(247)))), ((int)(((byte)(242)))));
             this.ComprasPnlMain.Controls.Add(this.ComprasPnlDashboard);
             this.ComprasPnlMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ComprasPnlMain.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.PrincipalNavegador;
+            this.ComprasPnlMain.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(42)))), ((int)(((byte)(90)))));
             this.ComprasPnlMain.Location = new System.Drawing.Point(300, 65);
             this.ComprasPnlMain.Margin = new System.Windows.Forms.Padding(0, 5, 0, 0);
             this.ComprasPnlMain.Name = "ComprasPnlMain";
@@ -1027,7 +1029,7 @@ namespace CapaVista_Compras
             this.ComprasPnlDashboard.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ComprasPnlDashboard.Controls.Add(this.ComprasTlpDashboard);
             this.ComprasPnlDashboard.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ComprasPnlDashboard.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.PrincipalNavegador;
+            this.ComprasPnlDashboard.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(42)))), ((int)(((byte)(90)))));
             this.ComprasPnlDashboard.Location = new System.Drawing.Point(0, 0);
             this.ComprasPnlDashboard.Margin = new System.Windows.Forms.Padding(0, 5, 0, 0);
             this.ComprasPnlDashboard.Name = "ComprasPnlDashboard";
@@ -1045,7 +1047,7 @@ namespace CapaVista_Compras
             this.ComprasTlpDashboard.Controls.Add(this.ComprasTlpKpis, 0, 2);
             this.ComprasTlpDashboard.Controls.Add(this.ComprasPnlInformacion, 0, 3);
             this.ComprasTlpDashboard.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ComprasTlpDashboard.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.PrincipalNavegador;
+            this.ComprasTlpDashboard.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(42)))), ((int)(((byte)(90)))));
             this.ComprasTlpDashboard.Location = new System.Drawing.Point(24, 0);
             this.ComprasTlpDashboard.Name = "ComprasTlpDashboard";
             this.ComprasTlpDashboard.RowCount = 4;
@@ -1067,7 +1069,7 @@ namespace CapaVista_Compras
             this.ComprasTlpHero.Controls.Add(this.ComprasPbMascota, 1, 0);
             this.ComprasTlpHero.Controls.Add(this.ComprasPbIcono, 2, 0);
             this.ComprasTlpHero.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ComprasTlpHero.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.PrincipalNavegador;
+            this.ComprasTlpHero.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(42)))), ((int)(((byte)(90)))));
             this.ComprasTlpHero.Location = new System.Drawing.Point(3, 3);
             this.ComprasTlpHero.Name = "ComprasTlpHero";
             this.ComprasTlpHero.RowCount = 1;
@@ -1085,7 +1087,7 @@ namespace CapaVista_Compras
             this.ComprasTlpPresentacion.Controls.Add(this.ComprasLblParrafo, 0, 2);
             this.ComprasTlpPresentacion.Controls.Add(this.ComprasBtnAyuda, 0, 3);
             this.ComprasTlpPresentacion.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ComprasTlpPresentacion.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.PrincipalNavegador;
+            this.ComprasTlpPresentacion.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(42)))), ((int)(((byte)(90)))));
             this.ComprasTlpPresentacion.Location = new System.Drawing.Point(3, 3);
             this.ComprasTlpPresentacion.Name = "ComprasTlpPresentacion";
             this.ComprasTlpPresentacion.RowCount = 4;
@@ -1102,7 +1104,7 @@ namespace CapaVista_Compras
             this.ComprasLblBienvenido.BackColor = System.Drawing.Color.Transparent;
             this.ComprasLblBienvenido.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ComprasLblBienvenido.Font = new System.Drawing.Font("Tahoma", 40F);
-            this.ComprasLblBienvenido.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.PrincipalNavegador;
+            this.ComprasLblBienvenido.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(42)))), ((int)(((byte)(90)))));
             this.ComprasLblBienvenido.Location = new System.Drawing.Point(0, 15);
             this.ComprasLblBienvenido.Margin = new System.Windows.Forms.Padding(0, 15, 12, 15);
             this.ComprasLblBienvenido.MaximumSize = new System.Drawing.Size(4625, 0);
@@ -1122,7 +1124,7 @@ namespace CapaVista_Compras
             this.ComprasLblModulo.BackColor = System.Drawing.Color.Transparent;
             this.ComprasLblModulo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ComprasLblModulo.Font = new System.Drawing.Font("Tahoma", 19F);
-            this.ComprasLblModulo.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.PrincipalNavegador;
+            this.ComprasLblModulo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(42)))), ((int)(((byte)(90)))));
             this.ComprasLblModulo.Location = new System.Drawing.Point(18, 165);
             this.ComprasLblModulo.Margin = new System.Windows.Forms.Padding(18, 7, 6, 7);
             this.ComprasLblModulo.MaximumSize = new System.Drawing.Size(2250, 0);
@@ -1142,7 +1144,7 @@ namespace CapaVista_Compras
             this.ComprasLblParrafo.BackColor = System.Drawing.Color.Transparent;
             this.ComprasLblParrafo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ComprasLblParrafo.Font = new System.Drawing.Font("Tahoma", 11.5F);
-            this.ComprasLblParrafo.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.PrincipalNavegador;
+            this.ComprasLblParrafo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(42)))), ((int)(((byte)(90)))));
             this.ComprasLblParrafo.Location = new System.Drawing.Point(24, 261);
             this.ComprasLblParrafo.Margin = new System.Windows.Forms.Padding(24, 4, 3, 4);
             this.ComprasLblParrafo.MaximumSize = new System.Drawing.Size(1250, 0);
@@ -1164,17 +1166,17 @@ namespace CapaVista_Compras
             this.ComprasBtnAyuda.AccessibleDescription = "Ayuda";
             this.ComprasBtnAyuda.AccessibleName = "Ayuda";
             this.ComprasBtnAyuda.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.ComprasBtnAyuda.BackColor = CapaVista_Componentes.Componentes.ClsTemaCompras.AcentoNavegador;
+            this.ComprasBtnAyuda.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(61)))), ((int)(((byte)(86)))), ((int)(((byte)(166)))));
             this.ComprasBtnAyuda.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ComprasBtnAyuda.BackgroundImage")));
             this.ComprasBtnAyuda.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ComprasBtnAyuda.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.ComprasBtnAyuda.FlatAppearance.BorderColor = CapaVista_Componentes.Componentes.ClsTemaCompras.PrincipalNavegador;
+            this.ComprasBtnAyuda.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(42)))), ((int)(((byte)(90)))));
             this.ComprasBtnAyuda.FlatAppearance.BorderSize = 0;
             this.ComprasBtnAyuda.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(173)))), ((int)(((byte)(213)))));
             this.ComprasBtnAyuda.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(182)))), ((int)(((byte)(193)))), ((int)(((byte)(224)))));
             this.ComprasBtnAyuda.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ComprasBtnAyuda.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.ComprasBtnAyuda.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.FondoGeneral;
+            this.ComprasBtnAyuda.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(246)))), ((int)(((byte)(247)))), ((int)(((byte)(250)))));
             this.ComprasBtnAyuda.Location = new System.Drawing.Point(30, 374);
             this.ComprasBtnAyuda.Margin = new System.Windows.Forms.Padding(30, 0, 0, 0);
             this.ComprasBtnAyuda.Name = "ComprasBtnAyuda";
@@ -1216,7 +1218,7 @@ namespace CapaVista_Compras
             this.ComprasLblResumen.BackColor = System.Drawing.Color.Transparent;
             this.ComprasLblResumen.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ComprasLblResumen.Font = new System.Drawing.Font("Tahoma", 19F);
-            this.ComprasLblResumen.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.PrincipalNavegador;
+            this.ComprasLblResumen.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(42)))), ((int)(((byte)(90)))));
             this.ComprasLblResumen.Location = new System.Drawing.Point(6, 462);
             this.ComprasLblResumen.Margin = new System.Windows.Forms.Padding(6, 7, 6, 7);
             this.ComprasLblResumen.MaximumSize = new System.Drawing.Size(2250, 0);
@@ -1247,7 +1249,7 @@ namespace CapaVista_Compras
             this.ComprasTlpKpis.Controls.Add(this.ComprasPnlKpi5, 4, 0);
             this.ComprasTlpKpis.Controls.Add(this.ComprasPnlKpi6, 5, 0);
             this.ComprasTlpKpis.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ComprasTlpKpis.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.PrincipalNavegador;
+            this.ComprasTlpKpis.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(42)))), ((int)(((byte)(90)))));
             this.ComprasTlpKpis.Location = new System.Drawing.Point(3, 503);
             this.ComprasTlpKpis.Name = "ComprasTlpKpis";
             this.ComprasTlpKpis.RowCount = 1;
@@ -1257,11 +1259,11 @@ namespace CapaVista_Compras
             // 
             // ComprasPnlKpi1
             // 
-            this.ComprasPnlKpi1.BackColor = CapaVista_Componentes.Componentes.ClsTemaCompras.FondoBotones;
+            this.ComprasPnlKpi1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(220)))), ((int)(((byte)(239)))));
             this.ComprasPnlKpi1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ComprasPnlKpi1.Controls.Add(this.ComprasTlpKpi1);
             this.ComprasPnlKpi1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ComprasPnlKpi1.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.PrincipalNavegador;
+            this.ComprasPnlKpi1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(42)))), ((int)(((byte)(90)))));
             this.ComprasPnlKpi1.Location = new System.Drawing.Point(3, 0);
             this.ComprasPnlKpi1.Margin = new System.Windows.Forms.Padding(3, 0, 6, 8);
             this.ComprasPnlKpi1.Name = "ComprasPnlKpi1";
@@ -1271,14 +1273,14 @@ namespace CapaVista_Compras
             // 
             // ComprasTlpKpi1
             // 
-            this.ComprasTlpKpi1.BackColor = CapaVista_Componentes.Componentes.ClsTemaCompras.FondoBotones;
+            this.ComprasTlpKpi1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(220)))), ((int)(((byte)(239)))));
             this.ComprasTlpKpi1.ColumnCount = 1;
             this.ComprasTlpKpi1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.ComprasTlpKpi1.Controls.Add(this.ComprasPbKpi1, 0, 0);
             this.ComprasTlpKpi1.Controls.Add(this.ComprasLblValorKpi1, 0, 1);
             this.ComprasTlpKpi1.Controls.Add(this.ComprasLblKpi1, 0, 2);
             this.ComprasTlpKpi1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ComprasTlpKpi1.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.PrincipalNavegador;
+            this.ComprasTlpKpi1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(42)))), ((int)(((byte)(90)))));
             this.ComprasTlpKpi1.Location = new System.Drawing.Point(6, 6);
             this.ComprasTlpKpi1.Name = "ComprasTlpKpi1";
             this.ComprasTlpKpi1.RowCount = 3;
@@ -1307,7 +1309,7 @@ namespace CapaVista_Compras
             this.ComprasLblValorKpi1.BackColor = System.Drawing.Color.Transparent;
             this.ComprasLblValorKpi1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ComprasLblValorKpi1.Font = new System.Drawing.Font("Tahoma", 16F);
-            this.ComprasLblValorKpi1.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.PrincipalNavegador;
+            this.ComprasLblValorKpi1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(42)))), ((int)(((byte)(90)))));
             this.ComprasLblValorKpi1.Location = new System.Drawing.Point(5, 80);
             this.ComprasLblValorKpi1.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
             this.ComprasLblValorKpi1.MaximumSize = new System.Drawing.Size(1875, 0);
@@ -1327,7 +1329,7 @@ namespace CapaVista_Compras
             this.ComprasLblKpi1.BackColor = System.Drawing.Color.Transparent;
             this.ComprasLblKpi1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ComprasLblKpi1.Font = new System.Drawing.Font("Tahoma", 11F);
-            this.ComprasLblKpi1.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.PrincipalNavegador;
+            this.ComprasLblKpi1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(42)))), ((int)(((byte)(90)))));
             this.ComprasLblKpi1.Location = new System.Drawing.Point(3, 114);
             this.ComprasLblKpi1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.ComprasLblKpi1.MaximumSize = new System.Drawing.Size(1125, 0);
@@ -1343,11 +1345,11 @@ namespace CapaVista_Compras
             // 
             // ComprasPnlKpi2
             // 
-            this.ComprasPnlKpi2.BackColor = CapaVista_Componentes.Componentes.ClsTemaCompras.FondoBotones;
+            this.ComprasPnlKpi2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(220)))), ((int)(((byte)(239)))));
             this.ComprasPnlKpi2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ComprasPnlKpi2.Controls.Add(this.ComprasTlpKpi2);
             this.ComprasPnlKpi2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ComprasPnlKpi2.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.PrincipalNavegador;
+            this.ComprasPnlKpi2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(42)))), ((int)(((byte)(90)))));
             this.ComprasPnlKpi2.Location = new System.Drawing.Point(200, 0);
             this.ComprasPnlKpi2.Margin = new System.Windows.Forms.Padding(3, 0, 6, 8);
             this.ComprasPnlKpi2.Name = "ComprasPnlKpi2";
@@ -1357,14 +1359,14 @@ namespace CapaVista_Compras
             // 
             // ComprasTlpKpi2
             // 
-            this.ComprasTlpKpi2.BackColor = CapaVista_Componentes.Componentes.ClsTemaCompras.FondoBotones;
+            this.ComprasTlpKpi2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(220)))), ((int)(((byte)(239)))));
             this.ComprasTlpKpi2.ColumnCount = 1;
             this.ComprasTlpKpi2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.ComprasTlpKpi2.Controls.Add(this.ComprasPbKpi2, 0, 0);
             this.ComprasTlpKpi2.Controls.Add(this.ComprasLblValorKpi2, 0, 1);
             this.ComprasTlpKpi2.Controls.Add(this.ComprasLblKpi2, 0, 2);
             this.ComprasTlpKpi2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ComprasTlpKpi2.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.PrincipalNavegador;
+            this.ComprasTlpKpi2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(42)))), ((int)(((byte)(90)))));
             this.ComprasTlpKpi2.Location = new System.Drawing.Point(6, 6);
             this.ComprasTlpKpi2.Name = "ComprasTlpKpi2";
             this.ComprasTlpKpi2.RowCount = 3;
@@ -1393,7 +1395,7 @@ namespace CapaVista_Compras
             this.ComprasLblValorKpi2.BackColor = System.Drawing.Color.Transparent;
             this.ComprasLblValorKpi2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ComprasLblValorKpi2.Font = new System.Drawing.Font("Tahoma", 16F);
-            this.ComprasLblValorKpi2.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.PrincipalNavegador;
+            this.ComprasLblValorKpi2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(42)))), ((int)(((byte)(90)))));
             this.ComprasLblValorKpi2.Location = new System.Drawing.Point(5, 80);
             this.ComprasLblValorKpi2.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
             this.ComprasLblValorKpi2.MaximumSize = new System.Drawing.Size(1875, 0);
@@ -1413,7 +1415,7 @@ namespace CapaVista_Compras
             this.ComprasLblKpi2.BackColor = System.Drawing.Color.Transparent;
             this.ComprasLblKpi2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ComprasLblKpi2.Font = new System.Drawing.Font("Tahoma", 11F);
-            this.ComprasLblKpi2.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.PrincipalNavegador;
+            this.ComprasLblKpi2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(42)))), ((int)(((byte)(90)))));
             this.ComprasLblKpi2.Location = new System.Drawing.Point(3, 114);
             this.ComprasLblKpi2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.ComprasLblKpi2.MaximumSize = new System.Drawing.Size(1125, 0);
@@ -1429,11 +1431,11 @@ namespace CapaVista_Compras
             // 
             // ComprasPnlKpi3
             // 
-            this.ComprasPnlKpi3.BackColor = CapaVista_Componentes.Componentes.ClsTemaCompras.FondoBotones;
+            this.ComprasPnlKpi3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(220)))), ((int)(((byte)(239)))));
             this.ComprasPnlKpi3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ComprasPnlKpi3.Controls.Add(this.ComprasTlpKpi3);
             this.ComprasPnlKpi3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ComprasPnlKpi3.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.PrincipalNavegador;
+            this.ComprasPnlKpi3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(42)))), ((int)(((byte)(90)))));
             this.ComprasPnlKpi3.Location = new System.Drawing.Point(397, 0);
             this.ComprasPnlKpi3.Margin = new System.Windows.Forms.Padding(3, 0, 6, 8);
             this.ComprasPnlKpi3.Name = "ComprasPnlKpi3";
@@ -1443,14 +1445,14 @@ namespace CapaVista_Compras
             // 
             // ComprasTlpKpi3
             // 
-            this.ComprasTlpKpi3.BackColor = CapaVista_Componentes.Componentes.ClsTemaCompras.FondoBotones;
+            this.ComprasTlpKpi3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(220)))), ((int)(((byte)(239)))));
             this.ComprasTlpKpi3.ColumnCount = 1;
             this.ComprasTlpKpi3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.ComprasTlpKpi3.Controls.Add(this.ComprasPbKpi3, 0, 0);
             this.ComprasTlpKpi3.Controls.Add(this.ComprasLblValorKpi3, 0, 1);
             this.ComprasTlpKpi3.Controls.Add(this.ComprasLblKpi3, 0, 2);
             this.ComprasTlpKpi3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ComprasTlpKpi3.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.PrincipalNavegador;
+            this.ComprasTlpKpi3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(42)))), ((int)(((byte)(90)))));
             this.ComprasTlpKpi3.Location = new System.Drawing.Point(6, 6);
             this.ComprasTlpKpi3.Name = "ComprasTlpKpi3";
             this.ComprasTlpKpi3.RowCount = 3;
@@ -1479,7 +1481,7 @@ namespace CapaVista_Compras
             this.ComprasLblValorKpi3.BackColor = System.Drawing.Color.Transparent;
             this.ComprasLblValorKpi3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ComprasLblValorKpi3.Font = new System.Drawing.Font("Tahoma", 16F);
-            this.ComprasLblValorKpi3.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.PrincipalNavegador;
+            this.ComprasLblValorKpi3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(42)))), ((int)(((byte)(90)))));
             this.ComprasLblValorKpi3.Location = new System.Drawing.Point(5, 80);
             this.ComprasLblValorKpi3.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
             this.ComprasLblValorKpi3.MaximumSize = new System.Drawing.Size(1875, 0);
@@ -1499,7 +1501,7 @@ namespace CapaVista_Compras
             this.ComprasLblKpi3.BackColor = System.Drawing.Color.Transparent;
             this.ComprasLblKpi3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ComprasLblKpi3.Font = new System.Drawing.Font("Tahoma", 11F);
-            this.ComprasLblKpi3.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.PrincipalNavegador;
+            this.ComprasLblKpi3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(42)))), ((int)(((byte)(90)))));
             this.ComprasLblKpi3.Location = new System.Drawing.Point(3, 114);
             this.ComprasLblKpi3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.ComprasLblKpi3.MaximumSize = new System.Drawing.Size(1125, 0);
@@ -1515,11 +1517,11 @@ namespace CapaVista_Compras
             // 
             // ComprasPnlKpi4
             // 
-            this.ComprasPnlKpi4.BackColor = CapaVista_Componentes.Componentes.ClsTemaCompras.FondoBotones;
+            this.ComprasPnlKpi4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(220)))), ((int)(((byte)(239)))));
             this.ComprasPnlKpi4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ComprasPnlKpi4.Controls.Add(this.ComprasTlpKpi4);
             this.ComprasPnlKpi4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ComprasPnlKpi4.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.PrincipalNavegador;
+            this.ComprasPnlKpi4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(42)))), ((int)(((byte)(90)))));
             this.ComprasPnlKpi4.Location = new System.Drawing.Point(594, 0);
             this.ComprasPnlKpi4.Margin = new System.Windows.Forms.Padding(3, 0, 6, 8);
             this.ComprasPnlKpi4.Name = "ComprasPnlKpi4";
@@ -1529,14 +1531,14 @@ namespace CapaVista_Compras
             // 
             // ComprasTlpKpi4
             // 
-            this.ComprasTlpKpi4.BackColor = CapaVista_Componentes.Componentes.ClsTemaCompras.FondoBotones;
+            this.ComprasTlpKpi4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(220)))), ((int)(((byte)(239)))));
             this.ComprasTlpKpi4.ColumnCount = 1;
             this.ComprasTlpKpi4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.ComprasTlpKpi4.Controls.Add(this.ComprasPbKpi4, 0, 0);
             this.ComprasTlpKpi4.Controls.Add(this.ComprasLblValorKpi4, 0, 1);
             this.ComprasTlpKpi4.Controls.Add(this.ComprasLblKpi4, 0, 2);
             this.ComprasTlpKpi4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ComprasTlpKpi4.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.PrincipalNavegador;
+            this.ComprasTlpKpi4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(42)))), ((int)(((byte)(90)))));
             this.ComprasTlpKpi4.Location = new System.Drawing.Point(6, 6);
             this.ComprasTlpKpi4.Name = "ComprasTlpKpi4";
             this.ComprasTlpKpi4.RowCount = 3;
@@ -1565,7 +1567,7 @@ namespace CapaVista_Compras
             this.ComprasLblValorKpi4.BackColor = System.Drawing.Color.Transparent;
             this.ComprasLblValorKpi4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ComprasLblValorKpi4.Font = new System.Drawing.Font("Tahoma", 16F);
-            this.ComprasLblValorKpi4.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.PrincipalNavegador;
+            this.ComprasLblValorKpi4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(42)))), ((int)(((byte)(90)))));
             this.ComprasLblValorKpi4.Location = new System.Drawing.Point(5, 84);
             this.ComprasLblValorKpi4.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
             this.ComprasLblValorKpi4.MaximumSize = new System.Drawing.Size(1875, 0);
@@ -1585,7 +1587,7 @@ namespace CapaVista_Compras
             this.ComprasLblKpi4.BackColor = System.Drawing.Color.Transparent;
             this.ComprasLblKpi4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ComprasLblKpi4.Font = new System.Drawing.Font("Tahoma", 11F);
-            this.ComprasLblKpi4.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.PrincipalNavegador;
+            this.ComprasLblKpi4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(42)))), ((int)(((byte)(90)))));
             this.ComprasLblKpi4.Location = new System.Drawing.Point(3, 118);
             this.ComprasLblKpi4.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.ComprasLblKpi4.MaximumSize = new System.Drawing.Size(1125, 0);
@@ -1601,11 +1603,11 @@ namespace CapaVista_Compras
             // 
             // ComprasPnlKpi5
             // 
-            this.ComprasPnlKpi5.BackColor = CapaVista_Componentes.Componentes.ClsTemaCompras.FondoBotones;
+            this.ComprasPnlKpi5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(220)))), ((int)(((byte)(239)))));
             this.ComprasPnlKpi5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ComprasPnlKpi5.Controls.Add(this.ComprasTlpKpi5);
             this.ComprasPnlKpi5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ComprasPnlKpi5.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.PrincipalNavegador;
+            this.ComprasPnlKpi5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(42)))), ((int)(((byte)(90)))));
             this.ComprasPnlKpi5.Location = new System.Drawing.Point(791, 0);
             this.ComprasPnlKpi5.Margin = new System.Windows.Forms.Padding(3, 0, 6, 8);
             this.ComprasPnlKpi5.Name = "ComprasPnlKpi5";
@@ -1615,14 +1617,14 @@ namespace CapaVista_Compras
             // 
             // ComprasTlpKpi5
             // 
-            this.ComprasTlpKpi5.BackColor = CapaVista_Componentes.Componentes.ClsTemaCompras.FondoBotones;
+            this.ComprasTlpKpi5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(220)))), ((int)(((byte)(239)))));
             this.ComprasTlpKpi5.ColumnCount = 1;
             this.ComprasTlpKpi5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.ComprasTlpKpi5.Controls.Add(this.ComprasPbKpi5, 0, 0);
             this.ComprasTlpKpi5.Controls.Add(this.ComprasLblValorKpi5, 0, 1);
             this.ComprasTlpKpi5.Controls.Add(this.ComprasLblKpi5, 0, 2);
             this.ComprasTlpKpi5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ComprasTlpKpi5.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.PrincipalNavegador;
+            this.ComprasTlpKpi5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(42)))), ((int)(((byte)(90)))));
             this.ComprasTlpKpi5.Location = new System.Drawing.Point(6, 6);
             this.ComprasTlpKpi5.Name = "ComprasTlpKpi5";
             this.ComprasTlpKpi5.RowCount = 3;
@@ -1651,7 +1653,7 @@ namespace CapaVista_Compras
             this.ComprasLblValorKpi5.BackColor = System.Drawing.Color.Transparent;
             this.ComprasLblValorKpi5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ComprasLblValorKpi5.Font = new System.Drawing.Font("Tahoma", 16F);
-            this.ComprasLblValorKpi5.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.PrincipalNavegador;
+            this.ComprasLblValorKpi5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(42)))), ((int)(((byte)(90)))));
             this.ComprasLblValorKpi5.Location = new System.Drawing.Point(5, 80);
             this.ComprasLblValorKpi5.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
             this.ComprasLblValorKpi5.MaximumSize = new System.Drawing.Size(1875, 0);
@@ -1671,7 +1673,7 @@ namespace CapaVista_Compras
             this.ComprasLblKpi5.BackColor = System.Drawing.Color.Transparent;
             this.ComprasLblKpi5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ComprasLblKpi5.Font = new System.Drawing.Font("Tahoma", 11F);
-            this.ComprasLblKpi5.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.PrincipalNavegador;
+            this.ComprasLblKpi5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(42)))), ((int)(((byte)(90)))));
             this.ComprasLblKpi5.Location = new System.Drawing.Point(3, 114);
             this.ComprasLblKpi5.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.ComprasLblKpi5.MaximumSize = new System.Drawing.Size(1125, 0);
@@ -1687,11 +1689,11 @@ namespace CapaVista_Compras
             // 
             // ComprasPnlKpi6
             // 
-            this.ComprasPnlKpi6.BackColor = CapaVista_Componentes.Componentes.ClsTemaCompras.FondoBotones;
+            this.ComprasPnlKpi6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(220)))), ((int)(((byte)(239)))));
             this.ComprasPnlKpi6.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ComprasPnlKpi6.Controls.Add(this.ComprasTlpKpi6);
             this.ComprasPnlKpi6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ComprasPnlKpi6.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.PrincipalNavegador;
+            this.ComprasPnlKpi6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(42)))), ((int)(((byte)(90)))));
             this.ComprasPnlKpi6.Location = new System.Drawing.Point(988, 0);
             this.ComprasPnlKpi6.Margin = new System.Windows.Forms.Padding(3, 0, 6, 8);
             this.ComprasPnlKpi6.Name = "ComprasPnlKpi6";
@@ -1701,14 +1703,14 @@ namespace CapaVista_Compras
             // 
             // ComprasTlpKpi6
             // 
-            this.ComprasTlpKpi6.BackColor = CapaVista_Componentes.Componentes.ClsTemaCompras.FondoBotones;
+            this.ComprasTlpKpi6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(220)))), ((int)(((byte)(239)))));
             this.ComprasTlpKpi6.ColumnCount = 1;
             this.ComprasTlpKpi6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.ComprasTlpKpi6.Controls.Add(this.ComprasPbKpi6, 0, 0);
             this.ComprasTlpKpi6.Controls.Add(this.ComprasLblValorKpi6, 0, 1);
             this.ComprasTlpKpi6.Controls.Add(this.ComprasLblKpi6, 0, 2);
             this.ComprasTlpKpi6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ComprasTlpKpi6.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.PrincipalNavegador;
+            this.ComprasTlpKpi6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(42)))), ((int)(((byte)(90)))));
             this.ComprasTlpKpi6.Location = new System.Drawing.Point(6, 6);
             this.ComprasTlpKpi6.Name = "ComprasTlpKpi6";
             this.ComprasTlpKpi6.RowCount = 3;
@@ -1737,7 +1739,7 @@ namespace CapaVista_Compras
             this.ComprasLblValorKpi6.BackColor = System.Drawing.Color.Transparent;
             this.ComprasLblValorKpi6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ComprasLblValorKpi6.Font = new System.Drawing.Font("Tahoma", 16F);
-            this.ComprasLblValorKpi6.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.PrincipalNavegador;
+            this.ComprasLblValorKpi6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(42)))), ((int)(((byte)(90)))));
             this.ComprasLblValorKpi6.Location = new System.Drawing.Point(5, 80);
             this.ComprasLblValorKpi6.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
             this.ComprasLblValorKpi6.MaximumSize = new System.Drawing.Size(1875, 0);
@@ -1757,7 +1759,7 @@ namespace CapaVista_Compras
             this.ComprasLblKpi6.BackColor = System.Drawing.Color.Transparent;
             this.ComprasLblKpi6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ComprasLblKpi6.Font = new System.Drawing.Font("Tahoma", 11F);
-            this.ComprasLblKpi6.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.PrincipalNavegador;
+            this.ComprasLblKpi6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(42)))), ((int)(((byte)(90)))));
             this.ComprasLblKpi6.Location = new System.Drawing.Point(3, 114);
             this.ComprasLblKpi6.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.ComprasLblKpi6.MaximumSize = new System.Drawing.Size(1125, 0);
@@ -1773,11 +1775,11 @@ namespace CapaVista_Compras
             // 
             // ComprasPnlInformacion
             // 
-            this.ComprasPnlInformacion.BackColor = CapaVista_Componentes.Componentes.ClsTemaCompras.FondoBotones;
+            this.ComprasPnlInformacion.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(220)))), ((int)(((byte)(239)))));
             this.ComprasPnlInformacion.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ComprasPnlInformacion.Controls.Add(this.ComprasTlpInformacion);
             this.ComprasPnlInformacion.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ComprasPnlInformacion.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.PrincipalNavegador;
+            this.ComprasPnlInformacion.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(42)))), ((int)(((byte)(90)))));
             this.ComprasPnlInformacion.Location = new System.Drawing.Point(3, 679);
             this.ComprasPnlInformacion.Name = "ComprasPnlInformacion";
             this.ComprasPnlInformacion.Padding = new System.Windows.Forms.Padding(14, 9, 14, 9);
@@ -1786,14 +1788,14 @@ namespace CapaVista_Compras
             // 
             // ComprasTlpInformacion
             // 
-            this.ComprasTlpInformacion.BackColor = CapaVista_Componentes.Componentes.ClsTemaCompras.FondoBotones;
+            this.ComprasTlpInformacion.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(220)))), ((int)(((byte)(239)))));
             this.ComprasTlpInformacion.ColumnCount = 2;
             this.ComprasTlpInformacion.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
             this.ComprasTlpInformacion.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
             this.ComprasTlpInformacion.Controls.Add(this.ComprasLblInformacion, 0, 0);
             this.ComprasTlpInformacion.Controls.Add(this.ComprasLblIntegracion, 1, 0);
             this.ComprasTlpInformacion.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ComprasTlpInformacion.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.PrincipalNavegador;
+            this.ComprasTlpInformacion.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(42)))), ((int)(((byte)(90)))));
             this.ComprasTlpInformacion.Location = new System.Drawing.Point(14, 9);
             this.ComprasTlpInformacion.Name = "ComprasTlpInformacion";
             this.ComprasTlpInformacion.RowCount = 1;
@@ -1807,7 +1809,7 @@ namespace CapaVista_Compras
             this.ComprasLblInformacion.BackColor = System.Drawing.Color.Transparent;
             this.ComprasLblInformacion.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ComprasLblInformacion.Font = new System.Drawing.Font("Tahoma", 11F);
-            this.ComprasLblInformacion.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.PrincipalNavegador;
+            this.ComprasLblInformacion.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(42)))), ((int)(((byte)(90)))));
             this.ComprasLblInformacion.Location = new System.Drawing.Point(3, 4);
             this.ComprasLblInformacion.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.ComprasLblInformacion.MaximumSize = new System.Drawing.Size(1250, 0);
@@ -1827,7 +1829,7 @@ namespace CapaVista_Compras
             this.ComprasLblIntegracion.BackColor = System.Drawing.Color.Transparent;
             this.ComprasLblIntegracion.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ComprasLblIntegracion.Font = new System.Drawing.Font("Tahoma", 10F);
-            this.ComprasLblIntegracion.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.PrincipalNavegador;
+            this.ComprasLblIntegracion.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(42)))), ((int)(((byte)(90)))));
             this.ComprasLblIntegracion.Location = new System.Drawing.Point(697, 4);
             this.ComprasLblIntegracion.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.ComprasLblIntegracion.MaximumSize = new System.Drawing.Size(1125, 0);
@@ -1844,11 +1846,11 @@ namespace CapaVista_Compras
             // FrmMDICompras
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.BackColor = CapaVista_Componentes.Componentes.ClsTemaCompras.FondoGeneral;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(246)))), ((int)(((byte)(247)))), ((int)(((byte)(250)))));
             this.ClientSize = new System.Drawing.Size(1554, 853);
             this.Controls.Add(this.ComprasTlpPrincipal);
             this.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.PrincipalNavegador;
+            this.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(42)))), ((int)(((byte)(90)))));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(1100, 700);
             this.Name = "FrmMDICompras";

@@ -1,5 +1,17 @@
 using System.Windows.Forms;
 
+/*
+ * ==================================================================
+ * Área : Compras
+ * Autor : Miguel David Contreras Jacinto
+ * Carné : 0901-21-3878
+ * Fecha : 24/10/2026
+ * ==================================================================
+ * Propósito :
+ *  Presenta los datos de las pólizas de compras y valida el formato de la cuenta contable seleccionada.
+ * ===================================================================
+*/
+
 namespace CapaVista_Polizas
 {
     public partial class FrmPolizas : Form

@@ -1,5 +1,18 @@
-﻿using System;
+using System;
 using System.Data;
+
+/*
+ * ==================================================================
+ * Área : Compras
+ * Autor : Diego Fernando Santizo Samayoa
+ * Carné : 0901-22-15950
+ * Fecha : 24/10/2026
+ * ==================================================================
+ * Propósito :
+ *  Representa la información consultada de una compra por pagar,
+ *  incluyendo factura, fechas, saldo y datos del proveedor.
+ * ===================================================================
+*/
 
 namespace CapaControlador_OrdenesCompra
 {

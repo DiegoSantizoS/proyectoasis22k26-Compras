@@ -2,6 +2,18 @@ using System;
 using System.Windows.Forms;
 using CapaControlador_CierreMovimientos;
 
+/*
+ * ==================================================================
+ * Área : Compras
+ * Autor : José Pablo Cano Cóbar
+ * Carné : 0901-23-1727
+ * Fecha : 24/10/2026
+ * ==================================================================
+ * Propósito :
+ *  Presenta el período, las validaciones y los saldos del cierre de movimientos y coordina las acciones de la pantalla.
+ * ===================================================================
+*/
+
 namespace CapaVista_CierreMovimientos
 {
 

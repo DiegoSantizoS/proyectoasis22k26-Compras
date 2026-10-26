@@ -6,6 +6,19 @@ using System.Windows.Forms;
 using CapaControlador_OrdenesCompra;
 using CapaVista_Componentes.Componentes;
 
+/*
+ * ==================================================================
+ * Área : Compras
+ * Autor : Diego Fernando Santizo Samayoa
+ * Carné : 0901-22-15950
+ * Fecha : 24/10/2026
+ * ==================================================================
+ * Propósito :
+ *  Presenta las compras por pagar y administra su búsqueda y filtros,
+ *  la actualización de datos y la apertura de órdenes nuevas o existentes.
+ * ===================================================================
+*/
+
 namespace CapaVista_OrdenesCompra
 {
     public partial class FrmEncabezados : Form
@@ -14,6 +27,7 @@ namespace CapaVista_OrdenesCompra
         private DataTable _Datos;
         private bool _Cargando;
         private bool _AbriendoCompra;
+        private bool _RestableciendoFiltros;
         public bool AbrirOrden { get; private set; }
         private ClsCompraPorPagar _CompraSeleccionada;
         public Form ComprasFuncCrearOrdenSeleccionada()
@@ -29,7 +43,7 @@ namespace CapaVista_OrdenesCompra
             InitializeComponent();
             ClsPresentacionCompras.ComprasMetFijarTamanoFormulario(this);
             ComprasCboEstado.Items.AddRange(new object[] { "Todos", "Pendiente", "Parcial", "Pagada", "Anulada" });
-            ComprasCboEstado.SelectedIndex = 0;
+            ComprasProcRestablecerFiltros();
             ComprasProcConfigurarTabla();
             ComprasTxtBuscar.TextChanged += (Remitente, Evento) => ComprasProcAplicarFiltros();
             ComprasCboEstado.SelectedIndexChanged += (Remitente, Evento) => ComprasProcAplicarFiltros();
@@ -108,7 +122,7 @@ namespace CapaVista_OrdenesCompra
 
         private void ComprasProcAplicarFiltros()
         {
-            if (_Datos == null) return;
+            if (_Datos == null || _RestableciendoFiltros) return;
             DateTime? Inicio = ComprasChkFechas.Checked ? (DateTime?)ComprasUsrFechas.FechaInicio : null;
             DateTime? Fin = ComprasChkFechas.Checked ? (DateTime?)ComprasUsrFechas.FechaFin : null;
             DataTable Resultado = _Controlador.ComprasFuncFiltrar(_Datos, ComprasTxtBuscar.Text, ComprasCboEstado.Text, Inicio, Fin);
@@ -125,7 +139,24 @@ namespace CapaVista_OrdenesCompra
         private async Task ComprasProcRefrescarAsync()
         {
             if (_Cargando || _AbriendoCompra) return;
+            ComprasProcRestablecerFiltros();
             await ComprasProcCargarDatosAsync();
+        }
+
+        private void ComprasProcRestablecerFiltros()
+        {
+            _RestableciendoFiltros = true;
+            try
+            {
+                ComprasTxtBuscar.Text = string.Empty;
+                ComprasTxtBuscar.ComprasMetLimpiarError();
+                ComprasCboEstado.SelectedIndex = 0;
+                ComprasChkFechas.Checked = false;
+                DateTime Hoy = DateTime.Today;
+                ComprasUsrFechas.ComprasProcEstablecerRango(new DateTime(Hoy.Year, Hoy.Month, 1), Hoy);
+                ComprasUsrFechas.Enabled = false;
+            }
+            finally { _RestableciendoFiltros = false; }
         }
 
         private void ComprasProcNuevaOrden(object Remitente, EventArgs Evento)

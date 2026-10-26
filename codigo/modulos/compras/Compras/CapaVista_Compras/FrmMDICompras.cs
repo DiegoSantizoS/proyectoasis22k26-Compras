@@ -5,6 +5,18 @@ using System.ComponentModel;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
+/*
+ * ==================================================================
+ * Área : Compras
+ * Autor : Diego Fernando Santizo Samayoa
+ * Carné : 0901-22-15950
+ * Fecha : 24/10/2026
+ * ==================================================================
+ * Propósito :
+ *  Presenta la ventana principal de Compras y administra la navegación, la apertura de subprocesos y las transiciones del menú.
+ * ===================================================================
+*/
+
 namespace CapaVista_Compras
 {
     public partial class FrmMDICompras : Form
@@ -251,7 +263,7 @@ namespace CapaVista_Compras
 
         private void ComprasMetOpcionPendienteClick(object Remitente, EventArgs Evento)
         {
-            // Punto de integracion existente para mantenimientos y bitacora.
+            
         }
 
         private void ComprasProcSalirClick(object Remitente, EventArgs Evento)

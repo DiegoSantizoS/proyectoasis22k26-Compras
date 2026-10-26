@@ -1,3 +1,15 @@
+/*
+ * ==================================================================
+ * Área : Compras
+ * Autor : Diego Fernando Santizo Samayoa
+ * Carné : 0901-22-15950
+ * Fecha : 24/10/2026
+ * ==================================================================
+ * Propósito :
+ *  Define los códigos de las aplicaciones de Compras y permite consultar el identificador de su módulo.
+ * ===================================================================
+*/
+
 namespace CapaControlador_Compras
 {
     public static class ClsAplicacionesCompras

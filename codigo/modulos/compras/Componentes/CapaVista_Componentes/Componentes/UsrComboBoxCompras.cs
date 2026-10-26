@@ -6,6 +6,18 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
 
+/*
+ * ==================================================================
+ * Área : Compras
+ * Autor : Miguel David Contreras Jacinto
+ * Carné : 0901-21-3878
+ * Fecha : 24/10/2026
+ * ==================================================================
+ * Propósito :
+ *  Presenta un selector reutilizable que carga datos, administra la selección y muestra errores de validación.
+ * ===================================================================
+*/
+
 namespace CapaVista_Componentes.Componentes
 {
     public enum EnmTipoDatosCompras

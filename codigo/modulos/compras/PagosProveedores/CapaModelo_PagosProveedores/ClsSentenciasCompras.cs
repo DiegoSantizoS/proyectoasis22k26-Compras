@@ -1,8 +1,19 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.Odbc;
 
-
+/*
+ * ==================================================================
+ * Área : Compras
+ * Autor : Diana Mishel Loeiza Ramírez
+ * Carné : 9959-23-3457
+ * Fecha : 20/10/2026
+ * ==================================================================
+ * Propósito :
+ *  Centraliza la ejecución de consultas, sentencias y resultados
+ *  escalares mediante la infraestructura de acceso a datos de Compras.
+ * ===================================================================
+*/
 
 namespace CapaModelo_PagosProveedores
 {
@@ -13,8 +24,8 @@ namespace CapaModelo_PagosProveedores
             return ComprasFuncEjecucionNonQuery(ComandoTexto, Parametros, ComandoTipo);
         }
 
-        // Devuelve el primer valor del resultado (se usa para obtener el idPago
-        // que regresa spInsertarPagoProveedor con un SELECT).
+        
+        
         public object ComprasMetEjecucionEscalar(string ComandoTexto, List<OdbcParameter> Parametros, CommandType ComandoTipo)
         {
             return ComprasFuncEjecucionEscalar(ComandoTexto, Parametros, ComandoTipo);

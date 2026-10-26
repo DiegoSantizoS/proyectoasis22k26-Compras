@@ -1,9 +1,21 @@
-﻿using System;
+using System;
 using System.Runtime.InteropServices;
 using System.ComponentModel;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+
+/*
+ * ==================================================================
+ * Área : Compras
+ * Autor : Diego Fernando Santizo Samayoa
+ * Carné : 0901-22-15950
+ * Fecha : 24/10/2026
+ * ==================================================================
+ * Propósito :
+ *  Organiza controles en filas y columnas y administra su presentación y estado seleccionado.
+ * ===================================================================
+*/
 
 namespace CapaVista_Componentes.Componentes
 {

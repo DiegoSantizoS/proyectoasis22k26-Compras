@@ -3,6 +3,18 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Odbc;
 
+/*
+ * ==================================================================
+ * Área : Compras
+ * Autor : Diego Fernando Santizo Samayoa
+ * Carné : 0901-22-15950
+ * Fecha : 24/10/2026
+ * ==================================================================
+ * Propósito :
+ *  Ejecuta consultas parametrizadas, operaciones escalares y transacciones de acceso a datos.
+ * ===================================================================
+*/
+
 namespace CapaModelo_Componentes.Repositorios
 {
     public abstract class ClsRepositorioMaestroCompras : ClsRepositorioCompras

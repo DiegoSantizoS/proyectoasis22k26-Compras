@@ -1,9 +1,22 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Odbc;
 using CapaModelo_PagosProveedores.Contratos;
 using CapaModelo_PagosProveedores.Entidades;
+
+/*
+ * ==================================================================
+ * Área : Compras
+ * Autor : Diana Mishel Loeiza Ramírez
+ * Carné : 9959-23-3457
+ * Fecha : 20/10/2026
+ * ==================================================================
+ * Propósito :
+ *  Ejecuta los procedimientos almacenados de pagos a proveedores y
+ *  convierte sus resultados en entidades y datos para las consultas.
+ * ===================================================================
+*/
 
 namespace CapaModelo_PagosProveedores.Repositorios
 {
@@ -48,9 +61,9 @@ namespace CapaModelo_PagosProveedores.Repositorios
             { Value = string.IsNullOrWhiteSpace(Valor) ? (object)DBNull.Value : Valor };
         }
 
-        // ---- CRUD (contrato generico) ----
+        
 
-        // Devuelve el idPago generado (el SP lo regresa con un SELECT)
+        
         public int ComprasMetAgregar(ClsPagoProveedor Entidad)
         {
             var Parametros = new List<OdbcParameter>();
@@ -75,7 +88,7 @@ namespace CapaModelo_PagosProveedores.Repositorios
             Parametros.Add(ComprasFuncTexto("p_estado", Entidad.EstadoPagoProveedor));
 
             ComprasMetEjecucionNonQuery(_Update, Parametros, CommandType.Text);
-            return 1; // el SP lanza error si algo falla
+            return 1; 
         }
 
         public int ComprasMetRemover(ClsPagoProveedor Entidad)
@@ -92,7 +105,7 @@ namespace CapaModelo_PagosProveedores.Repositorios
             return ComprasMetConsultar(null, null, null, null);
         }
 
-        // ---- Consultas propias de la pantalla ----
+        
 
         public IEnumerable<ClsPagoProveedor> ComprasMetConsultar(int? IdProveedor, string Estado, DateTime? Desde, DateTime? Hasta)
         {
@@ -143,13 +156,13 @@ namespace CapaModelo_PagosProveedores.Repositorios
             return Pago;
         }
 
-        // Para llenar combos (columnas: idProveedor, nombre)
+        
         public DataTable ComprasMetObtenerProveedores()
         {
             return ComprasMetEjecucionConsulta(_SelectProveedores, CommandType.Text);
         }
 
-        // Para el combo Factura por pagar (columnas: idCuentaPorPagar, descripcion, saldo)
+        
         public DataTable ComprasMetObtenerCuentasPendientes(int IdProveedor)
         {
             var Parametros = new List<OdbcParameter>();

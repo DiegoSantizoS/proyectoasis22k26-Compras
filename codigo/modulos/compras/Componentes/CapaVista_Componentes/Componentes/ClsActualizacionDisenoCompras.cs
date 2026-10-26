@@ -1,6 +1,18 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+
+/*
+ * ==================================================================
+ * Área : Compras
+ * Autor : Diego Fernando Santizo Samayoa
+ * Carné : 0901-22-15950
+ * Fecha : 24/10/2026
+ * ==================================================================
+ * Propósito :
+ *  Suspende y restablece la distribución visual durante la actualización de controles.
+ * ===================================================================
+*/
 
 namespace CapaVista_Componentes.Componentes
 {
