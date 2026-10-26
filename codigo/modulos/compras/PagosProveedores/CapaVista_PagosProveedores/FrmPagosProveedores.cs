@@ -59,8 +59,7 @@ namespace CapaVista_PagosProveedores
                 _Cargando = true;
 
                 DataTable Proveedores = _Modelo.ComprasMetObtenerProveedores();
-                
-                
+
                 ComprasMetLlenarCombo(ComprasCboProveedorPago, Proveedores, "nombre", "idProveedor");
                 ComprasMetLlenarCombo(ComprasCboEstado, new List<string> { "Todos", "Pagado", "Programado", "Rechazado", "Anulado" }, null, null);
                 ComprasMetLlenarCombo(ComprasCboMetodo, new List<string> { "Transferencia", "Cheque", "Efectivo", "Deposito" }, null, null);
@@ -169,7 +168,6 @@ namespace CapaVista_PagosProveedores
                 ComprasDgvPagos.Columns["estado"].HeaderText = "Estado";
         }
 
-        
         private bool ComprasFuncObtenerSeleccion(out int IdPago, out string NoPago)
         {
             IdPago = 0;
@@ -328,12 +326,90 @@ namespace CapaVista_PagosProveedores
 
         private void ComprasMetNuevoPagoClick(object Sender, EventArgs Evento)
         {
+            if (ComprasFuncHayOperacionEnCurso())
+            {
+                DialogResult Respuesta = MessageBox.Show(
+                    "Hay datos sin guardar. ¿Desea descartarlos y registrar un nuevo pago?",
+                    _TituloMensajes,
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question);
+
+                if (Respuesta != DialogResult.Yes)
+                    return;
+            }
+
             ComprasMetLimpiarFormulario();
+            ComprasDgvPagos.ClearSelection();
+
+            // Baja hasta el formulario "Registrar pago" y deja el cursor en Proveedor
+            ComprasMetDesplazarHacia(ComprasGbxRegistrarPago);
+            ComprasCboProveedorPago.Focus();
         }
 
         private void ComprasMetCancelarClick(object Sender, EventArgs Evento)
         {
+            if (ComprasFuncHayOperacionEnCurso())
+            {
+                string Pregunta = _IdPagoEditando != 0
+                    ? "¿Desea cancelar la edición del pago? Se perderán los cambios no guardados."
+                    : "¿Desea cancelar el registro? Se perderán los datos ingresados.";
+
+                DialogResult Respuesta = MessageBox.Show(
+                    Pregunta,
+                    _TituloMensajes,
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question);
+
+                if (Respuesta != DialogResult.Yes)
+                    return;
+            }
+
+            // Restablece los filtros a su estado inicial
+            _Cargando = true;
+            DateTime Hoy = DateTime.Today;
+            DateTime PrimerDia = new DateTime(Hoy.Year, Hoy.Month, 1);
+            ComprasMetFijarTexto(ComprasTxtDesde, PrimerDia.ToString(_FormatoFecha));
+            ComprasMetFijarTexto(ComprasTxtHasta, PrimerDia.AddMonths(1).AddDays(-1).ToString(_FormatoFecha));
+            ComprasMetFijarIndiceCombo(ComprasCboEstado, 0);
+            ComprasMetFijarIndiceCombo(ComprasCboProveedor, 0);
+            _Cargando = false;
+
+            // Restablece el formulario y la lista
             ComprasMetLimpiarFormulario();
+            ComprasMetCargarGrid();
+            ComprasDgvPagos.ClearSelection();
+
+            // Vuelve al inicio de la pantalla
+            ComprasPnlDesplazamiento.AutoScrollPosition = new System.Drawing.Point(0, 0);
+
+            ComprasMetMostrarInformacion("Operación cancelada. ");
+        }
+
+        // Mueve la barra de desplazamiento hasta que el control quede visible arriba
+        private void ComprasMetDesplazarHacia(Control Destino)
+        {
+            System.Drawing.Point PosicionPantalla = Destino.PointToScreen(System.Drawing.Point.Empty);
+            System.Drawing.Point PosicionPanel = ComprasPnlDesplazamiento.PointToClient(PosicionPantalla);
+
+            // AutoScrollPosition devuelve valores negativos cuando ya se bajó
+            int PosicionAbsoluta = PosicionPanel.Y - ComprasPnlDesplazamiento.AutoScrollPosition.Y;
+
+            ComprasPnlDesplazamiento.AutoScrollPosition = new System.Drawing.Point(0, Math.Max(0, PosicionAbsoluta - 10));
+        }
+
+        // Devuelve true si se está editando un pago o el usuario ya escribió algo
+        private bool ComprasFuncHayOperacionEnCurso()
+        {
+            if (_IdPagoEditando != 0)
+                return true;
+
+            if (ComprasFuncTexto(ComprasTxtReferencia).Trim().Length > 0)
+                return true;
+
+            if (ComprasFuncTexto(ComprasTxtFechaPago).Trim() != DateTime.Today.ToString(_FormatoFecha))
+                return true;
+
+            return false;
         }
 
         private void ComprasMetGuardarClick(object Sender, EventArgs Evento)
