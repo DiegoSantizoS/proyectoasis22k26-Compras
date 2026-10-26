@@ -56,17 +56,18 @@ namespace CapaVista_MovimientosProveedores
             this.ComprasLblTituloNit = new CapaVista_Componentes.Componentes.ClsEtiquetaCompras();
             this.ComprasLblNombreProveedor = new CapaVista_Componentes.Componentes.ClsEtiquetaCompras();
             this.ComprasPnlFiltros = new CapaVista_Componentes.Componentes.ClsPanelCompras();
+<<<<<<< HEAD
             this.ComprasCboComboBoxCompras1 = new CapaVista_Componentes.Componentes.UsrComboBoxCompras();
+=======
+>>>>>>> dab2655da05d5a1d0f4af4a99abda3650f27f8bb
             this.ComprasCboEstado = new CapaVista_Componentes.Componentes.UsrComboBoxCompras();
             this.ComprasCboTipoMovimiento = new CapaVista_Componentes.Componentes.UsrComboBoxCompras();
             this.ComprasBtnConsultar = new CapaVista_Componentes.Componentes.ClsButtonCompras();
-            this.ComprasDtpHasta = new System.Windows.Forms.DateTimePicker();
-            this.ComprasDtpDesde = new System.Windows.Forms.DateTimePicker();
-            this.ComprasLblHasta = new CapaVista_Componentes.Componentes.ClsEtiquetaCompras();
-            this.ComprasLblDesde = new CapaVista_Componentes.Componentes.ClsEtiquetaCompras();
             this.ComprasLblEstado = new CapaVista_Componentes.Componentes.ClsEtiquetaCompras();
             this.ComprasLblTipoDeMovimiento = new CapaVista_Componentes.Componentes.ClsEtiquetaCompras();
             this.ComprasLblProveedor = new CapaVista_Componentes.Componentes.ClsEtiquetaCompras();
+            this.usrRangoFechasCompras1 = new CapaVista_Componentes.Componentes.UsrRangoFechasCompras();
+            this.usrComboBoxCompras1 = new CapaVista_Componentes.Componentes.UsrComboBoxCompras();
             this.ComprasPnlDesplazamiento.SuspendLayout();
             this.ComprasPnlContenido.SuspendLayout();
             this.ComprasPnlProveedor.SuspendLayout();
@@ -267,15 +268,17 @@ namespace CapaVista_MovimientosProveedores
             // 
             // ComprasPnlFiltros
             // 
+<<<<<<< HEAD
             this.ComprasPnlFiltros.BackColor = CapaVista_Componentes.Componentes.ClsTemaCompras.FondoGeneral;
             this.ComprasPnlFiltros.Controls.Add(this.ComprasCboComboBoxCompras1);
+=======
+            this.ComprasPnlFiltros.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(246)))), ((int)(((byte)(247)))), ((int)(((byte)(250)))));
+            this.ComprasPnlFiltros.Controls.Add(this.usrComboBoxCompras1);
+            this.ComprasPnlFiltros.Controls.Add(this.usrRangoFechasCompras1);
+>>>>>>> dab2655da05d5a1d0f4af4a99abda3650f27f8bb
             this.ComprasPnlFiltros.Controls.Add(this.ComprasCboEstado);
             this.ComprasPnlFiltros.Controls.Add(this.ComprasCboTipoMovimiento);
             this.ComprasPnlFiltros.Controls.Add(this.ComprasBtnConsultar);
-            this.ComprasPnlFiltros.Controls.Add(this.ComprasDtpHasta);
-            this.ComprasPnlFiltros.Controls.Add(this.ComprasDtpDesde);
-            this.ComprasPnlFiltros.Controls.Add(this.ComprasLblHasta);
-            this.ComprasPnlFiltros.Controls.Add(this.ComprasLblDesde);
             this.ComprasPnlFiltros.Controls.Add(this.ComprasLblEstado);
             this.ComprasPnlFiltros.Controls.Add(this.ComprasLblTipoDeMovimiento);
             this.ComprasPnlFiltros.Controls.Add(this.ComprasLblProveedor);
@@ -285,6 +288,7 @@ namespace CapaVista_MovimientosProveedores
             this.ComprasPnlFiltros.Size = new System.Drawing.Size(1222, 191);
             this.ComprasPnlFiltros.TabIndex = 2;
             // 
+<<<<<<< HEAD
             // usrComboBoxCompras1
             // 
             this.ComprasCboComboBoxCompras1.BackColor = CapaVista_Componentes.Componentes.ClsTemaCompras.FondoGeneral;
@@ -299,12 +303,19 @@ namespace CapaVista_MovimientosProveedores
             this.ComprasCboComboBoxCompras1.TabIndex = 14;
             this.ComprasCboComboBoxCompras1.TipoDatos = CapaVista_Componentes.Componentes.EnmTipoDatosCompras.Proveedores;
             // 
+=======
+>>>>>>> dab2655da05d5a1d0f4af4a99abda3650f27f8bb
             // ComprasCboEstado
             // 
             this.ComprasCboEstado.BackColor = CapaVista_Componentes.Componentes.ClsTemaCompras.FondoGeneral;
             this.ComprasCboEstado.Font = new System.Drawing.Font("Segoe UI", 10F);
+<<<<<<< HEAD
             this.ComprasCboEstado.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.PrincipalNavegador;
             this.ComprasCboEstado.Location = new System.Drawing.Point(554, 55);
+=======
+            this.ComprasCboEstado.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(42)))), ((int)(((byte)(90)))));
+            this.ComprasCboEstado.Location = new System.Drawing.Point(717, 61);
+>>>>>>> dab2655da05d5a1d0f4af4a99abda3650f27f8bb
             this.ComprasCboEstado.Margin = new System.Windows.Forms.Padding(0);
             this.ComprasCboEstado.MaxLength = 0;
             this.ComprasCboEstado.MostrarEtiquetaError = false;
@@ -316,8 +327,13 @@ namespace CapaVista_MovimientosProveedores
             // 
             this.ComprasCboTipoMovimiento.BackColor = CapaVista_Componentes.Componentes.ClsTemaCompras.FondoGeneral;
             this.ComprasCboTipoMovimiento.Font = new System.Drawing.Font("Segoe UI", 10F);
+<<<<<<< HEAD
             this.ComprasCboTipoMovimiento.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.PrincipalNavegador;
             this.ComprasCboTipoMovimiento.Location = new System.Drawing.Point(285, 55);
+=======
+            this.ComprasCboTipoMovimiento.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(42)))), ((int)(((byte)(90)))));
+            this.ComprasCboTipoMovimiento.Location = new System.Drawing.Point(448, 61);
+>>>>>>> dab2655da05d5a1d0f4af4a99abda3650f27f8bb
             this.ComprasCboTipoMovimiento.Margin = new System.Windows.Forms.Padding(0);
             this.ComprasCboTipoMovimiento.MaxLength = 0;
             this.ComprasCboTipoMovimiento.MostrarEtiquetaError = false;
@@ -348,42 +364,10 @@ namespace CapaVista_MovimientosProveedores
             this.ComprasBtnConsultar.TabIndex = 10;
             this.ComprasBtnConsultar.UseVisualStyleBackColor = false;
             // 
-            // ComprasDtpHasta
-            // 
-            this.ComprasDtpHasta.Location = new System.Drawing.Point(554, 144);
-            this.ComprasDtpHasta.Name = "ComprasDtpHasta";
-            this.ComprasDtpHasta.Size = new System.Drawing.Size(200, 27);
-            this.ComprasDtpHasta.TabIndex = 9;
-            // 
-            // ComprasDtpDesde
-            // 
-            this.ComprasDtpDesde.Location = new System.Drawing.Point(289, 144);
-            this.ComprasDtpDesde.Name = "ComprasDtpDesde";
-            this.ComprasDtpDesde.Size = new System.Drawing.Size(200, 27);
-            this.ComprasDtpDesde.TabIndex = 8;
-            // 
-            // ComprasLblHasta
-            // 
-            this.ComprasLblHasta.AutoSize = true;
-            this.ComprasLblHasta.Location = new System.Drawing.Point(550, 121);
-            this.ComprasLblHasta.Name = "ComprasLblHasta";
-            this.ComprasLblHasta.Size = new System.Drawing.Size(47, 20);
-            this.ComprasLblHasta.TabIndex = 7;
-            this.ComprasLblHasta.Text = "Hasta";
-            // 
-            // ComprasLblDesde
-            // 
-            this.ComprasLblDesde.AutoSize = true;
-            this.ComprasLblDesde.Location = new System.Drawing.Point(285, 121);
-            this.ComprasLblDesde.Name = "ComprasLblDesde";
-            this.ComprasLblDesde.Size = new System.Drawing.Size(51, 20);
-            this.ComprasLblDesde.TabIndex = 6;
-            this.ComprasLblDesde.Text = "Desde";
-            // 
             // ComprasLblEstado
             // 
             this.ComprasLblEstado.AutoSize = true;
-            this.ComprasLblEstado.Location = new System.Drawing.Point(550, 22);
+            this.ComprasLblEstado.Location = new System.Drawing.Point(713, 28);
             this.ComprasLblEstado.Name = "ComprasLblEstado";
             this.ComprasLblEstado.Size = new System.Drawing.Size(54, 20);
             this.ComprasLblEstado.TabIndex = 4;
@@ -392,7 +376,7 @@ namespace CapaVista_MovimientosProveedores
             // ComprasLblTipoDeMovimiento
             // 
             this.ComprasLblTipoDeMovimiento.AutoSize = true;
-            this.ComprasLblTipoDeMovimiento.Location = new System.Drawing.Point(285, 22);
+            this.ComprasLblTipoDeMovimiento.Location = new System.Drawing.Point(448, 28);
             this.ComprasLblTipoDeMovimiento.Name = "ComprasLblTipoDeMovimiento";
             this.ComprasLblTipoDeMovimiento.Size = new System.Drawing.Size(144, 20);
             this.ComprasLblTipoDeMovimiento.TabIndex = 2;
@@ -406,6 +390,32 @@ namespace CapaVista_MovimientosProveedores
             this.ComprasLblProveedor.Size = new System.Drawing.Size(77, 20);
             this.ComprasLblProveedor.TabIndex = 1;
             this.ComprasLblProveedor.Text = "Proveedor";
+            // 
+            // usrRangoFechasCompras1
+            // 
+            this.usrRangoFechasCompras1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(246)))), ((int)(((byte)(247)))), ((int)(((byte)(250)))));
+            this.usrRangoFechasCompras1.FechaFin = new System.DateTime(2026, 10, 24, 0, 0, 0, 0);
+            this.usrRangoFechasCompras1.FechaInicio = new System.DateTime(2026, 10, 1, 0, 0, 0, 0);
+            this.usrRangoFechasCompras1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(42)))), ((int)(((byte)(90)))));
+            this.usrRangoFechasCompras1.Location = new System.Drawing.Point(448, 111);
+            this.usrRangoFechasCompras1.Margin = new System.Windows.Forms.Padding(0);
+            this.usrRangoFechasCompras1.MinimumSize = new System.Drawing.Size(400, 80);
+            this.usrRangoFechasCompras1.Name = "usrRangoFechasCompras1";
+            this.usrRangoFechasCompras1.Size = new System.Drawing.Size(400, 80);
+            this.usrRangoFechasCompras1.TabIndex = 15;
+            // 
+            // usrComboBoxCompras1
+            // 
+            this.usrComboBoxCompras1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(246)))), ((int)(((byte)(247)))), ((int)(((byte)(250)))));
+            this.usrComboBoxCompras1.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.usrComboBoxCompras1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(42)))), ((int)(((byte)(90)))));
+            this.usrComboBoxCompras1.Location = new System.Drawing.Point(23, 61);
+            this.usrComboBoxCompras1.Margin = new System.Windows.Forms.Padding(0);
+            this.usrComboBoxCompras1.MaxLength = 0;
+            this.usrComboBoxCompras1.Name = "usrComboBoxCompras1";
+            this.usrComboBoxCompras1.Size = new System.Drawing.Size(292, 66);
+            this.usrComboBoxCompras1.TabIndex = 16;
+            this.usrComboBoxCompras1.TipoDatos = CapaVista_Componentes.Componentes.EnmTipoDatosCompras.Proveedores;
             // 
             // FrmMovimientosProveedores
             // 
@@ -443,10 +453,6 @@ namespace CapaVista_MovimientosProveedores
         private CapaVista_Componentes.Componentes.ClsEtiquetaCompras ComprasLblProveedor;
         private CapaVista_Componentes.Componentes.ClsPanelCompras ComprasPnlFiltros;
         private CapaVista_Componentes.Componentes.ClsButtonCompras ComprasBtnConsultar;
-        private System.Windows.Forms.DateTimePicker ComprasDtpHasta;
-        private System.Windows.Forms.DateTimePicker ComprasDtpDesde;
-        private CapaVista_Componentes.Componentes.ClsEtiquetaCompras ComprasLblHasta;
-        private CapaVista_Componentes.Componentes.ClsEtiquetaCompras ComprasLblDesde;
         private CapaVista_Componentes.Componentes.ClsEtiquetaCompras ComprasLblEstado;
         private CapaVista_Componentes.Componentes.ClsEtiquetaCompras ComprasLblTipoDeMovimiento;
         private CapaVista_Componentes.Componentes.ClsPanelCompras ComprasPnlProveedor;
@@ -469,6 +475,11 @@ namespace CapaVista_MovimientosProveedores
         private System.Windows.Forms.DataGridViewColumn ComprasColEstado;
         private CapaVista_Componentes.Componentes.UsrComboBoxCompras ComprasCboEstado;
         private CapaVista_Componentes.Componentes.UsrComboBoxCompras ComprasCboTipoMovimiento;
+<<<<<<< HEAD
         private CapaVista_Componentes.Componentes.UsrComboBoxCompras ComprasCboComboBoxCompras1;
+=======
+        private CapaVista_Componentes.Componentes.UsrComboBoxCompras usrComboBoxCompras1;
+        private CapaVista_Componentes.Componentes.UsrRangoFechasCompras usrRangoFechasCompras1;
+>>>>>>> dab2655da05d5a1d0f4af4a99abda3650f27f8bb
     }
 }
