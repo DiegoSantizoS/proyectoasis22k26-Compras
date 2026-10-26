@@ -352,6 +352,7 @@ namespace CapaVista_OrdenesCompra
             this.ComprasBtnNuevaOrden.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ComprasBtnNuevaOrden.Font = new System.Drawing.Font("Tahoma", 10F);
             this.ComprasBtnNuevaOrden.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(42)))), ((int)(((byte)(90)))));
+            this.ComprasBtnNuevaOrden.ImagenDeshabilitado = ((System.Drawing.Image)(resources.GetObject("ComprasBtnNuevaOrden.ImagenDeshabilitado")));
             this.ComprasBtnNuevaOrden.Location = new System.Drawing.Point(1095, 5);
             this.ComprasBtnNuevaOrden.Margin = new System.Windows.Forms.Padding(4);
             this.ComprasBtnNuevaOrden.Name = "ComprasBtnNuevaOrden";
