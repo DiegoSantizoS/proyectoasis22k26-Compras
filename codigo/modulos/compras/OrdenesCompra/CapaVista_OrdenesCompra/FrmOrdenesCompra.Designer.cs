@@ -874,6 +874,7 @@ namespace CapaVista_OrdenesCompra
             this.ComprasBtnGuardar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ComprasBtnGuardar.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ComprasBtnGuardar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(42)))), ((int)(((byte)(90)))));
+            this.ComprasBtnGuardar.ImagenDeshabilitado = ((System.Drawing.Image)(resources.GetObject("ComprasBtnGuardar.ImagenDeshabilitado")));
             this.ComprasBtnGuardar.Location = new System.Drawing.Point(557, 10);
             this.ComprasBtnGuardar.Margin = new System.Windows.Forms.Padding(0);
             this.ComprasBtnGuardar.MaximumSize = new System.Drawing.Size(80, 80);

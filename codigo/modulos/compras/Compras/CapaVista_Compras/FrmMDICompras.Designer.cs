@@ -1177,6 +1177,7 @@ namespace CapaVista_Compras
             this.ComprasBtnAyuda.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ComprasBtnAyuda.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.ComprasBtnAyuda.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(246)))), ((int)(((byte)(247)))), ((int)(((byte)(250)))));
+            this.ComprasBtnAyuda.ImagenDeshabilitado = ((System.Drawing.Image)(resources.GetObject("ComprasBtnAyuda.ImagenDeshabilitado")));
             this.ComprasBtnAyuda.Location = new System.Drawing.Point(30, 374);
             this.ComprasBtnAyuda.Margin = new System.Windows.Forms.Padding(30, 0, 0, 0);
             this.ComprasBtnAyuda.Name = "ComprasBtnAyuda";

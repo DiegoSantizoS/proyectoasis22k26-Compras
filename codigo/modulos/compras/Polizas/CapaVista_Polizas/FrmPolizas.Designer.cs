@@ -145,6 +145,7 @@ namespace CapaVista_Polizas
             this.ComprasBtnEnviar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ComprasBtnEnviar.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ComprasBtnEnviar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(42)))), ((int)(((byte)(90)))));
+            this.ComprasBtnEnviar.ImagenDeshabilitado = ((System.Drawing.Image)(resources.GetObject("ComprasBtnEnviar.ImagenDeshabilitado")));
             this.ComprasBtnEnviar.Location = new System.Drawing.Point(1146, 213);
             this.ComprasBtnEnviar.Margin = new System.Windows.Forms.Padding(0);
             this.ComprasBtnEnviar.MaximumSize = new System.Drawing.Size(80, 80);
@@ -168,6 +169,7 @@ namespace CapaVista_Polizas
             this.ComprasBtnGuardar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ComprasBtnGuardar.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ComprasBtnGuardar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(42)))), ((int)(((byte)(90)))));
+            this.ComprasBtnGuardar.ImagenDeshabilitado = ((System.Drawing.Image)(resources.GetObject("ComprasBtnGuardar.ImagenDeshabilitado")));
             this.ComprasBtnGuardar.Location = new System.Drawing.Point(1045, 213);
             this.ComprasBtnGuardar.Margin = new System.Windows.Forms.Padding(0);
             this.ComprasBtnGuardar.MaximumSize = new System.Drawing.Size(80, 80);
@@ -191,6 +193,7 @@ namespace CapaVista_Polizas
             this.ComprasBtnNuevo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ComprasBtnNuevo.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ComprasBtnNuevo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(42)))), ((int)(((byte)(90)))));
+            this.ComprasBtnNuevo.ImagenDeshabilitado = ((System.Drawing.Image)(resources.GetObject("ComprasBtnNuevo.ImagenDeshabilitado")));
             this.ComprasBtnNuevo.Location = new System.Drawing.Point(942, 213);
             this.ComprasBtnNuevo.Margin = new System.Windows.Forms.Padding(0);
             this.ComprasBtnNuevo.MaximumSize = new System.Drawing.Size(80, 80);
@@ -214,6 +217,7 @@ namespace CapaVista_Polizas
             this.ComprasBtnIngresarCuenta.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ComprasBtnIngresarCuenta.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ComprasBtnIngresarCuenta.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(42)))), ((int)(((byte)(90)))));
+            this.ComprasBtnIngresarCuenta.ImagenDeshabilitado = ((System.Drawing.Image)(resources.GetObject("ComprasBtnIngresarCuenta.ImagenDeshabilitado")));
             this.ComprasBtnIngresarCuenta.Location = new System.Drawing.Point(338, 45);
             this.ComprasBtnIngresarCuenta.Margin = new System.Windows.Forms.Padding(0);
             this.ComprasBtnIngresarCuenta.MaximumSize = new System.Drawing.Size(80, 80);

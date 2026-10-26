@@ -81,6 +81,7 @@ namespace CapaVista_Componentes.Componentes
             this.ComprasTxtTexto.Location = new System.Drawing.Point(6, 1);
             this.ComprasTxtTexto.Margin = new System.Windows.Forms.Padding(0);
             this.ComprasTxtTexto.Multiline = false;
+            this.ComprasTxtTexto.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
             this.ComprasTxtTexto.Name = "ComprasTxtTexto";
             this.ComprasTxtTexto.Size = new System.Drawing.Size(154, 26);
             this.ComprasTxtTexto.TabIndex = 0;
