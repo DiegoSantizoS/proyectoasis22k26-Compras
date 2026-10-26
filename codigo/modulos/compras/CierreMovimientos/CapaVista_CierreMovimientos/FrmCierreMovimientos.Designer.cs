@@ -47,6 +47,7 @@ namespace CapaVista_CierreMovimientos
             this.ComprasBtnImprimir = new CapaVista_Componentes.Componentes.ClsButtonCompras();
             this.ComprasBtnAyuda = new CapaVista_Componentes.Componentes.ClsButtonCompras();
             this.ComprasBtnSalir = new CapaVista_Componentes.Componentes.ClsButtonCompras();
+            this.ComprasTlpFormulario.SuspendLayout();
             this.ComprasPnlDesplazamiento.SuspendLayout();
             this.ComprasPnlContenido.SuspendLayout();
             this.ComprasTlpPrincipal.SuspendLayout();
@@ -70,7 +71,7 @@ namespace CapaVista_CierreMovimientos
             this.ComprasTlpFormulario.RowCount = 2;
             this.ComprasTlpFormulario.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 150F));
             this.ComprasTlpFormulario.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.ComprasTlpFormulario.Height = 150 + 723;
+            this.ComprasTlpFormulario.Size = new System.Drawing.Size(1283, 873);
             this.ComprasTlpFormulario.Controls.Add(this.ComprasUsrEncabezadoFormulario, 0, 0);
             this.ComprasTlpFormulario.Controls.Add(this.ComprasPnlContenido, 0, 1);
             this.ComprasPnlContenido.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -86,7 +87,7 @@ namespace CapaVista_CierreMovimientos
             // ComprasPnlContenido
             // 
             this.ComprasPnlContenido.Controls.Add(this.ComprasTlpPrincipal);
-            this.ComprasPnlContenido.Dock = System.Windows.Forms.DockStyle.Top;
+            this.ComprasPnlContenido.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ComprasPnlContenido.Location = new System.Drawing.Point(0, 0);
             this.ComprasPnlContenido.Margin = new System.Windows.Forms.Padding(0);
             this.ComprasPnlContenido.Name = "ComprasPnlContenido";
@@ -544,6 +545,7 @@ namespace CapaVista_CierreMovimientos
             this.MaximizeBox = false;
             this.Name = "FrmCierreMovimientos";
             this.Text = "6006 – CierreMovimientos";
+            this.ComprasTlpFormulario.ResumeLayout(false);
             this.ComprasPnlDesplazamiento.ResumeLayout(false);
             this.ComprasPnlContenido.ResumeLayout(false);
             this.ComprasTlpPrincipal.ResumeLayout(false);

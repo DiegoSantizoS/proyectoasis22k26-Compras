@@ -533,10 +533,5 @@ namespace CapaVista_PagosProveedores
         {
             Caja.Text = Texto;
         }
-
-        private void ComprasProcUsrPagosCellClick(object Sender, DataGridViewCellEventArgs Evento)
-        {
-
-        }
     }
 }

@@ -82,7 +82,7 @@ namespace CapaVista_PagosProveedores
             this.ComprasTlpFormulario.RowCount = 2;
             this.ComprasTlpFormulario.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 150F));
             this.ComprasTlpFormulario.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.ComprasTlpFormulario.Size = new System.Drawing.Size(1359, 150);
+            this.ComprasTlpFormulario.Size = new System.Drawing.Size(1359, 1055);
             this.ComprasTlpFormulario.TabIndex = 0;
             // 
             // ComprasUsrEncabezadoFormulario
@@ -108,12 +108,12 @@ namespace CapaVista_PagosProveedores
             this.ComprasPnlContenido.Controls.Add(this.ComprasGbxRegistrarPago);
             this.ComprasPnlContenido.Controls.Add(this.ComprasTlpFiltros);
             this.ComprasPnlContenido.Controls.Add(this.ComprasPnlEncabezado);
-            this.ComprasPnlContenido.Dock = System.Windows.Forms.DockStyle.Top;
+            this.ComprasPnlContenido.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ComprasPnlContenido.Location = new System.Drawing.Point(0, 150);
             this.ComprasPnlContenido.Margin = new System.Windows.Forms.Padding(0);
             this.ComprasPnlContenido.Name = "ComprasPnlContenido";
             this.ComprasPnlContenido.Padding = new System.Windows.Forms.Padding(16);
-            this.ComprasPnlContenido.Size = new System.Drawing.Size(1359, 1);
+            this.ComprasPnlContenido.Size = new System.Drawing.Size(1359, 905);
             this.ComprasPnlContenido.TabIndex = 0;
             // 
             // ComprasUsrPagos
@@ -124,9 +124,8 @@ namespace CapaVista_PagosProveedores
             this.ComprasDgvPagos.Location = new System.Drawing.Point(16, 204);
             this.ComprasDgvPagos.Margin = new System.Windows.Forms.Padding(0);
             this.ComprasDgvPagos.Name = "ComprasDgvPagos";
-            this.ComprasDgvPagos.Size = new System.Drawing.Size(1327, 0);
+            this.ComprasDgvPagos.Size = new System.Drawing.Size(1327, 365);
             this.ComprasDgvPagos.TabIndex = 0;
-            this.ComprasDgvPagos.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.ComprasProcUsrPagosCellClick);
             // 
             // ComprasGbxRegistrarPago
             // 
@@ -137,7 +136,7 @@ namespace CapaVista_PagosProveedores
             this.ComprasGbxRegistrarPago.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ComprasGbxRegistrarPago.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Bold);
             this.ComprasGbxRegistrarPago.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.PrincipalNavegador;
-            this.ComprasGbxRegistrarPago.Location = new System.Drawing.Point(16, -335);
+            this.ComprasGbxRegistrarPago.Location = new System.Drawing.Point(16, 569);
             this.ComprasGbxRegistrarPago.Name = "ComprasGbxRegistrarPago";
             this.ComprasGbxRegistrarPago.Size = new System.Drawing.Size(1327, 320);
             this.ComprasGbxRegistrarPago.TabIndex = 1;
