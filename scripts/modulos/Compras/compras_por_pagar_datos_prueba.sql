@@ -69,6 +69,50 @@ SELECT idProveedor, 'PRUEBA-CXP-008', DATE_SUB(CURDATE(), INTERVAL 90 DAY), DATE
 FROM tblProveedor WHERE nitProveedor = '9900000001'
 ON DUPLICATE KEY UPDATE idCuentaPorPagar = tblCuentaPorPagar.idCuentaPorPagar;
 
+INSERT INTO tblPagoProveedor
+    (idCuentaPorPagar, idProveedor, fechaPagoProveedor, montoPagoProveedor,
+     metodoPagoProveedor, referenciaPagoProveedor, estadoPagoProveedor)
+SELECT c.idCuentaPorPagar, c.idProveedor, DATE_SUB(CURDATE(), INTERVAL datos.dias DAY),
+       datos.monto, datos.metodo, datos.referencia, datos.estado
+FROM (
+    SELECT '9900000003' AS nit, 'PRUEBA-CXP-002' AS factura, 2 AS dias,
+           500.0000 AS monto, 'Transferencia' AS metodo, 'PRUEBA-PG-001' AS referencia, 'Pagado' AS estado
+    UNION ALL SELECT '9900000004', 'PRUEBA-CXP-003', 3, 2300.0000, 'Cheque', 'PRUEBA-PG-002', 'Pagado'
+    UNION ALL SELECT '9900000003', 'PRUEBA-CXP-006', 4, 1600.0000, 'Deposito', 'PRUEBA-PG-003', 'Pagado'
+    UNION ALL SELECT '9900000003', 'PRUEBA-CXP-006', 0, 800.0000, 'Transferencia', 'PRUEBA-PG-004', 'Programado'
+    UNION ALL SELECT '9900000001', 'PRUEBA-CXP-008', 5, 475.0000, 'Efectivo', 'PRUEBA-PG-005', 'Pagado'
+    UNION ALL SELECT '9900000001', 'PRUEBA-CXP-001', 1, 150.0000, 'Cheque', 'PRUEBA-PG-006', 'Rechazado'
+    UNION ALL SELECT '9900000001', 'PRUEBA-CXP-005', 1, 100.0000, 'Transferencia', 'PRUEBA-PG-007', 'Anulado'
+) AS datos
+INNER JOIN tblProveedor pr ON pr.nitProveedor = datos.nit
+INNER JOIN tblCuentaPorPagar c
+    ON c.idProveedor = pr.idProveedor AND c.numeroFacturaCuentaPorPagar = datos.factura
+WHERE NOT EXISTS (
+    SELECT 1 FROM tblPagoProveedor p
+    WHERE p.idCuentaPorPagar = c.idCuentaPorPagar
+      AND p.referenciaPagoProveedor = datos.referencia
+);
+
+INSERT INTO tblSolicitudPago
+    (moduloOrigenSolicitudPago, idOrigenSolicitudPago, beneficiarioSolicitudPago,
+     montoSolicitudPago, metodoSolicitudPago, estadoSolicitudPago)
+SELECT 'Compras', p.idPagoProveedor, pr.nombreProveedor,
+       p.montoPagoProveedor, p.metodoPagoProveedor,
+       IF(p.estadoPagoProveedor IN ('Rechazado', 'Anulado'), 'Rechazada', 'Pendiente')
+FROM tblPagoProveedor p
+INNER JOIN tblProveedor pr ON pr.idProveedor = p.idProveedor
+INNER JOIN tblCuentaPorPagar c ON c.idCuentaPorPagar = p.idCuentaPorPagar
+WHERE p.referenciaPagoProveedor IN
+    ('PRUEBA-PG-001', 'PRUEBA-PG-002', 'PRUEBA-PG-003', 'PRUEBA-PG-004',
+     'PRUEBA-PG-005', 'PRUEBA-PG-006', 'PRUEBA-PG-007')
+  AND pr.nitProveedor IN ('9900000001', '9900000003', '9900000004')
+  AND c.numeroFacturaCuentaPorPagar LIKE 'PRUEBA-CXP-%'
+  AND NOT EXISTS (
+      SELECT 1 FROM tblSolicitudPago s
+      WHERE s.moduloOrigenSolicitudPago = 'Compras'
+        AND s.idOrigenSolicitudPago = p.idPagoProveedor
+  );
+
 COMMIT;
 
 
@@ -111,10 +155,10 @@ BEGIN
 
     START TRANSACTION;
 
-    SELECT saldoCuentaPorPagar, Fk_Proveedor_Codigo, estadoCuentaPorPagar
+    SELECT saldoCuentaPorPagar, idProveedor, estadoCuentaPorPagar
       INTO vSaldo, vProveedor, vEstadoCuenta
       FROM tblCuentaPorPagar
-     WHERE Pk_CuentaPorPagar = pCuentaPorPagar
+     WHERE idCuentaPorPagar = pCuentaPorPagar
        FOR UPDATE;
 
     IF vSaldo IS NULL THEN
@@ -130,7 +174,7 @@ BEGIN
     END IF;
 
     INSERT INTO tblPagoProveedor
-        (Fk_CuentaPorPagar_Codigo, Fk_Proveedor_Codigo, fechaPagoProveedor,
+        (idCuentaPorPagar, idProveedor, fechaPagoProveedor,
          montoPagoProveedor, metodoPagoProveedor, referenciaPagoProveedor, estadoPagoProveedor)
     VALUES
         (pCuentaPorPagar, vProveedor, pFecha, pMonto, pMetodo, pReferencia, vEstado);
@@ -139,7 +183,7 @@ BEGIN
 
     SELECT nombreProveedor INTO vNombre
       FROM tblProveedor
-     WHERE Pk_Proveedor = vProveedor;
+     WHERE idProveedor = vProveedor;
 
     INSERT INTO tblSolicitudPago
         (moduloOrigenSolicitudPago, idOrigenSolicitudPago, beneficiarioSolicitudPago,
@@ -152,7 +196,7 @@ BEGIN
     UPDATE tblCuentaPorPagar
        SET saldoCuentaPorPagar  = vNuevoSaldo,
            estadoCuentaPorPagar = IF(vNuevoSaldo = 0, 'Pagada', 'Parcial')
-     WHERE Pk_CuentaPorPagar = pCuentaPorPagar;
+     WHERE idCuentaPorPagar = pCuentaPorPagar;
 
     COMMIT;
 
@@ -192,10 +236,10 @@ BEGIN
 
     START TRANSACTION;
 
-    SELECT Fk_CuentaPorPagar_Codigo, montoPagoProveedor, estadoPagoProveedor
+    SELECT idCuentaPorPagar, montoPagoProveedor, estadoPagoProveedor
       INTO vCuenta, vMontoAnt, vEstadoAnt
       FROM tblPagoProveedor
-     WHERE Pk_PagoProveedor = pIdPago
+     WHERE idPagoProveedor = pIdPago
        FOR UPDATE;
 
     IF vCuenta IS NULL THEN
@@ -215,7 +259,7 @@ BEGIN
     SELECT saldoCuentaPorPagar, montoTotalCuentaPorPagar, estadoCuentaPorPagar
       INTO vSaldo, vTotal, vEstadoCuenta
       FROM tblCuentaPorPagar
-     WHERE Pk_CuentaPorPagar = vCuenta
+     WHERE idCuentaPorPagar = vCuenta
        FOR UPDATE;
 
     SET vEfectivoAnt   = IF(vEstadoAnt IN ('Pagado', 'Programado'), vMontoAnt, 0);
@@ -232,7 +276,7 @@ BEGIN
            metodoPagoProveedor     = pMetodo,
            referenciaPagoProveedor = pReferencia,
            estadoPagoProveedor     = pEstado
-     WHERE Pk_PagoProveedor = pIdPago;
+     WHERE idPagoProveedor = pIdPago;
 
     UPDATE tblCuentaPorPagar
        SET saldoCuentaPorPagar  = vNuevoSaldo,
@@ -242,7 +286,7 @@ BEGIN
                WHEN vNuevoSaldo >= vTotal     THEN 'Pendiente'
                ELSE 'Parcial'
            END
-     WHERE Pk_CuentaPorPagar = vCuenta;
+     WHERE idCuentaPorPagar = vCuenta;
 
     UPDATE tblSolicitudPago
        SET montoSolicitudPago  = pMonto,
@@ -276,10 +320,10 @@ BEGIN
 
     START TRANSACTION;
 
-    SELECT Fk_CuentaPorPagar_Codigo, montoPagoProveedor, estadoPagoProveedor
+    SELECT idCuentaPorPagar, montoPagoProveedor, estadoPagoProveedor
       INTO vCuenta, vMonto, vEstado
       FROM tblPagoProveedor
-     WHERE Pk_PagoProveedor = pIdPago
+     WHERE idPagoProveedor = pIdPago
        FOR UPDATE;
 
     IF vCuenta IS NULL THEN
@@ -299,7 +343,7 @@ BEGIN
     SELECT saldoCuentaPorPagar, montoTotalCuentaPorPagar, estadoCuentaPorPagar
       INTO vSaldo, vTotal, vEstadoCuenta
       FROM tblCuentaPorPagar
-     WHERE Pk_CuentaPorPagar = vCuenta
+     WHERE idCuentaPorPagar = vCuenta
        FOR UPDATE;
 
     IF vEstado IN ('Pagado', 'Programado') THEN
@@ -316,14 +360,14 @@ BEGIN
                WHEN vNuevoSaldo >= vTotal     THEN 'Pendiente'
                ELSE 'Parcial'
            END
-     WHERE Pk_CuentaPorPagar = vCuenta;
+     WHERE idCuentaPorPagar = vCuenta;
 
     DELETE FROM tblSolicitudPago
      WHERE moduloOrigenSolicitudPago = 'Compras'
        AND idOrigenSolicitudPago = pIdPago;
 
     DELETE FROM tblPagoProveedor
-     WHERE Pk_PagoProveedor = pIdPago;
+     WHERE idPagoProveedor = pIdPago;
 
     COMMIT;
 END$$
@@ -336,21 +380,21 @@ CREATE PROCEDURE spConsultarPagoProveedor(
     IN pHasta     DATE
 )
 BEGIN
-    SELECT p.Pk_PagoProveedor                                       AS idPago,
-           CONCAT('PG-', LPAD(p.Pk_PagoProveedor, 4, '0'))          AS noPago,
+    SELECT p.idPagoProveedor                                       AS idPago,
+           CONCAT('PG-', LPAD(p.idPagoProveedor, 4, '0'))          AS noPago,
            pr.nombreProveedor                                       AS proveedor,
            c.numeroFacturaCuentaPorPagar                            AS factura,
            p.fechaPagoProveedor                                     AS fecha,
            p.montoPagoProveedor                                     AS monto,
            p.estadoPagoProveedor                                    AS estado
       FROM tblPagoProveedor p
-     INNER JOIN tblProveedor pr     ON pr.Pk_Proveedor = p.Fk_Proveedor_Codigo
-     INNER JOIN tblCuentaPorPagar c ON c.Pk_CuentaPorPagar = p.Fk_CuentaPorPagar_Codigo
-     WHERE (pProveedor IS NULL OR p.Fk_Proveedor_Codigo = pProveedor)
+     INNER JOIN tblProveedor pr     ON pr.idProveedor = p.idProveedor
+     INNER JOIN tblCuentaPorPagar c ON c.idCuentaPorPagar = p.idCuentaPorPagar
+     WHERE (pProveedor IS NULL OR p.idProveedor = pProveedor)
        AND (pEstado    IS NULL OR p.estadoPagoProveedor = pEstado)
        AND (pDesde     IS NULL OR p.fechaPagoProveedor >= pDesde)
        AND (pHasta     IS NULL OR p.fechaPagoProveedor <= pHasta)
-     ORDER BY p.Pk_PagoProveedor DESC;
+     ORDER BY p.idPagoProveedor DESC;
 END$$
 
 DROP PROCEDURE IF EXISTS spObtenerPagoProveedor$$
@@ -358,9 +402,9 @@ CREATE PROCEDURE spObtenerPagoProveedor(
     IN pIdPago INT
 )
 BEGIN
-    SELECT p.Pk_PagoProveedor            AS idPago,
-           p.Fk_Proveedor_Codigo         AS idProveedor,
-           p.Fk_CuentaPorPagar_Codigo    AS idCuentaPorPagar,
+    SELECT p.idPagoProveedor            AS idPago,
+           p.idProveedor         AS idProveedor,
+           p.idCuentaPorPagar    AS idCuentaPorPagar,
            c.numeroFacturaCuentaPorPagar AS factura,
            p.fechaPagoProveedor          AS fecha,
            p.montoPagoProveedor          AS monto,
@@ -368,14 +412,14 @@ BEGIN
            p.referenciaPagoProveedor     AS referencia,
            p.estadoPagoProveedor         AS estado
       FROM tblPagoProveedor p
-     INNER JOIN tblCuentaPorPagar c ON c.Pk_CuentaPorPagar = p.Fk_CuentaPorPagar_Codigo
-     WHERE p.Pk_PagoProveedor = pIdPago;
+     INNER JOIN tblCuentaPorPagar c ON c.idCuentaPorPagar = p.idCuentaPorPagar
+     WHERE p.idPagoProveedor = pIdPago;
 END$$
 
 DROP PROCEDURE IF EXISTS spObtenerProveedor$$
 CREATE PROCEDURE spObtenerProveedor()
 BEGIN
-    SELECT Pk_Proveedor    AS idProveedor,
+    SELECT idProveedor    AS idProveedor,
            nombreProveedor AS nombre
       FROM tblProveedor
      WHERE estadoProveedor = 1
@@ -387,11 +431,11 @@ CREATE PROCEDURE spObtenerCuentaPorPagarPendiente(
     IN pProveedor INT
 )
 BEGIN
-    SELECT Pk_CuentaPorPagar AS idCuentaPorPagar,
+    SELECT idCuentaPorPagar AS idCuentaPorPagar,
            CONCAT(numeroFacturaCuentaPorPagar, ' - Q ', FORMAT(saldoCuentaPorPagar, 2)) AS descripcion,
            saldoCuentaPorPagar AS saldo
       FROM tblCuentaPorPagar
-     WHERE Fk_Proveedor_Codigo = pProveedor
+     WHERE idProveedor = pProveedor
        AND saldoCuentaPorPagar > 0
        AND estadoCuentaPorPagar IN ('Pendiente', 'Parcial')
      ORDER BY fechaVencimientoCuentaPorPagar;
