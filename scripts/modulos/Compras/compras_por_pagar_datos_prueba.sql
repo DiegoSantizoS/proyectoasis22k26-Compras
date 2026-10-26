@@ -68,11 +68,6 @@ INSERT INTO tblCuentaPorPagar
 SELECT idProveedor, 'PRUEBA-CXP-008', DATE_SUB(CURDATE(), INTERVAL 90 DAY), DATE_SUB(CURDATE(), INTERVAL 60 DAY), 475.0000, 0.0000, 'Pagada'
 FROM tblProveedor WHERE nitProveedor = '9900000001'
 ON DUPLICATE KEY UPDATE idCuentaPorPagar = tblCuentaPorPagar.idCuentaPorPagar;
-
--- Pagos de prueba: los montos Pagado/Programado ya estan descontados
--- de los saldos iniciales de las facturas 002, 003, 006 y 008.
--- Rechazado/Anulado no afectan el saldo. No se reinician saldos al repetir.
--- Las referencias permiten ejecutar nuevamente sin duplicar los pagos.
 INSERT INTO tblPagoProveedor
     (idCuentaPorPagar, idProveedor, fechaPagoProveedor, montoPagoProveedor,
      metodoPagoProveedor, referenciaPagoProveedor, estadoPagoProveedor)
@@ -97,8 +92,6 @@ WHERE NOT EXISTS (
     WHERE existente.idCuentaPorPagar = c.idCuentaPorPagar
       AND existente.referenciaPagoProveedor = d.referencia
 );
-
--- Solicitudes correspondientes a los pagos vigentes, como al registrar desde la app.
 INSERT INTO tblSolicitudPago
     (moduloOrigenSolicitudPago, idOrigenSolicitudPago, beneficiarioSolicitudPago,
      montoSolicitudPago, metodoSolicitudPago, estadoSolicitudPago)
