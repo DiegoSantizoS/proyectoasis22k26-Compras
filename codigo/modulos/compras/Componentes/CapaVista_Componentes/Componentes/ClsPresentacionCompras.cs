@@ -8,6 +8,13 @@ namespace CapaVista_Componentes.Componentes
         public static Size TamanoFormulario => new Size(1300, 700);
         public static int AlturaContenido => 723;
 
+        public static string ComprasFuncFormatearMonto(decimal Monto, ComprasEnumTipoMoneda Moneda = ComprasEnumTipoMoneda.Quetzales)
+        {
+            string Simbolo = Moneda == ComprasEnumTipoMoneda.Dolares ? "$" :
+                Moneda == ComprasEnumTipoMoneda.Euros ? "€" : "Q";
+            return Simbolo + " " + Monto.ToString("N2", System.Globalization.CultureInfo.InvariantCulture);
+        }
+
         public static void ComprasMetFijarTamanoFormulario(Form Formulario)
         {
             Formulario.AutoSize = false;
@@ -65,7 +72,7 @@ namespace CapaVista_Componentes.Componentes
 
             if (EsMonto)
             {
-                Columna.DefaultCellStyle.Format = "N2";
+                Columna.DefaultCellStyle.Format = "'Q '#,##0.00";
                 Columna.DefaultCellStyle.FormatProvider = System.Globalization.CultureInfo.InvariantCulture;
                 Columna.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             }
@@ -75,7 +82,7 @@ namespace CapaVista_Componentes.Componentes
 
         public static void ComprasProcMostrarMonto(UsrTextBoxCompras Entrada, decimal Monto)
         {
-            Entrada.Text = Monto.ToString("N2", System.Globalization.CultureInfo.InvariantCulture);
+            Entrada.Text = ComprasFuncFormatearMonto(Monto, Entrada.TipoMoneda);
             Entrada.Entrada.SelectAll();
             Entrada.Entrada.SelectionAlignment = HorizontalAlignment.Right;
         }

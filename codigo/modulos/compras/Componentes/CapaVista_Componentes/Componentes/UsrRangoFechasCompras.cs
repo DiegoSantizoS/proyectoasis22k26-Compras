@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.ComponentModel;
 using System.Windows.Forms;
 
@@ -17,7 +17,7 @@ namespace CapaVista_Componentes.Componentes
             InitializeComponent();
             DoubleBuffered = true;
             DateTime Hoy = DateTime.Today;
-            EstablecerRango(new DateTime(Hoy.Year, Hoy.Month, 1), Hoy);
+            ComprasProcEstablecerRango(new DateTime(Hoy.Year, Hoy.Month, 1), Hoy);
             ComprasDtpFechaInicio.ValueChanged += ComprasProcFechaCambiada;
             ComprasDtpFechaFin.ValueChanged += ComprasProcFechaCambiada;
         }
@@ -28,7 +28,7 @@ namespace CapaVista_Componentes.Componentes
         public DateTime FechaInicio
         {
             get => _FechaInicio;
-            set => EstablecerRango(value, value.Date > _FechaFin ? value : _FechaFin);
+            set => ComprasProcEstablecerRango(value, value.Date > _FechaFin ? value : _FechaFin);
         }
 
         [Category("Compras")]
@@ -37,14 +37,14 @@ namespace CapaVista_Componentes.Componentes
         public DateTime FechaFin
         {
             get => _FechaFin;
-            set => EstablecerRango(value.Date < _FechaInicio ? value : _FechaInicio, value);
+            set => ComprasProcEstablecerRango(value.Date < _FechaInicio ? value : _FechaInicio, value);
         }
 
         [Category("Compras")]
         [Description("Se produce una vez al cambiar el rango, con ambas fechas ya validadas.")]
         public event EventHandler RangoCambiado;
 
-        public void EstablecerRango(DateTime Inicio, DateTime Fin)
+        public void ComprasProcEstablecerRango(DateTime Inicio, DateTime Fin)
         {
             Inicio = Inicio.Date;
             Fin = Fin.Date;
@@ -78,7 +78,7 @@ namespace CapaVista_Componentes.Componentes
         private void ComprasProcFechaCambiada(object Remitente, EventArgs Evento)
         {
             if (_ActualizandoRango) return;
-            EstablecerRango(ComprasDtpFechaInicio.Value, ComprasDtpFechaFin.Value);
+            ComprasProcEstablecerRango(ComprasDtpFechaInicio.Value, ComprasDtpFechaFin.Value);
         }
     }
 }

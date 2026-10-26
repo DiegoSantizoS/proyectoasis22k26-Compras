@@ -1,4 +1,4 @@
-﻿namespace CapaVista_Compras
+namespace CapaVista_Compras
 {
     partial class FrmMantenimientoProveedor
     {
@@ -33,6 +33,9 @@
             this.ComprasUsrMantenimiento = new CapaVista_Navegador.Navegador();
             this.ComprasPnlDesplazamiento = new CapaVista_Componentes.Componentes.ClsPanelVerticalCompras();
             this.ComprasPnlContenido = new System.Windows.Forms.Panel();
+            this.ComprasPnlDesplazamiento.SuspendLayout();
+            this.ComprasTlpFormulario.SuspendLayout();
+            this.ComprasPnlContenido.SuspendLayout();
             this.SuspendLayout();
             //
             // navegador1
@@ -49,7 +52,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ComprasPnlContenido.Controls.Add(this.ComprasUsrMantenimiento);
-            this.ComprasPnlContenido.Size = new System.Drawing.Size(1300, CapaVista_Componentes.Componentes.ClsPresentacionCompras.AlturaContenido);
+            this.ComprasPnlContenido.Size = new System.Drawing.Size(1300, 723);
             this.ComprasPnlContenido.Name = "ComprasPnlContenido";
             this.ComprasTlpFormulario.Name = "ComprasTlpFormulario";
             this.ComprasTlpFormulario.BackColor = CapaVista_Componentes.Componentes.ClsTemaCompras.FondoGeneral;
@@ -60,7 +63,7 @@
             this.ComprasTlpFormulario.RowCount = 2;
             this.ComprasTlpFormulario.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 150F));
             this.ComprasTlpFormulario.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.ComprasTlpFormulario.Height = 150 + CapaVista_Componentes.Componentes.ClsPresentacionCompras.AlturaContenido;
+            this.ComprasTlpFormulario.Size = new System.Drawing.Size(1300, 873);
             this.ComprasTlpFormulario.Controls.Add(this.ComprasUsrEncabezadoFormulario, 0, 0);
             this.ComprasTlpFormulario.Controls.Add(this.ComprasPnlContenido, 0, 1);
             this.ComprasPnlContenido.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -77,7 +80,7 @@
             this.ComprasUsrEncabezadoFormulario.Titulo = "Mantenimiento de proveedores";
             this.ComprasUsrEncabezadoFormulario.Descripcion = "Registra, consulta y actualiza los datos de los proveedores utilizados en el proceso de compras.";
             this.Controls.Add(this.ComprasPnlDesplazamiento);
-            this.ClientSize = CapaVista_Componentes.Componentes.ClsPresentacionCompras.TamanoFormulario;
+            this.ClientSize = new System.Drawing.Size(1300, 700);
             this.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.BackColor = CapaVista_Componentes.Componentes.ClsTemaCompras.FondoGeneral;
             this.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.PrincipalNavegador;
@@ -86,6 +89,9 @@
             this.Text = "6010 – MantenimientoProveedor";
             this.MaximumSize = new System.Drawing.Size(0, 0);
             this.Name = "FrmMantenimientoProveedor";
+            this.ComprasPnlContenido.ResumeLayout(false);
+            this.ComprasTlpFormulario.ResumeLayout(false);
+            this.ComprasPnlDesplazamiento.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

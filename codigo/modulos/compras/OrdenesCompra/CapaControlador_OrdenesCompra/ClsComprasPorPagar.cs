@@ -1,6 +1,6 @@
-﻿using System;
+using System;
 using System.Data;
-using System.Data.Odbc;
+using CapaModelo_Componentes.Repositorios;
 using System.Globalization;
 using CapaModelo_OrdenesCompra;
 
@@ -15,27 +15,27 @@ namespace CapaControlador_OrdenesCompra
             _Repositorio = Repositorio ?? throw new ArgumentNullException(nameof(Repositorio));
         }
 
-        public DataTable Listar() => _Repositorio.Listar();
-        public DataTable ListarProveedores() => _Repositorio.ListarProveedores();
+        public DataTable ComprasFuncListar() => _Repositorio.ComprasFuncListar();
+        public DataTable ComprasFuncListarProveedores() => _Repositorio.ComprasFuncListarProveedores();
 
-        public ClsCompraPorPagar Anular(int Id)
+        public ClsCompraPorPagar ComprasFuncAnular(int Id)
         {
             if (Id <= 0) throw new ArgumentOutOfRangeException(nameof(Id));
-            _Repositorio.Anular(Id);
-            var Compra = Obtener(Id);
+            _Repositorio.ComprasProcAnular(Id);
+            var Compra = ComprasFuncObtener(Id);
             if (Compra == null || !string.Equals(Compra.Estado, "Anulada", StringComparison.OrdinalIgnoreCase))
                 throw new InvalidOperationException("No se pudo anular la orden. Actualiza la lista y vuelve a intentarlo.");
             return Compra;
         }
 
-        public void ActualizarVencimiento(int Id, DateTime Emision, DateTime Fecha)
+        public void ComprasProcActualizarVencimiento(int Id, DateTime Emision, DateTime Fecha)
         {
             if (Id <= 0) throw new ArgumentOutOfRangeException(nameof(Id));
             if (Fecha.Date < Emision.Date) throw new ArgumentException("El vencimiento no puede ser anterior a la emisión.");
-            _Repositorio.ActualizarVencimiento(Id, Fecha.Date);
+            _Repositorio.ComprasProcActualizarVencimiento(Id, Fecha.Date);
         }
 
-        public int Crear(int IdProveedor, string Factura, DateTime Emision, DateTime Vencimiento, decimal Monto)
+        public int ComprasFuncCrear(int IdProveedor, string Factura, DateTime Emision, DateTime Vencimiento, decimal Monto)
         {
             Factura = (Factura ?? string.Empty).Trim();
             if (IdProveedor <= 0) throw new ArgumentException("Selecciona un proveedor.");
@@ -45,24 +45,23 @@ namespace CapaControlador_OrdenesCompra
                 throw new ArgumentException("El vencimiento no puede ser anterior a la emision.");
             if (Monto <= 0 || Monto > 99999999.9999M || decimal.Round(Monto, 4) != Monto)
                 throw new ArgumentException("El importe debe ser positivo, con un maximo de ocho enteros y cuatro decimales.");
-            try { return _Repositorio.Crear(IdProveedor, Factura, Emision.Date, Vencimiento.Date, Monto); }
-            catch (OdbcException Ex)
+            try { return _Repositorio.ComprasFuncCrear(IdProveedor, Factura, Emision.Date, Vencimiento.Date, Monto); }
+            catch (ClsExcepcionDatosCompras Ex)
             {
-                foreach (OdbcError Error in Ex.Errors)
-                    if (Error.NativeError == 1062)
-                        throw new InvalidOperationException("Ya existe una compra con esa factura para el proveedor seleccionado.", Ex);
+                if (Ex.Codigo == 1062)
+                    throw new InvalidOperationException("Ya existe una compra con esa factura para el proveedor seleccionado.", Ex);
                 throw;
             }
         }
 
-        public ClsCompraPorPagar Obtener(int Id)
+        public ClsCompraPorPagar ComprasFuncObtener(int Id)
         {
             if (Id <= 0) throw new ArgumentOutOfRangeException(nameof(Id));
-            DataTable Datos = _Repositorio.Obtener(Id);
+            DataTable Datos = _Repositorio.ComprasFuncObtener(Id);
             return Datos.Rows.Count == 0 ? null : new ClsCompraPorPagar(Datos.Rows[0]);
         }
 
-        public DataTable Filtrar(DataTable Datos, string Palabra, string Estado, DateTime? Inicio, DateTime? Fin)
+        public DataTable ComprasFuncFiltrar(DataTable Datos, string Palabra, string Estado, DateTime? Inicio, DateTime? Fin)
         {
             if (Datos == null) throw new ArgumentNullException(nameof(Datos));
             if (Inicio.HasValue != Fin.HasValue || (Inicio.HasValue && Inicio.Value.Date > Fin.Value.Date))

@@ -1,34 +1,21 @@
-﻿using System;
+
 using System.Data.Odbc;
+using CapaModelo_Componentes.Repositorios;
 
 
 
 namespace CapaModelo_PagosProveedores
 {
-    public abstract class ClsConexionCompras
+    public abstract class ClsConexionCompras : ClsRepositorioMaestroCompras
     {
-        protected readonly string _ConnectionString;
-
-        public ClsConexionCompras()
-        {
-            _ConnectionString = "Dsn=EmbutidosS.A";
-        }
-
         protected OdbcConnection ComprasMetObtenerConexion()
         {
-            return new OdbcConnection(_ConnectionString);
+            return ComprasFuncObtenerConexion();
         }
 
         public void ComprasMetDesconexion(OdbcConnection ConexionOdbc)
         {
-            try
-            {
-                ConexionOdbc.Close();
-            }
-            catch (OdbcException)
-            {
-                Console.WriteLine("No se desconecto");
-            }
+            ConexionOdbc?.Dispose();
         }
     }
 }

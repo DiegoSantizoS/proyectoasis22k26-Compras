@@ -15,7 +15,7 @@ namespace CapaVista_Compras
             {
                 string Mensaje;
                 if (!ClsSesionSeguridad.HaySesionActiva)
-                    Mensaje = "Este formulario no está habilitado para el prototipo no funcional.";
+                    Mensaje = "Inicie sesión desde Seguridad para habilitar el mantenimiento de proveedores.";
                 else
                 {
                     try
@@ -25,9 +25,9 @@ namespace CapaVista_Compras
                         Navegador.Enabled = true;
                         return;
                     }
-                    catch (InvalidOperationException)
+                    catch (InvalidOperationException Error)
                     {
-                        Mensaje = "Este formulario no está habilitado para el prototipo no funcional.";
+                        Mensaje = Error.Message;
                     }
                 }
                 Formulario.Controls.Add(new Label

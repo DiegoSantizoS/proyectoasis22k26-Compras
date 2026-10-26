@@ -1,23 +1,23 @@
-﻿namespace CapaVista_Componentes.Componentes
+namespace CapaVista_Componentes.Componentes
 {
     partial class UsrEncabezadoCompras
     {
         /// <summary> 
         /// Variable del diseñador necesaria.
         /// </summary>
-        private System.ComponentModel.IContainer components = null;
+        private System.ComponentModel.IContainer _Components = null;
 
         /// <summary> 
         /// Limpiar los recursos que se estén usando.
         /// </summary>
         /// <param name="disposing">true si los recursos administrados se deben desechar; false en caso contrario.</param>
-        protected override void Dispose(bool disposing)
+        protected override void Dispose(bool Disposing)
         {
-            if (disposing && (components != null))
+            if (Disposing && (_Components != null))
             {
-                components.Dispose();
+                _Components.Dispose();
             }
-            base.Dispose(disposing);
+            base.Dispose(Disposing);
         }
 
         #region Código generado por el Diseñador de componentes
@@ -49,7 +49,7 @@
             this.ComprasTlpPrincipal.Controls.Add(this.ComprasTlpTItuloCodigo, 1, 0);
             this.ComprasTlpPrincipal.Controls.Add(this.ComprasLblDescripcion, 1, 1);
             this.ComprasTlpPrincipal.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ComprasTlpPrincipal.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(42)))), ((int)(((byte)(90)))));
+            this.ComprasTlpPrincipal.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.PrincipalNavegador;
             this.ComprasTlpPrincipal.Location = new System.Drawing.Point(0, 0);
             this.ComprasTlpPrincipal.Margin = new System.Windows.Forms.Padding(0);
             this.ComprasTlpPrincipal.Name = "ComprasTlpPrincipal";
@@ -81,7 +81,7 @@
             this.ComprasTlpTItuloCodigo.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 200F));
             this.ComprasTlpTItuloCodigo.Controls.Add(this.ComprasLblTitulo, 0, 0);
             this.ComprasTlpTItuloCodigo.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ComprasTlpTItuloCodigo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(42)))), ((int)(((byte)(90)))));
+            this.ComprasTlpTItuloCodigo.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.PrincipalNavegador;
             this.ComprasTlpTItuloCodigo.Location = new System.Drawing.Point(130, 0);
             this.ComprasTlpTItuloCodigo.Margin = new System.Windows.Forms.Padding(0);
             this.ComprasTlpTItuloCodigo.Name = "ComprasTlpTItuloCodigo";
@@ -95,11 +95,11 @@
             // 
             this.ComprasLblTitulo.AlineacionTexto = System.Drawing.ContentAlignment.BottomLeft;
             this.ComprasLblTitulo.BackColor = System.Drawing.Color.Transparent;
-            this.ComprasLblTitulo.ColorTexto = System.Drawing.Color.FromArgb(((int)(((byte)(246)))), ((int)(((byte)(247)))), ((int)(((byte)(250)))));
+            this.ComprasLblTitulo.ColorTexto = CapaVista_Componentes.Componentes.ClsTemaCompras.FondoGeneral;
             this.ComprasTlpTItuloCodigo.SetColumnSpan(this.ComprasLblTitulo, 2);
             this.ComprasLblTitulo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ComprasLblTitulo.Font = new System.Drawing.Font("Lucida Sans", 18F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))));
-            this.ComprasLblTitulo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(246)))), ((int)(((byte)(247)))), ((int)(((byte)(250)))));
+            this.ComprasLblTitulo.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.FondoGeneral;
             this.ComprasLblTitulo.Location = new System.Drawing.Point(0, 0);
             this.ComprasLblTitulo.Margin = new System.Windows.Forms.Padding(0, 0, 0, 10);
             this.ComprasLblTitulo.MaximumSize = new System.Drawing.Size(2748, 0);
@@ -117,10 +117,10 @@
             // 
             this.ComprasLblDescripcion.AlineacionTexto = System.Drawing.ContentAlignment.TopLeft;
             this.ComprasLblDescripcion.BackColor = System.Drawing.Color.Transparent;
-            this.ComprasLblDescripcion.ColorTexto = System.Drawing.Color.FromArgb(((int)(((byte)(246)))), ((int)(((byte)(247)))), ((int)(((byte)(250)))));
+            this.ComprasLblDescripcion.ColorTexto = CapaVista_Componentes.Componentes.ClsTemaCompras.FondoGeneral;
             this.ComprasLblDescripcion.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ComprasLblDescripcion.Font = new System.Drawing.Font("Tahoma", 13F);
-            this.ComprasLblDescripcion.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(246)))), ((int)(((byte)(247)))), ((int)(((byte)(250)))));
+            this.ComprasLblDescripcion.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.FondoGeneral;
             this.ComprasLblDescripcion.Location = new System.Drawing.Point(137, 75);
             this.ComprasLblDescripcion.Margin = new System.Windows.Forms.Padding(7, 0, 0, 0);
             this.ComprasLblDescripcion.MaximumSize = new System.Drawing.Size(5500, 0);
@@ -136,7 +136,7 @@
             // UsrEncabezadoCompras
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(42)))), ((int)(((byte)(90)))));
+            this.BackColor = CapaVista_Componentes.Componentes.ClsTemaCompras.PrincipalNavegador;
             this.Controls.Add(this.ComprasTlpPrincipal);
             this.Margin = new System.Windows.Forms.Padding(0);
             this.MaximumSize = new System.Drawing.Size(1500, 130);

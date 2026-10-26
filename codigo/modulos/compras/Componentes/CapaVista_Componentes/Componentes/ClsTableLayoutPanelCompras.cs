@@ -63,6 +63,7 @@ namespace CapaVista_Componentes.Componentes
                 _Seleccionado = value;
                 ComprasProcActualizarFondo();
                 ComprasProcActualizarColorTexto();
+                Invalidate();
             }
         }
 
@@ -127,6 +128,14 @@ namespace CapaVista_Componentes.Componentes
             ForeColor = ClsTemaCompras.PrincipalNavegador;
             DoubleBuffered = true;
             ResizeRedraw = true;
+        }
+
+        protected override void OnPaint(PaintEventArgs Evento)
+        {
+            base.OnPaint(Evento);
+            if (!_Seleccionado) return;
+            using (var Pincel = new SolidBrush(ClsTemaCompras.AcentoNavegador))
+                Evento.Graphics.FillRectangle(Pincel, 0, 0, 4, Height);
         }
 
         internal void ComprasProcOcultarActualizacion()

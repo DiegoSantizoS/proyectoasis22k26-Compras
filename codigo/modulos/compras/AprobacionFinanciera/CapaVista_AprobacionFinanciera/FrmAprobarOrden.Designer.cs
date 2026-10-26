@@ -1,4 +1,4 @@
-﻿namespace CapaVista_AprobacionFinanciera
+namespace CapaVista_AprobacionFinanciera
 {
     partial class FrmAprobarOrden
     {
@@ -39,8 +39,8 @@
             this.ComprasPnlContenido = new System.Windows.Forms.Panel();
             this.ComprasBtnNoAprobar = new CapaVista_Componentes.Componentes.ClsButtonCompras();
             this.ComprasBtnSiAprobar = new CapaVista_Componentes.Componentes.ClsButtonCompras();
-            this.ComprasUsrComentario = new CapaVista_Componentes.Componentes.UsrTextBoxCompras();
-            this.ComprasUsrEtiquetaComentario = new CapaVista_Componentes.Componentes.UsrLabelCompras();
+            this.ComprasTxtComentario = new CapaVista_Componentes.Componentes.UsrTextBoxCompras();
+            this.ComprasLblEtiquetaComentario = new CapaVista_Componentes.Componentes.UsrLabelCompras();
             this.ComprasPnlDesplazamiento.SuspendLayout();
             this.ComprasPnlContenido.SuspendLayout();
             this.SuspendLayout();
@@ -86,10 +86,10 @@
             this.ComprasTlpContenidoVisible.RowCount = 2;
             this.ComprasTlpContenidoVisible.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.ComprasTlpContenidoVisible.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 100F));
-            this.ComprasTlpContenidoVisible.Controls.Add(this.ComprasUsrComentario, 0, 0);
+            this.ComprasTlpContenidoVisible.Controls.Add(this.ComprasTxtComentario, 0, 0);
             this.ComprasTlpContenidoVisible.Controls.Add(this.ComprasTlpAcciones, 0, 1);
-            this.ComprasUsrComentario.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ComprasUsrComentario.Margin = new System.Windows.Forms.Padding(0, 0, 0, 10);
+            this.ComprasTxtComentario.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ComprasTxtComentario.Margin = new System.Windows.Forms.Padding(0, 0, 0, 10);
             this.ComprasTlpAcciones.Name = "ComprasTlpAcciones";
             this.ComprasTlpAcciones.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ComprasTlpAcciones.Margin = new System.Windows.Forms.Padding(0);
@@ -152,34 +152,34 @@
             // 
             // ComprasUsrComentario
             // 
-            this.ComprasUsrComentario.BackColor = CapaVista_Componentes.Componentes.ClsTemaCompras.FondoGeneral;
-            this.ComprasUsrComentario.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.ComprasUsrComentario.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.PrincipalNavegador;
-            this.ComprasUsrComentario.Location = new System.Drawing.Point(31, 21);
-            this.ComprasUsrComentario.Margin = new System.Windows.Forms.Padding(0);
-            this.ComprasUsrComentario.MaxLength = 2147483647;
-            this.ComprasUsrComentario.Name = "ComprasUsrComentario";
-            this.ComprasUsrComentario.SelectedText = "";
-            this.ComprasUsrComentario.SelectionLength = 0;
-            this.ComprasUsrComentario.SelectionStart = 0;
-            this.ComprasUsrComentario.Size = new System.Drawing.Size(1196, 495);
-            this.ComprasUsrComentario.TabIndex = 8;
+            this.ComprasTxtComentario.BackColor = CapaVista_Componentes.Componentes.ClsTemaCompras.FondoGeneral;
+            this.ComprasTxtComentario.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.ComprasTxtComentario.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.PrincipalNavegador;
+            this.ComprasTxtComentario.Location = new System.Drawing.Point(31, 21);
+            this.ComprasTxtComentario.Margin = new System.Windows.Forms.Padding(0);
+            this.ComprasTxtComentario.MaxLength = 2147483647;
+            this.ComprasTxtComentario.Name = "ComprasTxtComentario";
+            this.ComprasTxtComentario.SelectedText = "";
+            this.ComprasTxtComentario.SelectionLength = 0;
+            this.ComprasTxtComentario.SelectionStart = 0;
+            this.ComprasTxtComentario.Size = new System.Drawing.Size(1196, 495);
+            this.ComprasTxtComentario.TabIndex = 8;
             // 
             // ComprasUsrEtiquetaComentario
             // 
-            this.ComprasUsrEtiquetaComentario.BackColor = CapaVista_Componentes.Componentes.ClsTemaCompras.FondoGeneral;
-            this.ComprasUsrEtiquetaComentario.Font = new System.Drawing.Font("Tahoma", 9F);
-            this.ComprasUsrEtiquetaComentario.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.PrincipalNavegador;
-            this.ComprasUsrEtiquetaComentario.Location = new System.Drawing.Point(13, 14);
-            this.ComprasUsrEtiquetaComentario.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.ComprasUsrEtiquetaComentario.MaximumSize = new System.Drawing.Size(1167, 21);
-            this.ComprasUsrEtiquetaComentario.Name = "ComprasUsrEtiquetaComentario";
-            this.ComprasUsrEtiquetaComentario.Size = new System.Drawing.Size(116, 21);
-            this.ComprasUsrEtiquetaComentario.TabIndex = 7;
-            this.ComprasUsrEtiquetaComentario.TabStop = false;
-            this.ComprasUsrEtiquetaComentario.TamanoTipografia = 9F;
-            this.ComprasUsrEtiquetaComentario.Text = "Comentario";
-            this.ComprasUsrEtiquetaComentario.Texto = "Comentario";
+            this.ComprasLblEtiquetaComentario.BackColor = CapaVista_Componentes.Componentes.ClsTemaCompras.FondoGeneral;
+            this.ComprasLblEtiquetaComentario.Font = new System.Drawing.Font("Tahoma", 9F);
+            this.ComprasLblEtiquetaComentario.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.PrincipalNavegador;
+            this.ComprasLblEtiquetaComentario.Location = new System.Drawing.Point(13, 14);
+            this.ComprasLblEtiquetaComentario.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.ComprasLblEtiquetaComentario.MaximumSize = new System.Drawing.Size(1167, 21);
+            this.ComprasLblEtiquetaComentario.Name = "ComprasLblEtiquetaComentario";
+            this.ComprasLblEtiquetaComentario.Size = new System.Drawing.Size(116, 21);
+            this.ComprasLblEtiquetaComentario.TabIndex = 7;
+            this.ComprasLblEtiquetaComentario.TabStop = false;
+            this.ComprasLblEtiquetaComentario.TamanoTipografia = 9F;
+            this.ComprasLblEtiquetaComentario.Text = "Comentario";
+            this.ComprasLblEtiquetaComentario.Texto = "Comentario";
             // 
             // FrmAprobarOrden
             // 
@@ -213,7 +213,7 @@
         private CapaVista_Componentes.Componentes.UsrEncabezadoCompras ComprasUsrEncabezadoFormulario;
         private CapaVista_Componentes.Componentes.ClsButtonCompras ComprasBtnNoAprobar;
         private CapaVista_Componentes.Componentes.ClsButtonCompras ComprasBtnSiAprobar;
-        private CapaVista_Componentes.Componentes.UsrTextBoxCompras ComprasUsrComentario;
-        private CapaVista_Componentes.Componentes.UsrLabelCompras ComprasUsrEtiquetaComentario;
+        private CapaVista_Componentes.Componentes.UsrTextBoxCompras ComprasTxtComentario;
+        private CapaVista_Componentes.Componentes.UsrLabelCompras ComprasLblEtiquetaComentario;
     }
 }

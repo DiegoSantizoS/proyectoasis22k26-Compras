@@ -267,7 +267,7 @@ try {
     $whereTools += @(Get-Command vswhere.exe -ErrorAction SilentlyContinue | ForEach-Object { $_.Source })
     foreach ($where in $whereTools | Select-Object -Unique) {
         if (Test-Path -LiteralPath $where) {
-            $candidates += @(& $where -latest -products '*' -version '[17.8,)' -requires Microsoft.Component.MSBuild -find 'MSBuild\**\Bin\MSBuild.exe')
+            $candidates += @(& $where -latest -products '*' -version '[17.8,18.0)' -requires Microsoft.Component.MSBuild -find 'MSBuild\**\Bin\MSBuild.exe')
         }
     }
     $candidates += @(Get-Command MSBuild.exe -CommandType Application -All -ErrorAction SilentlyContinue | ForEach-Object { $_.Source })
@@ -276,7 +276,7 @@ try {
         if (!(Test-Path -LiteralPath $candidate -PathType Leaf)) { continue }
         $versionOutput = & $candidate /nologo /version 2>&1
         $toolCode = $LASTEXITCODE
-        $versionMatch = [regex]::Match(($versionOutput -join "`n"),'(?m)^(?:17|18)\.\d+(?:\.\d+){1,2}\s*$')
+        $versionMatch = [regex]::Match(($versionOutput -join "`n"),'(?m)^17\.\d+(?:\.\d+){1,2}\s*$')
         # Las consultas sin compilar /getProperty y /getItem requieren 17.8 o posterior.
         if ($toolCode -eq 0 -and $versionMatch.Success -and [version]$versionMatch.Value.Trim() -ge [version]'17.8') {
             $msbuild=$candidate; break

@@ -1,9 +1,9 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
 
-namespace CapaControlador_Cbo_Compras
+namespace CapaControlador_Componentes
 {
     public sealed class ClsProveedorCompras
     {

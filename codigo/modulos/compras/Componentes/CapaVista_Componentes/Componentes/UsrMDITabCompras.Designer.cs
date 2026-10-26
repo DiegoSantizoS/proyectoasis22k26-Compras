@@ -1,12 +1,12 @@
-﻿namespace CapaVista_Componentes.Componentes
+namespace CapaVista_Componentes.Componentes
 {
     partial class UsrMDITabCompras
     {
         private System.ComponentModel.IContainer _Componentes = null;
-        protected override void Dispose(bool disposing)
+        protected override void Dispose(bool Disposing)
         {
-            if (disposing && _Componentes != null) _Componentes.Dispose();
-            base.Dispose(disposing);
+            if (Disposing && _Componentes != null) _Componentes.Dispose();
+            base.Dispose(Disposing);
         }
         private void InitializeComponent()
         {

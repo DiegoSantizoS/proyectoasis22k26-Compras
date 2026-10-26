@@ -1,4 +1,4 @@
-﻿using CapaVista_Componentes.Componentes;
+using CapaVista_Componentes.Componentes;
 using System;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -8,57 +8,65 @@ namespace CapaVista_OrdenesCompra
 {
     public partial class FrmOrdenesCompra : System.Windows.Forms.Form
     {
-        private bool ComprasBlnAjustandoAltura;
-        private const int ComprasIntAlturaMinimaArticulo = 40;
-        private readonly ClsComprasPorPagar ComprasControlador;
-        private ClsCompraPorPagar ComprasCompra;
-        private bool ComprasBlnAnulando;
+        private bool _AjustandoAltura;
+        private const int _AlturaMinimaArticulo = 40;
+        private readonly ClsComprasPorPagar _Controlador;
+        private ClsCompraPorPagar _Compra;
+        private bool _Anulando;
         public bool OrdenGuardada { get; private set; }
 
         public FrmOrdenesCompra() : this(null, new ClsComprasPorPagar()) { }
 
         public FrmOrdenesCompra(ClsCompraPorPagar Compra, ClsComprasPorPagar Controlador)
         {
-            ComprasControlador = Controlador ?? throw new ArgumentNullException(nameof(Controlador));
-            ComprasCompra = Compra;
+            _Controlador = Controlador ?? throw new ArgumentNullException(nameof(Controlador));
+            _Compra = Compra;
             InitializeComponent();
             CapaVista_Componentes.Componentes.ClsPresentacionCompras.ComprasMetFijarTamanoFormulario(this);
             ComprasCboNombreProveedor.SelectedIndexChanged += ComprasProcActualizarProveedor;
-            clsDatePickerCompras1.ValueChanged += ComprasProcActualizarVencimiento;
+            if (Compra == null) ComprasDtpFechaEmision.MaxDate = ComprasDtpFechaVencimiento.MaxDate.AddMonths(-3);
+            ComprasDtpFechaEmision.ValueChanged += ComprasProcActualizarVencimiento;
             ComprasProcConfigurarArticulos();
             ComprasProcConfigurarAlturaArticulos();
             ComprasTlpMantenimientoProductos.Enabled = false;
-            clsButtonCompras2.Enabled = false;
-            clsButtonCompras2.AccessibleDescription = "Se requieren productos para guardar la orden.";
+            ComprasBtnGuardar.Enabled = false;
+            ComprasBtnGuardar.AccessibleDescription = "Se requieren productos para guardar la orden.";
             ComprasBtnDescartar.AccessibleName = Compra == null ? "Descartar" : "Anular orden";
+            ComprasBtnDescartar.Enabled = true;
             ComprasBtnDescartar.Click += ComprasProcAnular;
-            ComprasBtnRegresar.Click += (s, e) => Close();
-            FormClosing += (s, e) => { if (ComprasBlnAnulando) e.Cancel = true; };
+            ComprasBtnRegresar.Click += (Remitente, Evento) => Close();
+            FormClosing += (Remitente, Evento) => { if (_Anulando) Evento.Cancel = true; };
             ComprasProcMostrarEncabezado();
         }
 
         private void ComprasProcMostrarEncabezado()
         {
-            bool Nueva = ComprasCompra == null;
+            bool Nueva = _Compra == null;
+            ComprasLblNumeroDeFactura.MostrarAsterisco = Nueva;
+            ComprasLblFechaDeEmision.MostrarAsterisco = Nueva;
+            ComprasLblFechaDeVencimiento.MostrarAsterisco = Nueva;
             ComprasTxtNumeroDeFacturaValor.Enabled = Nueva;
             ComprasTxtNumeroDeFacturaValor.MaxLength = 30;
-            clsDatePickerCompras1.Enabled = Nueva;
-            clsDatePickerCompras2.Enabled = Nueva;
+            ComprasDtpFechaEmision.Enabled = Nueva;
+            ComprasDtpFechaVencimiento.Enabled = Nueva;
             ComprasCboNombreProveedor.Enabled = Nueva;
-            ComprasUsrComentario.Enabled = false;
+            ComprasTxtComentario.Enabled = false;
             ComprasTxtEstadoProveedor.Text = string.Empty;
             ComprasTxtEstadoProveedor.Enabled = false;
             ComprasTxtDireccionProveedor.Enabled = false;
-            ComprasTxtNumeroDeFacturaValor.Text = Nueva ? string.Empty : ComprasCompra.NumeroFactura;
-            clsDatePickerCompras1.Value = Nueva ? DateTime.Today : ComprasCompra.FechaEmision;
-            clsDatePickerCompras2.Value = Nueva ? clsDatePickerCompras1.Value.Date.AddMonths(3) : ComprasCompra.FechaVencimiento;
-            ComprasTxtSaldoPendienteValor.Text = (Nueva ? 0M : ComprasCompra.Saldo).ToString("N4");
-            ComprasLblEstadoValor.Texto = Nueva ? "Nueva" : ComprasCompra.Estado;
-            ComprasTxtTotalDeLaOrden.Text = (Nueva ? 0M : ComprasCompra.MontoTotal).ToString("N4");
+            ComprasTxtNumeroDeFacturaValor.Text = Nueva ? string.Empty : _Compra.NumeroFactura;
+            ComprasDtpFechaEmision.Value = Nueva ? DateTime.Today : _Compra.FechaEmision;
+            ComprasDtpFechaVencimiento.Value = Nueva ? ComprasDtpFechaEmision.Value.Date.AddMonths(3) : _Compra.FechaVencimiento;
+            ComprasTxtSaldoPendienteValor.Text = ClsPresentacionCompras.ComprasFuncFormatearMonto(Nueva ? 0M : _Compra.Saldo,
+                ComprasTxtSaldoPendienteValor.TipoMoneda);
+            ComprasLblEstadoValor.Texto = Nueva ? "Nueva" : _Compra.Estado;
+            ComprasTxtTotalDeLaOrden.Text = ClsPresentacionCompras.ComprasFuncFormatearMonto(Nueva ? 0M : _Compra.MontoTotal,
+                ComprasTxtTotalDeLaOrden.TipoMoneda);
             foreach (var Campo in new[] { ComprasTxtImporteBruto, ComprasTxtSubtotal,
                 ComprasTxtDescuentoTotal, ComprasTxtImpuestoTotal, ComprasTxtTotalPorcentaje })
             {
-                Campo.Text = Nueva ? "0.00" : string.Empty;
+                Campo.Text = Nueva ? (Campo == ComprasTxtTotalPorcentaje ? "0.00" :
+                    ClsPresentacionCompras.ComprasFuncFormatearMonto(0M, Campo.TipoMoneda)) : string.Empty;
                 Campo.Enabled = false;
             }
             ComprasTxtTotalDeLaOrden.Enabled = false;
@@ -67,47 +75,50 @@ namespace CapaVista_OrdenesCompra
                 ComprasCboNombreProveedor.TipoDatos = EnmTipoDatosCompras.Ninguno;
                 ComprasCboNombreProveedor.DataSource = null;
                 ComprasCboNombreProveedor.Items.Clear();
-                ComprasCboNombreProveedor.Items.Add(ComprasCompra.NombreProveedor);
+                ComprasCboNombreProveedor.Items.Add(_Compra.NombreProveedor);
                 ComprasCboNombreProveedor.SelectedIndex = 0;
-                ComprasTxtNitProveedor.Text = ComprasCompra.NitProveedor;
-                ComprasTxtTelefonoProveedor.Text = ComprasCompra.TelefonoProveedor;
-                ComprasTxtCorreoProveedor.Text = ComprasCompra.CorreoProveedor;
-                ComprasTxtDireccionProveedor.Text = ComprasCompra.DireccionProveedor;
-                ComprasTxtEstadoProveedor.Text = ComprasCompra.ProveedorActivo ? "Activo" : "Inactivo";
+                ComprasTxtNitProveedor.Text = _Compra.NitProveedor;
+                ComprasTxtTelefonoProveedor.Text = _Compra.TelefonoProveedor;
+                ComprasTxtCorreoProveedor.Text = _Compra.CorreoProveedor;
+                ComprasTxtDireccionProveedor.Text = _Compra.DireccionProveedor;
+                ComprasTxtEstadoProveedor.Text = _Compra.ProveedorActivo ? "Activo" : "Inactivo";
             }
         }
 
         private void ComprasProcActualizarVencimiento(object Remitente, EventArgs Evento)
         {
-            if (ComprasCompra != null) return;
-            clsDatePickerCompras2.Value = clsDatePickerCompras1.Value.Date.AddMonths(3);
+            if (_Compra != null) return;
+            ComprasDtpFechaVencimiento.Value = ComprasDtpFechaEmision.Value.Date.AddMonths(3);
         }
 
-        protected override void OnShown(EventArgs e)
+        protected override void OnShown(EventArgs Evento)
         {
-            base.OnShown(e);
-            if (ComprasCompra == null)
+            base.OnShown(Evento);
+            if (_Compra == null)
             {
                 ComprasCboNombreProveedor.SelectedIndex = -1;
                 ComprasProcActualizarProveedor(this, EventArgs.Empty);
             }
-            else ComprasProcMostrarEncabezado();
+            else
+            {
+                ComprasProcMostrarEncabezado();
+            }
         }
 
         private async void ComprasProcAnular(object Remitente, EventArgs Evento)
         {
-            if (ComprasBlnAnulando) return;
-            if (ComprasCompra == null) { Close(); return; }
-            if (MessageBox.Show(this, "¿Anular la factura " + ComprasCompra.NumeroFactura + "?",
-                "Anular orden", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes) return;
-            ComprasBlnAnulando = true;
+            if (_Anulando) return;
+            if (_Compra == null) { Close(); return; }
+            if (MessageBox.Show(this, "¿Anular la factura " + _Compra.NumeroFactura + "?",
+                "Anular orden", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) != DialogResult.Yes) return;
+            _Anulando = true;
             ComprasBtnDescartar.Enabled = false;
             ComprasBtnRegresar.Enabled = false;
             UseWaitCursor = true;
             try
             {
-                int Id = ComprasCompra.IdCuentaPorPagar;
-                ComprasCompra = await Task.Run(() => ComprasControlador.Anular(Id));
+                int Id = _Compra.IdCuentaPorPagar;
+                _Compra = await Task.Run(() => _Controlador.ComprasFuncAnular(Id));
                 OrdenGuardada = true;
                 ComprasProcMostrarEncabezado();
             }
@@ -118,7 +129,7 @@ namespace CapaVista_OrdenesCompra
             }
             finally
             {
-                ComprasBlnAnulando = false;
+                _Anulando = false;
                 ComprasBtnDescartar.Enabled = true;
                 ComprasBtnRegresar.Enabled = true;
                 UseWaitCursor = false;
@@ -127,7 +138,7 @@ namespace CapaVista_OrdenesCompra
 
         private void ComprasProcActualizarProveedor(object Remitente, EventArgs Evento)
         {
-            if (ComprasCompra != null) return;
+            if (_Compra != null) return;
             ComprasTxtTelefonoProveedor.Text = string.Empty;
             ComprasTxtCorreoProveedor.Text = string.Empty;
             ComprasTxtNitProveedor.Text = string.Empty;
@@ -152,9 +163,9 @@ namespace CapaVista_OrdenesCompra
 
         private void ComprasProcConfigurarAlturaArticulos()
         {
-            var Tabla = ComprasUsrProductos.Tabla;
-            Tabla.RowTemplate.MinimumHeight = ComprasIntAlturaMinimaArticulo;
-            Tabla.RowTemplate.Height = Math.Max(Tabla.RowTemplate.Height, ComprasIntAlturaMinimaArticulo);
+            var Tabla = ComprasDgvProductos.Tabla;
+            Tabla.RowTemplate.MinimumHeight = _AlturaMinimaArticulo;
+            Tabla.RowTemplate.Height = Math.Max(Tabla.RowTemplate.Height, _AlturaMinimaArticulo);
             Tabla.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             ComprasPnlContenido.MinimumSize = System.Drawing.Size.Empty;
             ComprasTlpPrincipal.RowStyles[2].SizeType = System.Windows.Forms.SizeType.Absolute;
@@ -171,19 +182,19 @@ namespace CapaVista_OrdenesCompra
 
         private void ComprasProcAjustarAlturaArticulos()
         {
-            if (ComprasBlnAjustandoAltura || IsDisposed) return;
-            ComprasBlnAjustandoAltura = true;
+            if (_AjustandoAltura || IsDisposed) return;
+            _AjustandoAltura = true;
             try
             {
-                var Tabla = ComprasUsrProductos.Tabla;
+                var Tabla = ComprasDgvProductos.Tabla;
                 foreach (System.Windows.Forms.DataGridViewRow Fila in Tabla.Rows)
                 {
-                    if (Fila.MinimumHeight != ComprasIntAlturaMinimaArticulo)
-                        Fila.MinimumHeight = ComprasIntAlturaMinimaArticulo;
+                    if (Fila.MinimumHeight != _AlturaMinimaArticulo)
+                        Fila.MinimumHeight = _AlturaMinimaArticulo;
                 }
                 int Altura = Tabla.ColumnHeadersVisible ? Tabla.ColumnHeadersHeight : 0;
                 Altura += Tabla.Rows.GetRowsHeight(System.Windows.Forms.DataGridViewElementStates.Visible);
-                Altura += ComprasUsrProductos.Height - Tabla.ClientSize.Height;
+                Altura += ComprasDgvProductos.Height - Tabla.ClientSize.Height;
                 foreach (System.Windows.Forms.Control Control in Tabla.Controls)
                 {
                     if (Control is System.Windows.Forms.HScrollBar && Control.Visible)
@@ -201,36 +212,36 @@ namespace CapaVista_OrdenesCompra
             }
             finally
             {
-                ComprasBlnAjustandoAltura = false;
+                _AjustandoAltura = false;
             }
         }
 
         private void ComprasProcConfigurarArticulos()
         {
-            CapaVista_Componentes.Componentes.ClsPresentacionCompras.ComprasProcAgregarColumna(ComprasUsrProductos, "IDarticulo", "ID artículo", 8, false);
-            CapaVista_Componentes.Componentes.ClsPresentacionCompras.ComprasProcAgregarColumna(ComprasUsrProductos, "nombre", "Nombre", 22, false);
-            CapaVista_Componentes.Componentes.ClsPresentacionCompras.ComprasProcAgregarColumna(ComprasUsrProductos, "unidad", "Unidad", 7, false);
-            CapaVista_Componentes.Componentes.ClsPresentacionCompras.ComprasProcAgregarColumna(ComprasUsrProductos, "cantidad", "Cantidad", 8, true);
-            CapaVista_Componentes.Componentes.ClsPresentacionCompras.ComprasProcAgregarColumna(ComprasUsrProductos, "precioUnitario", "Precio unitario", 11, true);
-            CapaVista_Componentes.Componentes.ClsPresentacionCompras.ComprasProcAgregarColumna(ComprasUsrProductos, "subtotal", "Subtotal", 11, true);
-            CapaVista_Componentes.Componentes.ClsPresentacionCompras.ComprasProcAgregarColumna(ComprasUsrProductos, "descuento", "Descuento", 10, true);
-            CapaVista_Componentes.Componentes.ClsPresentacionCompras.ComprasProcAgregarColumna(ComprasUsrProductos, "porcentajeImpuesto", "Impuesto %", 8, false);
-            CapaVista_Componentes.Componentes.ClsPresentacionCompras.ComprasProcAgregarColumna(ComprasUsrProductos, "impuesto", "Impuesto", 10, true);
-            CapaVista_Componentes.Componentes.ClsPresentacionCompras.ComprasProcAgregarColumna(ComprasUsrProductos, "total", "Total", 12, true);
-            ComprasUsrProductos.Columns["ComprasColporcentajeImpuesto"].DefaultCellStyle.Format = "P0";
-            ComprasUsrProductos.Tabla.DefaultCellStyle.Alignment =
+            CapaVista_Componentes.Componentes.ClsPresentacionCompras.ComprasProcAgregarColumna(ComprasDgvProductos, "IDarticulo", "ID artículo", 8, false);
+            CapaVista_Componentes.Componentes.ClsPresentacionCompras.ComprasProcAgregarColumna(ComprasDgvProductos, "nombre", "Nombre", 22, false);
+            CapaVista_Componentes.Componentes.ClsPresentacionCompras.ComprasProcAgregarColumna(ComprasDgvProductos, "unidad", "Unidad", 7, false);
+            CapaVista_Componentes.Componentes.ClsPresentacionCompras.ComprasProcAgregarColumna(ComprasDgvProductos, "cantidad", "Cantidad", 8, true);
+            CapaVista_Componentes.Componentes.ClsPresentacionCompras.ComprasProcAgregarColumna(ComprasDgvProductos, "precioUnitario", "Precio unitario", 11, true);
+            CapaVista_Componentes.Componentes.ClsPresentacionCompras.ComprasProcAgregarColumna(ComprasDgvProductos, "subtotal", "Subtotal", 11, true);
+            CapaVista_Componentes.Componentes.ClsPresentacionCompras.ComprasProcAgregarColumna(ComprasDgvProductos, "descuento", "Descuento", 10, true);
+            CapaVista_Componentes.Componentes.ClsPresentacionCompras.ComprasProcAgregarColumna(ComprasDgvProductos, "porcentajeImpuesto", "Impuesto %", 8, false);
+            CapaVista_Componentes.Componentes.ClsPresentacionCompras.ComprasProcAgregarColumna(ComprasDgvProductos, "impuesto", "Impuesto", 10, true);
+            CapaVista_Componentes.Componentes.ClsPresentacionCompras.ComprasProcAgregarColumna(ComprasDgvProductos, "total", "Total", 12, true);
+            ComprasDgvProductos.Columns["ComprasColporcentajeImpuesto"].DefaultCellStyle.Format = "P0";
+            ComprasDgvProductos.Tabla.DefaultCellStyle.Alignment =
                 System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            ComprasUsrProductos.Tabla.ColumnHeadersDefaultCellStyle.Alignment =
+            ComprasDgvProductos.Tabla.ColumnHeadersDefaultCellStyle.Alignment =
                 System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            foreach (System.Windows.Forms.DataGridViewColumn Columna in ComprasUsrProductos.Columns)
+            foreach (System.Windows.Forms.DataGridViewColumn Columna in ComprasDgvProductos.Columns)
             {
                 Columna.DefaultCellStyle.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             }
-            ComprasUsrProductos.ReadOnly = true;
-            ComprasUsrProductos.AllowUserToAddRows = false;
-            ComprasUsrProductos.AllowUserToDeleteRows = false;
+            ComprasDgvProductos.ReadOnly = true;
+            ComprasDgvProductos.AllowUserToAddRows = false;
+            ComprasDgvProductos.AllowUserToDeleteRows = false;
 
-            ComprasUsrProductos.ClearSelection();
+            ComprasDgvProductos.ClearSelection();
         }
     }
 }

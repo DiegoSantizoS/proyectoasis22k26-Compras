@@ -1,4 +1,4 @@
-﻿namespace CapaVista_CierreMovimientos
+namespace CapaVista_CierreMovimientos
 {
     partial class FrmCierreMovimientos
     {
@@ -25,22 +25,22 @@
             this.ComprasPnlDesplazamiento = new CapaVista_Componentes.Componentes.ClsPanelVerticalCompras();
             this.ComprasPnlContenido = new System.Windows.Forms.Panel();
             this.ComprasTlpPrincipal = new CapaVista_Componentes.Componentes.ClsTableLayoutPanelCompras();
-            this.ComprasUsrTitulo = new CapaVista_Componentes.Componentes.UsrLabelCompras();
+            this.ComprasLblTitulo = new CapaVista_Componentes.Componentes.UsrLabelCompras();
             this.ComprasGbxPeriodo = new CapaVista_Componentes.Componentes.ClsGroupBoxCompras();
-            this.ComprasUsrPeriodo = new CapaVista_Componentes.Componentes.UsrComboBoxCompras();
-            this.ComprasUsrEtiquetaPeriodo = new CapaVista_Componentes.Componentes.UsrLabelCompras();
+            this.ComprasCboPeriodo = new CapaVista_Componentes.Componentes.UsrComboBoxCompras();
+            this.ComprasLblEtiquetaPeriodo = new CapaVista_Componentes.Componentes.UsrLabelCompras();
             this.ComprasTlpContenido = new CapaVista_Componentes.Componentes.ClsTableLayoutPanelCompras();
             this.ComprasGbxValidaciones = new CapaVista_Componentes.Componentes.ClsGroupBoxCompras();
-            this.ComprasUsrValidaciones = new CapaVista_Componentes.Componentes.UsrDataGridViewCompras();
+            this.ComprasDgvValidaciones = new CapaVista_Componentes.Componentes.UsrDataGridViewCompras();
             this.ComprasGbxSaldos = new CapaVista_Componentes.Componentes.ClsGroupBoxCompras();
-            this.ComprasUsrSaldos = new CapaVista_Componentes.Componentes.UsrDataGridViewCompras();
+            this.ComprasDgvSaldos = new CapaVista_Componentes.Componentes.UsrDataGridViewCompras();
             this.ComprasTlpTotales = new CapaVista_Componentes.Componentes.ClsTableLayoutPanelCompras();
-            this.ComprasUsrTotalCargos = new CapaVista_Componentes.Componentes.UsrTextBoxCompras();
-            this.ComprasUsrEtiquetaTotalAbonos = new CapaVista_Componentes.Componentes.UsrLabelCompras();
-            this.ComprasUsrTotalAbonos = new CapaVista_Componentes.Componentes.UsrTextBoxCompras();
-            this.ComprasUsrEtiquetaSaldoFinal = new CapaVista_Componentes.Componentes.UsrLabelCompras();
-            this.ComprasUsrSaldoFinal = new CapaVista_Componentes.Componentes.UsrTextBoxCompras();
-            this.ComprasUsrEtiquetaTotalCargos = new CapaVista_Componentes.Componentes.UsrLabelCompras();
+            this.ComprasTxtTotalCargos = new CapaVista_Componentes.Componentes.UsrTextBoxCompras();
+            this.ComprasLblEtiquetaTotalAbonos = new CapaVista_Componentes.Componentes.UsrLabelCompras();
+            this.ComprasTxtTotalAbonos = new CapaVista_Componentes.Componentes.UsrTextBoxCompras();
+            this.ComprasLblEtiquetaSaldoFinal = new CapaVista_Componentes.Componentes.UsrLabelCompras();
+            this.ComprasTxtSaldoFinal = new CapaVista_Componentes.Componentes.UsrTextBoxCompras();
+            this.ComprasLblEtiquetaTotalCargos = new CapaVista_Componentes.Componentes.UsrLabelCompras();
             this.ComprasTlpBotones = new CapaVista_Componentes.Componentes.ClsTableLayoutPanelCompras();
             this.ComprasBtnEjecutarCierre = new CapaVista_Componentes.Componentes.ClsButtonCompras();
             this.ComprasBtnValidar = new CapaVista_Componentes.Componentes.ClsButtonCompras();
@@ -118,28 +118,28 @@
             // 
             // ComprasUsrTitulo
             // 
-            this.ComprasUsrTitulo.AlineacionTexto = System.Drawing.ContentAlignment.MiddleLeft;
-            this.ComprasUsrTitulo.BackColor = CapaVista_Componentes.Componentes.ClsTemaCompras.FondoGeneral;
-            this.ComprasUsrTitulo.Font = new System.Drawing.Font("Tahoma", 16.2F);
-            this.ComprasUsrTitulo.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.PrincipalNavegador;
-            this.ComprasUsrTitulo.Location = new System.Drawing.Point(21, 22);
-            this.ComprasUsrTitulo.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
-            this.ComprasUsrTitulo.MaximumSize = new System.Drawing.Size(1875, 40);
-            this.ComprasUsrTitulo.MostrarAsterisco = false;
-            this.ComprasUsrTitulo.Name = "ComprasUsrTitulo";
-            this.ComprasUsrTitulo.Size = new System.Drawing.Size(390, 38);
-            this.ComprasUsrTitulo.TabIndex = 0;
-            this.ComprasUsrTitulo.TabStop = false;
-            this.ComprasUsrTitulo.TamanoTipografia = 16.2F;
-            this.ComprasUsrTitulo.Text = "Cierre de Movimientos";
-            this.ComprasUsrTitulo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.ComprasUsrTitulo.Texto = "Cierre de Movimientos";
+            this.ComprasLblTitulo.AlineacionTexto = System.Drawing.ContentAlignment.MiddleLeft;
+            this.ComprasLblTitulo.BackColor = CapaVista_Componentes.Componentes.ClsTemaCompras.FondoGeneral;
+            this.ComprasLblTitulo.Font = new System.Drawing.Font("Tahoma", 16.2F);
+            this.ComprasLblTitulo.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.PrincipalNavegador;
+            this.ComprasLblTitulo.Location = new System.Drawing.Point(21, 22);
+            this.ComprasLblTitulo.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
+            this.ComprasLblTitulo.MaximumSize = new System.Drawing.Size(1875, 40);
+            this.ComprasLblTitulo.MostrarAsterisco = false;
+            this.ComprasLblTitulo.Name = "ComprasLblTitulo";
+            this.ComprasLblTitulo.Size = new System.Drawing.Size(390, 38);
+            this.ComprasLblTitulo.TabIndex = 0;
+            this.ComprasLblTitulo.TabStop = false;
+            this.ComprasLblTitulo.TamanoTipografia = 16.2F;
+            this.ComprasLblTitulo.Text = "Cierre de Movimientos";
+            this.ComprasLblTitulo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.ComprasLblTitulo.Texto = "Cierre de Movimientos";
             // 
             // ComprasGbxPeriodo
             // 
             this.ComprasGbxPeriodo.BackColor = System.Drawing.Color.Transparent;
-            this.ComprasGbxPeriodo.Controls.Add(this.ComprasUsrPeriodo);
-            this.ComprasGbxPeriodo.Controls.Add(this.ComprasUsrEtiquetaPeriodo);
+            this.ComprasGbxPeriodo.Controls.Add(this.ComprasCboPeriodo);
+            this.ComprasGbxPeriodo.Controls.Add(this.ComprasLblEtiquetaPeriodo);
             this.ComprasGbxPeriodo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ComprasGbxPeriodo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ComprasGbxPeriodo.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Bold);
@@ -153,31 +153,31 @@
             // 
             // ComprasUsrPeriodo
             // 
-            this.ComprasUsrPeriodo.BackColor = CapaVista_Componentes.Componentes.ClsTemaCompras.FondoGeneral;
-            this.ComprasUsrPeriodo.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.ComprasUsrPeriodo.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.PrincipalNavegador;
-            this.ComprasUsrPeriodo.Location = new System.Drawing.Point(214, 24);
-            this.ComprasUsrPeriodo.Margin = new System.Windows.Forms.Padding(0);
-            this.ComprasUsrPeriodo.MaxLength = 0;
-            this.ComprasUsrPeriodo.MostrarEtiquetaError = false;
-            this.ComprasUsrPeriodo.Name = "ComprasUsrPeriodo";
-            this.ComprasUsrPeriodo.Size = new System.Drawing.Size(174, 36);
-            this.ComprasUsrPeriodo.TabIndex = 1;
+            this.ComprasCboPeriodo.BackColor = CapaVista_Componentes.Componentes.ClsTemaCompras.FondoGeneral;
+            this.ComprasCboPeriodo.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.ComprasCboPeriodo.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.PrincipalNavegador;
+            this.ComprasCboPeriodo.Location = new System.Drawing.Point(214, 24);
+            this.ComprasCboPeriodo.Margin = new System.Windows.Forms.Padding(0);
+            this.ComprasCboPeriodo.MaxLength = 0;
+            this.ComprasCboPeriodo.MostrarEtiquetaError = false;
+            this.ComprasCboPeriodo.Name = "ComprasCboPeriodo";
+            this.ComprasCboPeriodo.Size = new System.Drawing.Size(174, 36);
+            this.ComprasCboPeriodo.TabIndex = 1;
             // 
             // ComprasUsrEtiquetaPeriodo
             // 
-            this.ComprasUsrEtiquetaPeriodo.BackColor = CapaVista_Componentes.Componentes.ClsTemaCompras.FondoGeneral;
-            this.ComprasUsrEtiquetaPeriodo.Font = new System.Drawing.Font("Tahoma", 9F);
-            this.ComprasUsrEtiquetaPeriodo.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.PrincipalNavegador;
-            this.ComprasUsrEtiquetaPeriodo.Location = new System.Drawing.Point(3, 27);
-            this.ComprasUsrEtiquetaPeriodo.MaximumSize = new System.Drawing.Size(1000, 22);
-            this.ComprasUsrEtiquetaPeriodo.Name = "ComprasUsrEtiquetaPeriodo";
-            this.ComprasUsrEtiquetaPeriodo.Size = new System.Drawing.Size(208, 22);
-            this.ComprasUsrEtiquetaPeriodo.TabIndex = 0;
-            this.ComprasUsrEtiquetaPeriodo.TabStop = false;
-            this.ComprasUsrEtiquetaPeriodo.TamanoTipografia = 9F;
-            this.ComprasUsrEtiquetaPeriodo.Text = "Período";
-            this.ComprasUsrEtiquetaPeriodo.Texto = "Período";
+            this.ComprasLblEtiquetaPeriodo.BackColor = CapaVista_Componentes.Componentes.ClsTemaCompras.FondoGeneral;
+            this.ComprasLblEtiquetaPeriodo.Font = new System.Drawing.Font("Tahoma", 9F);
+            this.ComprasLblEtiquetaPeriodo.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.PrincipalNavegador;
+            this.ComprasLblEtiquetaPeriodo.Location = new System.Drawing.Point(3, 27);
+            this.ComprasLblEtiquetaPeriodo.MaximumSize = new System.Drawing.Size(1000, 22);
+            this.ComprasLblEtiquetaPeriodo.Name = "ComprasLblEtiquetaPeriodo";
+            this.ComprasLblEtiquetaPeriodo.Size = new System.Drawing.Size(208, 22);
+            this.ComprasLblEtiquetaPeriodo.TabIndex = 0;
+            this.ComprasLblEtiquetaPeriodo.TabStop = false;
+            this.ComprasLblEtiquetaPeriodo.TamanoTipografia = 9F;
+            this.ComprasLblEtiquetaPeriodo.Text = "Período";
+            this.ComprasLblEtiquetaPeriodo.Texto = "Período";
             // 
             // ComprasTlpContenido
             // 
@@ -200,7 +200,7 @@
             // ComprasGbxValidaciones
             // 
             this.ComprasGbxValidaciones.BackColor = System.Drawing.Color.Transparent;
-            this.ComprasGbxValidaciones.Controls.Add(this.ComprasUsrValidaciones);
+            this.ComprasGbxValidaciones.Controls.Add(this.ComprasDgvValidaciones);
             this.ComprasGbxValidaciones.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ComprasGbxValidaciones.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ComprasGbxValidaciones.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Bold);
@@ -214,19 +214,19 @@
             // 
             // ComprasUsrValidaciones
             // 
-            this.ComprasUsrValidaciones.BackColor = CapaVista_Componentes.Componentes.ClsTemaCompras.FondoGeneral;
-            this.ComprasUsrValidaciones.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ComprasUsrValidaciones.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.PrincipalNavegador;
-            this.ComprasUsrValidaciones.Location = new System.Drawing.Point(3, 24);
-            this.ComprasUsrValidaciones.Margin = new System.Windows.Forms.Padding(0);
-            this.ComprasUsrValidaciones.Name = "ComprasUsrValidaciones";
-            this.ComprasUsrValidaciones.Size = new System.Drawing.Size(484, 342);
-            this.ComprasUsrValidaciones.TabIndex = 0;
+            this.ComprasDgvValidaciones.BackColor = CapaVista_Componentes.Componentes.ClsTemaCompras.FondoGeneral;
+            this.ComprasDgvValidaciones.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ComprasDgvValidaciones.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.PrincipalNavegador;
+            this.ComprasDgvValidaciones.Location = new System.Drawing.Point(3, 24);
+            this.ComprasDgvValidaciones.Margin = new System.Windows.Forms.Padding(0);
+            this.ComprasDgvValidaciones.Name = "ComprasDgvValidaciones";
+            this.ComprasDgvValidaciones.Size = new System.Drawing.Size(484, 342);
+            this.ComprasDgvValidaciones.TabIndex = 0;
             // 
             // ComprasGbxSaldos
             // 
             this.ComprasGbxSaldos.BackColor = System.Drawing.Color.Transparent;
-            this.ComprasGbxSaldos.Controls.Add(this.ComprasUsrSaldos);
+            this.ComprasGbxSaldos.Controls.Add(this.ComprasDgvSaldos);
             this.ComprasGbxSaldos.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ComprasGbxSaldos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ComprasGbxSaldos.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Bold);
@@ -240,14 +240,14 @@
             // 
             // ComprasUsrSaldos
             // 
-            this.ComprasUsrSaldos.BackColor = CapaVista_Componentes.Componentes.ClsTemaCompras.FondoGeneral;
-            this.ComprasUsrSaldos.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ComprasUsrSaldos.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.PrincipalNavegador;
-            this.ComprasUsrSaldos.Location = new System.Drawing.Point(3, 24);
-            this.ComprasUsrSaldos.Margin = new System.Windows.Forms.Padding(0);
-            this.ComprasUsrSaldos.Name = "ComprasUsrSaldos";
-            this.ComprasUsrSaldos.Size = new System.Drawing.Size(733, 342);
-            this.ComprasUsrSaldos.TabIndex = 0;
+            this.ComprasDgvSaldos.BackColor = CapaVista_Componentes.Componentes.ClsTemaCompras.FondoGeneral;
+            this.ComprasDgvSaldos.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ComprasDgvSaldos.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.PrincipalNavegador;
+            this.ComprasDgvSaldos.Location = new System.Drawing.Point(3, 24);
+            this.ComprasDgvSaldos.Margin = new System.Windows.Forms.Padding(0);
+            this.ComprasDgvSaldos.Name = "ComprasDgvSaldos";
+            this.ComprasDgvSaldos.Size = new System.Drawing.Size(733, 342);
+            this.ComprasDgvSaldos.TabIndex = 0;
             // 
             // ComprasTlpTotales
             // 
@@ -256,12 +256,12 @@
             this.ComprasTlpTotales.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.ComprasTlpTotales.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.ComprasTlpTotales.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.ComprasTlpTotales.Controls.Add(this.ComprasUsrTotalCargos, 0, 1);
-            this.ComprasTlpTotales.Controls.Add(this.ComprasUsrEtiquetaTotalAbonos, 1, 0);
-            this.ComprasTlpTotales.Controls.Add(this.ComprasUsrTotalAbonos, 1, 1);
-            this.ComprasTlpTotales.Controls.Add(this.ComprasUsrEtiquetaSaldoFinal, 2, 0);
-            this.ComprasTlpTotales.Controls.Add(this.ComprasUsrSaldoFinal, 2, 1);
-            this.ComprasTlpTotales.Controls.Add(this.ComprasUsrEtiquetaTotalCargos, 0, 0);
+            this.ComprasTlpTotales.Controls.Add(this.ComprasTxtTotalCargos, 0, 1);
+            this.ComprasTlpTotales.Controls.Add(this.ComprasLblEtiquetaTotalAbonos, 1, 0);
+            this.ComprasTlpTotales.Controls.Add(this.ComprasTxtTotalAbonos, 1, 1);
+            this.ComprasTlpTotales.Controls.Add(this.ComprasLblEtiquetaSaldoFinal, 2, 0);
+            this.ComprasTlpTotales.Controls.Add(this.ComprasTxtSaldoFinal, 2, 1);
+            this.ComprasTlpTotales.Controls.Add(this.ComprasLblEtiquetaTotalCargos, 0, 0);
             this.ComprasTlpTotales.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ComprasTlpTotales.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.PrincipalNavegador;
             this.ComprasTlpTotales.Location = new System.Drawing.Point(19, 530);
@@ -274,114 +274,114 @@
             // 
             // ComprasUsrTotalCargos
             // 
-            this.ComprasUsrTotalCargos.BackColor = CapaVista_Componentes.Componentes.ClsTemaCompras.FondoGeneral;
-            this.ComprasUsrTotalCargos.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ComprasUsrTotalCargos.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.ComprasUsrTotalCargos.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.PrincipalNavegador;
-            this.ComprasUsrTotalCargos.Location = new System.Drawing.Point(0, 26);
-            this.ComprasUsrTotalCargos.Margin = new System.Windows.Forms.Padding(0);
-            this.ComprasUsrTotalCargos.MaxLength = 2147483647;
-            this.ComprasUsrTotalCargos.MostrarEtiquetaError = false;
-            this.ComprasUsrTotalCargos.Name = "ComprasUsrTotalCargos";
-            this.ComprasUsrTotalCargos.ReadOnly = true;
-            this.ComprasUsrTotalCargos.SelectedText = "";
-            this.ComprasUsrTotalCargos.SelectionLength = 0;
-            this.ComprasUsrTotalCargos.SelectionStart = 0;
-            this.ComprasUsrTotalCargos.Size = new System.Drawing.Size(413, 48);
-            this.ComprasUsrTotalCargos.TabIndex = 1;
+            this.ComprasTxtTotalCargos.BackColor = CapaVista_Componentes.Componentes.ClsTemaCompras.FondoGeneral;
+            this.ComprasTxtTotalCargos.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ComprasTxtTotalCargos.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.ComprasTxtTotalCargos.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.PrincipalNavegador;
+            this.ComprasTxtTotalCargos.Location = new System.Drawing.Point(0, 26);
+            this.ComprasTxtTotalCargos.Margin = new System.Windows.Forms.Padding(0);
+            this.ComprasTxtTotalCargos.MaxLength = 2147483647;
+            this.ComprasTxtTotalCargos.MostrarEtiquetaError = false;
+            this.ComprasTxtTotalCargos.Name = "ComprasTxtTotalCargos";
+            this.ComprasTxtTotalCargos.ReadOnly = true;
+            this.ComprasTxtTotalCargos.SelectedText = "";
+            this.ComprasTxtTotalCargos.SelectionLength = 0;
+            this.ComprasTxtTotalCargos.SelectionStart = 0;
+            this.ComprasTxtTotalCargos.Size = new System.Drawing.Size(413, 48);
+            this.ComprasTxtTotalCargos.TabIndex = 1;
             // 
             // ComprasUsrEtiquetaTotalAbonos
             // 
-            this.ComprasUsrEtiquetaTotalAbonos.AlineacionTexto = System.Drawing.ContentAlignment.MiddleLeft;
-            this.ComprasUsrEtiquetaTotalAbonos.BackColor = CapaVista_Componentes.Componentes.ClsTemaCompras.FondoGeneral;
-            this.ComprasUsrEtiquetaTotalAbonos.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ComprasUsrEtiquetaTotalAbonos.Font = new System.Drawing.Font("Tahoma", 9F);
-            this.ComprasUsrEtiquetaTotalAbonos.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.PrincipalNavegador;
-            this.ComprasUsrEtiquetaTotalAbonos.Location = new System.Drawing.Point(416, 3);
-            this.ComprasUsrEtiquetaTotalAbonos.MaximumSize = new System.Drawing.Size(1000, 22);
-            this.ComprasUsrEtiquetaTotalAbonos.MostrarAsterisco = false;
-            this.ComprasUsrEtiquetaTotalAbonos.Name = "ComprasUsrEtiquetaTotalAbonos";
-            this.ComprasUsrEtiquetaTotalAbonos.Size = new System.Drawing.Size(407, 20);
-            this.ComprasUsrEtiquetaTotalAbonos.TabIndex = 2;
-            this.ComprasUsrEtiquetaTotalAbonos.TabStop = false;
-            this.ComprasUsrEtiquetaTotalAbonos.TamanoTipografia = 9F;
-            this.ComprasUsrEtiquetaTotalAbonos.Text = "Total Abonos (Q):";
-            this.ComprasUsrEtiquetaTotalAbonos.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.ComprasUsrEtiquetaTotalAbonos.Texto = "Total Abonos (Q):";
+            this.ComprasLblEtiquetaTotalAbonos.AlineacionTexto = System.Drawing.ContentAlignment.MiddleLeft;
+            this.ComprasLblEtiquetaTotalAbonos.BackColor = CapaVista_Componentes.Componentes.ClsTemaCompras.FondoGeneral;
+            this.ComprasLblEtiquetaTotalAbonos.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ComprasLblEtiquetaTotalAbonos.Font = new System.Drawing.Font("Tahoma", 9F);
+            this.ComprasLblEtiquetaTotalAbonos.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.PrincipalNavegador;
+            this.ComprasLblEtiquetaTotalAbonos.Location = new System.Drawing.Point(416, 3);
+            this.ComprasLblEtiquetaTotalAbonos.MaximumSize = new System.Drawing.Size(1000, 22);
+            this.ComprasLblEtiquetaTotalAbonos.MostrarAsterisco = false;
+            this.ComprasLblEtiquetaTotalAbonos.Name = "ComprasLblEtiquetaTotalAbonos";
+            this.ComprasLblEtiquetaTotalAbonos.Size = new System.Drawing.Size(407, 20);
+            this.ComprasLblEtiquetaTotalAbonos.TabIndex = 2;
+            this.ComprasLblEtiquetaTotalAbonos.TabStop = false;
+            this.ComprasLblEtiquetaTotalAbonos.TamanoTipografia = 9F;
+            this.ComprasLblEtiquetaTotalAbonos.Text = "Total Abonos (Q):";
+            this.ComprasLblEtiquetaTotalAbonos.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.ComprasLblEtiquetaTotalAbonos.Texto = "Total Abonos (Q):";
             // 
             // ComprasUsrTotalAbonos
             // 
-            this.ComprasUsrTotalAbonos.BackColor = CapaVista_Componentes.Componentes.ClsTemaCompras.FondoGeneral;
-            this.ComprasUsrTotalAbonos.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ComprasUsrTotalAbonos.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.ComprasUsrTotalAbonos.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.PrincipalNavegador;
-            this.ComprasUsrTotalAbonos.Location = new System.Drawing.Point(413, 26);
-            this.ComprasUsrTotalAbonos.Margin = new System.Windows.Forms.Padding(0);
-            this.ComprasUsrTotalAbonos.MaxLength = 2147483647;
-            this.ComprasUsrTotalAbonos.MostrarEtiquetaError = false;
-            this.ComprasUsrTotalAbonos.Name = "ComprasUsrTotalAbonos";
-            this.ComprasUsrTotalAbonos.ReadOnly = true;
-            this.ComprasUsrTotalAbonos.SelectedText = "";
-            this.ComprasUsrTotalAbonos.SelectionLength = 0;
-            this.ComprasUsrTotalAbonos.SelectionStart = 0;
-            this.ComprasUsrTotalAbonos.Size = new System.Drawing.Size(413, 48);
-            this.ComprasUsrTotalAbonos.TabIndex = 3;
+            this.ComprasTxtTotalAbonos.BackColor = CapaVista_Componentes.Componentes.ClsTemaCompras.FondoGeneral;
+            this.ComprasTxtTotalAbonos.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ComprasTxtTotalAbonos.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.ComprasTxtTotalAbonos.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.PrincipalNavegador;
+            this.ComprasTxtTotalAbonos.Location = new System.Drawing.Point(413, 26);
+            this.ComprasTxtTotalAbonos.Margin = new System.Windows.Forms.Padding(0);
+            this.ComprasTxtTotalAbonos.MaxLength = 2147483647;
+            this.ComprasTxtTotalAbonos.MostrarEtiquetaError = false;
+            this.ComprasTxtTotalAbonos.Name = "ComprasTxtTotalAbonos";
+            this.ComprasTxtTotalAbonos.ReadOnly = true;
+            this.ComprasTxtTotalAbonos.SelectedText = "";
+            this.ComprasTxtTotalAbonos.SelectionLength = 0;
+            this.ComprasTxtTotalAbonos.SelectionStart = 0;
+            this.ComprasTxtTotalAbonos.Size = new System.Drawing.Size(413, 48);
+            this.ComprasTxtTotalAbonos.TabIndex = 3;
             // 
             // ComprasUsrEtiquetaSaldoFinal
             // 
-            this.ComprasUsrEtiquetaSaldoFinal.AlineacionTexto = System.Drawing.ContentAlignment.MiddleLeft;
-            this.ComprasUsrEtiquetaSaldoFinal.BackColor = CapaVista_Componentes.Componentes.ClsTemaCompras.FondoGeneral;
-            this.ComprasUsrEtiquetaSaldoFinal.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ComprasUsrEtiquetaSaldoFinal.Font = new System.Drawing.Font("Tahoma", 9F);
-            this.ComprasUsrEtiquetaSaldoFinal.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.PrincipalNavegador;
-            this.ComprasUsrEtiquetaSaldoFinal.Location = new System.Drawing.Point(829, 3);
-            this.ComprasUsrEtiquetaSaldoFinal.MaximumSize = new System.Drawing.Size(1000, 22);
-            this.ComprasUsrEtiquetaSaldoFinal.MostrarAsterisco = false;
-            this.ComprasUsrEtiquetaSaldoFinal.Name = "ComprasUsrEtiquetaSaldoFinal";
-            this.ComprasUsrEtiquetaSaldoFinal.Size = new System.Drawing.Size(409, 20);
-            this.ComprasUsrEtiquetaSaldoFinal.TabIndex = 4;
-            this.ComprasUsrEtiquetaSaldoFinal.TabStop = false;
-            this.ComprasUsrEtiquetaSaldoFinal.TamanoTipografia = 9F;
-            this.ComprasUsrEtiquetaSaldoFinal.Text = "Saldo Final CxP (Q):";
-            this.ComprasUsrEtiquetaSaldoFinal.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.ComprasUsrEtiquetaSaldoFinal.Texto = "Saldo Final CxP (Q):";
+            this.ComprasLblEtiquetaSaldoFinal.AlineacionTexto = System.Drawing.ContentAlignment.MiddleLeft;
+            this.ComprasLblEtiquetaSaldoFinal.BackColor = CapaVista_Componentes.Componentes.ClsTemaCompras.FondoGeneral;
+            this.ComprasLblEtiquetaSaldoFinal.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ComprasLblEtiquetaSaldoFinal.Font = new System.Drawing.Font("Tahoma", 9F);
+            this.ComprasLblEtiquetaSaldoFinal.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.PrincipalNavegador;
+            this.ComprasLblEtiquetaSaldoFinal.Location = new System.Drawing.Point(829, 3);
+            this.ComprasLblEtiquetaSaldoFinal.MaximumSize = new System.Drawing.Size(1000, 22);
+            this.ComprasLblEtiquetaSaldoFinal.MostrarAsterisco = false;
+            this.ComprasLblEtiquetaSaldoFinal.Name = "ComprasLblEtiquetaSaldoFinal";
+            this.ComprasLblEtiquetaSaldoFinal.Size = new System.Drawing.Size(409, 20);
+            this.ComprasLblEtiquetaSaldoFinal.TabIndex = 4;
+            this.ComprasLblEtiquetaSaldoFinal.TabStop = false;
+            this.ComprasLblEtiquetaSaldoFinal.TamanoTipografia = 9F;
+            this.ComprasLblEtiquetaSaldoFinal.Text = "Saldo Final CxP (Q):";
+            this.ComprasLblEtiquetaSaldoFinal.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.ComprasLblEtiquetaSaldoFinal.Texto = "Saldo Final CxP (Q):";
             // 
             // ComprasUsrSaldoFinal
             // 
-            this.ComprasUsrSaldoFinal.BackColor = CapaVista_Componentes.Componentes.ClsTemaCompras.FondoGeneral;
-            this.ComprasUsrSaldoFinal.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ComprasUsrSaldoFinal.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.ComprasUsrSaldoFinal.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.PrincipalNavegador;
-            this.ComprasUsrSaldoFinal.Location = new System.Drawing.Point(826, 26);
-            this.ComprasUsrSaldoFinal.Margin = new System.Windows.Forms.Padding(0);
-            this.ComprasUsrSaldoFinal.MaxLength = 2147483647;
-            this.ComprasUsrSaldoFinal.MostrarEtiquetaError = false;
-            this.ComprasUsrSaldoFinal.Name = "ComprasUsrSaldoFinal";
-            this.ComprasUsrSaldoFinal.ReadOnly = true;
-            this.ComprasUsrSaldoFinal.SelectedText = "";
-            this.ComprasUsrSaldoFinal.SelectionLength = 0;
-            this.ComprasUsrSaldoFinal.SelectionStart = 0;
-            this.ComprasUsrSaldoFinal.Size = new System.Drawing.Size(415, 48);
-            this.ComprasUsrSaldoFinal.TabIndex = 5;
+            this.ComprasTxtSaldoFinal.BackColor = CapaVista_Componentes.Componentes.ClsTemaCompras.FondoGeneral;
+            this.ComprasTxtSaldoFinal.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ComprasTxtSaldoFinal.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.ComprasTxtSaldoFinal.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.PrincipalNavegador;
+            this.ComprasTxtSaldoFinal.Location = new System.Drawing.Point(826, 26);
+            this.ComprasTxtSaldoFinal.Margin = new System.Windows.Forms.Padding(0);
+            this.ComprasTxtSaldoFinal.MaxLength = 2147483647;
+            this.ComprasTxtSaldoFinal.MostrarEtiquetaError = false;
+            this.ComprasTxtSaldoFinal.Name = "ComprasTxtSaldoFinal";
+            this.ComprasTxtSaldoFinal.ReadOnly = true;
+            this.ComprasTxtSaldoFinal.SelectedText = "";
+            this.ComprasTxtSaldoFinal.SelectionLength = 0;
+            this.ComprasTxtSaldoFinal.SelectionStart = 0;
+            this.ComprasTxtSaldoFinal.Size = new System.Drawing.Size(415, 48);
+            this.ComprasTxtSaldoFinal.TabIndex = 5;
             // 
             // ComprasUsrEtiquetaTotalCargos
             // 
-            this.ComprasUsrEtiquetaTotalCargos.AlineacionTexto = System.Drawing.ContentAlignment.MiddleLeft;
-            this.ComprasUsrEtiquetaTotalCargos.BackColor = CapaVista_Componentes.Componentes.ClsTemaCompras.FondoGeneral;
-            this.ComprasUsrEtiquetaTotalCargos.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ComprasUsrEtiquetaTotalCargos.Font = new System.Drawing.Font("Tahoma", 9F);
-            this.ComprasUsrEtiquetaTotalCargos.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.PrincipalNavegador;
-            this.ComprasUsrEtiquetaTotalCargos.Location = new System.Drawing.Point(3, 3);
-            this.ComprasUsrEtiquetaTotalCargos.MaximumSize = new System.Drawing.Size(1000, 22);
-            this.ComprasUsrEtiquetaTotalCargos.MostrarAsterisco = false;
-            this.ComprasUsrEtiquetaTotalCargos.Name = "ComprasUsrEtiquetaTotalCargos";
-            this.ComprasUsrEtiquetaTotalCargos.Size = new System.Drawing.Size(407, 20);
-            this.ComprasUsrEtiquetaTotalCargos.TabIndex = 0;
-            this.ComprasUsrEtiquetaTotalCargos.TabStop = false;
-            this.ComprasUsrEtiquetaTotalCargos.TamanoTipografia = 9F;
-            this.ComprasUsrEtiquetaTotalCargos.Text = "Total Cargos (Q):";
-            this.ComprasUsrEtiquetaTotalCargos.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.ComprasUsrEtiquetaTotalCargos.Texto = "Total Cargos (Q):";
+            this.ComprasLblEtiquetaTotalCargos.AlineacionTexto = System.Drawing.ContentAlignment.MiddleLeft;
+            this.ComprasLblEtiquetaTotalCargos.BackColor = CapaVista_Componentes.Componentes.ClsTemaCompras.FondoGeneral;
+            this.ComprasLblEtiquetaTotalCargos.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ComprasLblEtiquetaTotalCargos.Font = new System.Drawing.Font("Tahoma", 9F);
+            this.ComprasLblEtiquetaTotalCargos.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.PrincipalNavegador;
+            this.ComprasLblEtiquetaTotalCargos.Location = new System.Drawing.Point(3, 3);
+            this.ComprasLblEtiquetaTotalCargos.MaximumSize = new System.Drawing.Size(1000, 22);
+            this.ComprasLblEtiquetaTotalCargos.MostrarAsterisco = false;
+            this.ComprasLblEtiquetaTotalCargos.Name = "ComprasLblEtiquetaTotalCargos";
+            this.ComprasLblEtiquetaTotalCargos.Size = new System.Drawing.Size(407, 20);
+            this.ComprasLblEtiquetaTotalCargos.TabIndex = 0;
+            this.ComprasLblEtiquetaTotalCargos.TabStop = false;
+            this.ComprasLblEtiquetaTotalCargos.TamanoTipografia = 9F;
+            this.ComprasLblEtiquetaTotalCargos.Text = "Total Cargos (Q):";
+            this.ComprasLblEtiquetaTotalCargos.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.ComprasLblEtiquetaTotalCargos.Texto = "Total Cargos (Q):";
             // 
             // ComprasTlpBotones
             // 
@@ -562,22 +562,22 @@
         private System.Windows.Forms.TableLayoutPanel ComprasTlpFormulario;
         private CapaVista_Componentes.Componentes.UsrEncabezadoCompras ComprasUsrEncabezadoFormulario;
         private CapaVista_Componentes.Componentes.ClsTableLayoutPanelCompras ComprasTlpPrincipal;
-        private CapaVista_Componentes.Componentes.UsrLabelCompras ComprasUsrTitulo;
+        private CapaVista_Componentes.Componentes.UsrLabelCompras ComprasLblTitulo;
         private CapaVista_Componentes.Componentes.ClsGroupBoxCompras ComprasGbxPeriodo;
-        private CapaVista_Componentes.Componentes.UsrComboBoxCompras ComprasUsrPeriodo;
-        private CapaVista_Componentes.Componentes.UsrLabelCompras ComprasUsrEtiquetaPeriodo;
+        private CapaVista_Componentes.Componentes.UsrComboBoxCompras ComprasCboPeriodo;
+        private CapaVista_Componentes.Componentes.UsrLabelCompras ComprasLblEtiquetaPeriodo;
         private CapaVista_Componentes.Componentes.ClsTableLayoutPanelCompras ComprasTlpContenido;
         private CapaVista_Componentes.Componentes.ClsGroupBoxCompras ComprasGbxValidaciones;
-        private CapaVista_Componentes.Componentes.UsrDataGridViewCompras ComprasUsrValidaciones;
+        private CapaVista_Componentes.Componentes.UsrDataGridViewCompras ComprasDgvValidaciones;
         private CapaVista_Componentes.Componentes.ClsGroupBoxCompras ComprasGbxSaldos;
-        private CapaVista_Componentes.Componentes.UsrDataGridViewCompras ComprasUsrSaldos;
+        private CapaVista_Componentes.Componentes.UsrDataGridViewCompras ComprasDgvSaldos;
         private CapaVista_Componentes.Componentes.ClsTableLayoutPanelCompras ComprasTlpTotales;
-        private CapaVista_Componentes.Componentes.UsrLabelCompras ComprasUsrEtiquetaTotalCargos;
-        private CapaVista_Componentes.Componentes.UsrTextBoxCompras ComprasUsrTotalCargos;
-        private CapaVista_Componentes.Componentes.UsrLabelCompras ComprasUsrEtiquetaTotalAbonos;
-        private CapaVista_Componentes.Componentes.UsrTextBoxCompras ComprasUsrTotalAbonos;
-        private CapaVista_Componentes.Componentes.UsrLabelCompras ComprasUsrEtiquetaSaldoFinal;
-        private CapaVista_Componentes.Componentes.UsrTextBoxCompras ComprasUsrSaldoFinal;
+        private CapaVista_Componentes.Componentes.UsrLabelCompras ComprasLblEtiquetaTotalCargos;
+        private CapaVista_Componentes.Componentes.UsrTextBoxCompras ComprasTxtTotalCargos;
+        private CapaVista_Componentes.Componentes.UsrLabelCompras ComprasLblEtiquetaTotalAbonos;
+        private CapaVista_Componentes.Componentes.UsrTextBoxCompras ComprasTxtTotalAbonos;
+        private CapaVista_Componentes.Componentes.UsrLabelCompras ComprasLblEtiquetaSaldoFinal;
+        private CapaVista_Componentes.Componentes.UsrTextBoxCompras ComprasTxtSaldoFinal;
         private CapaVista_Componentes.Componentes.ClsTableLayoutPanelCompras ComprasTlpBotones;
         private CapaVista_Componentes.Componentes.ClsButtonCompras ComprasBtnValidar;
         private CapaVista_Componentes.Componentes.ClsButtonCompras ComprasBtnEjecutarCierre;

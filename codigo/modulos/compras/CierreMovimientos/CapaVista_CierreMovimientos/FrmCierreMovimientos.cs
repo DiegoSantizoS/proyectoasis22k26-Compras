@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Windows.Forms;
 using CapaControlador_CierreMovimientos;
 
@@ -12,6 +12,9 @@ namespace CapaVista_CierreMovimientos
         public FrmCierreMovimientos()
         {
             InitializeComponent();
+            ComprasBtnEjecutarCierre.Enabled = false;
+            ComprasBtnImprimir.Enabled = false;
+            ComprasBtnAyuda.Enabled = false;
             CapaVista_Componentes.Componentes.ClsPresentacionCompras.ComprasMetFijarTamanoFormulario(this);
             ComprasProcConfigurarTablas();
             Load += ComprasMetCargar;
@@ -24,22 +27,22 @@ namespace CapaVista_CierreMovimientos
 
         private void ComprasProcConfigurarTablas()
         {
-            CapaVista_Componentes.Componentes.ClsPresentacionCompras.ComprasProcAgregarColumna(ComprasUsrValidaciones, "cmp_estado", "Estado", 25, false);
-            CapaVista_Componentes.Componentes.ClsPresentacionCompras.ComprasProcAgregarColumna(ComprasUsrValidaciones, "cmp_validacion", "Validación", 45, false);
-            CapaVista_Componentes.Componentes.ClsPresentacionCompras.ComprasProcAgregarColumna(ComprasUsrValidaciones, "cmp_origen", "Origen", 30, false);
+            CapaVista_Componentes.Componentes.ClsPresentacionCompras.ComprasProcAgregarColumna(ComprasDgvValidaciones, "cmp_estado", "Estado", 25, false);
+            CapaVista_Componentes.Componentes.ClsPresentacionCompras.ComprasProcAgregarColumna(ComprasDgvValidaciones, "cmp_validacion", "Validación", 45, false);
+            CapaVista_Componentes.Componentes.ClsPresentacionCompras.ComprasProcAgregarColumna(ComprasDgvValidaciones, "cmp_origen", "Origen", 30, false);
 
-            CapaVista_Componentes.Componentes.ClsPresentacionCompras.ComprasProcAgregarColumna(ComprasUsrSaldos, "cmp_proveedor", "Proveedor", 32, false);
-            CapaVista_Componentes.Componentes.ClsPresentacionCompras.ComprasProcAgregarColumna(ComprasUsrSaldos, "cmp_saldo_inicial", "Saldo inicial", 17, true);
-            CapaVista_Componentes.Componentes.ClsPresentacionCompras.ComprasProcAgregarColumna(ComprasUsrSaldos, "cmp_total_cargos", "Cargos", 17, true);
-            CapaVista_Componentes.Componentes.ClsPresentacionCompras.ComprasProcAgregarColumna(ComprasUsrSaldos, "cmp_total_abonos", "Abonos", 17, true);
-            CapaVista_Componentes.Componentes.ClsPresentacionCompras.ComprasProcAgregarColumna(ComprasUsrSaldos, "cmp_saldo_final", "Saldo final", 17, true);
+            CapaVista_Componentes.Componentes.ClsPresentacionCompras.ComprasProcAgregarColumna(ComprasDgvSaldos, "cmp_proveedor", "Proveedor", 32, false);
+            CapaVista_Componentes.Componentes.ClsPresentacionCompras.ComprasProcAgregarColumna(ComprasDgvSaldos, "cmp_saldo_inicial", "Saldo inicial", 17, true);
+            CapaVista_Componentes.Componentes.ClsPresentacionCompras.ComprasProcAgregarColumna(ComprasDgvSaldos, "cmp_total_cargos", "Cargos", 17, true);
+            CapaVista_Componentes.Componentes.ClsPresentacionCompras.ComprasProcAgregarColumna(ComprasDgvSaldos, "cmp_total_abonos", "Abonos", 17, true);
+            CapaVista_Componentes.Componentes.ClsPresentacionCompras.ComprasProcAgregarColumna(ComprasDgvSaldos, "cmp_saldo_final", "Saldo final", 17, true);
         }
 
         private void ComprasMetCargar(object Remitente, EventArgs Evento)
         {
-            ComprasUsrPeriodo.DisplayMember = "cmp_descripcion";
-            ComprasUsrPeriodo.ValueMember = "cmp_id_periodo";
-            ComprasUsrPeriodo.DataSource = _Controlador.ComprasFuncObtenerPeriodosCerrables();
+            ComprasCboPeriodo.DisplayMember = "cmp_descripcion";
+            ComprasCboPeriodo.ValueMember = "cmp_id_periodo";
+            ComprasCboPeriodo.DataSource = _Controlador.ComprasFuncObtenerPeriodosCerrables();
 
             ComprasBtnEjecutarCierre.Enabled = false;
             ComprasBtnImprimir.Enabled = false;
@@ -47,24 +50,24 @@ namespace CapaVista_CierreMovimientos
 
         private void ComprasMetValidar(object Remitente, EventArgs Evento)
         {
-            if (ComprasUsrPeriodo.SelectedValue == null)
+            if (ComprasCboPeriodo.SelectedValue == null)
             {
                 MessageBox.Show("Seleccione el período a cerrar.", "Cierre de Movimientos",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            int IdPeriodo = Convert.ToInt32(ComprasUsrPeriodo.SelectedValue);
+            int IdPeriodo = Convert.ToInt32(ComprasCboPeriodo.SelectedValue);
             ClsResumenCierre Resumen = _Controlador.ComprasFuncPrepararCierre(IdPeriodo);
 
-            ComprasUsrValidaciones.DataSource = Resumen.Validaciones;
-            ComprasUsrSaldos.DataSource = Resumen.SaldosProveedor;
-            CapaVista_Componentes.Componentes.ClsPresentacionCompras.ComprasProcMostrarMonto(ComprasUsrTotalCargos, Resumen.TotalCargos);
-            CapaVista_Componentes.Componentes.ClsPresentacionCompras.ComprasProcMostrarMonto(ComprasUsrTotalAbonos, Resumen.TotalAbonos);
-            CapaVista_Componentes.Componentes.ClsPresentacionCompras.ComprasProcMostrarMonto(ComprasUsrSaldoFinal, Resumen.SaldoFinal);
+            ComprasDgvValidaciones.DataSource = Resumen.Validaciones;
+            ComprasDgvSaldos.DataSource = Resumen.SaldosProveedor;
+            CapaVista_Componentes.Componentes.ClsPresentacionCompras.ComprasProcMostrarMonto(ComprasTxtTotalCargos, Resumen.TotalCargos);
+            CapaVista_Componentes.Componentes.ClsPresentacionCompras.ComprasProcMostrarMonto(ComprasTxtTotalAbonos, Resumen.TotalAbonos);
+            CapaVista_Componentes.Componentes.ClsPresentacionCompras.ComprasProcMostrarMonto(ComprasTxtSaldoFinal, Resumen.SaldoFinal);
 
-            ComprasBtnEjecutarCierre.Enabled = Resumen.PuedeCerrar;
-            ComprasBtnImprimir.Enabled = true;
+            ComprasBtnEjecutarCierre.Enabled = false;
+            ComprasBtnImprimir.Enabled = false;
         }
 
         private void ComprasMetEjecutarCierre(object Remitente, EventArgs Evento)
@@ -75,7 +78,7 @@ namespace CapaVista_CierreMovimientos
 
             if (Respuesta != DialogResult.Yes) return;
 
-            int IdPeriodo = Convert.ToInt32(ComprasUsrPeriodo.SelectedValue);
+            int IdPeriodo = Convert.ToInt32(ComprasCboPeriodo.SelectedValue);
             string Mensaje = _Controlador.ComprasFuncEjecutarCierre(IdPeriodo);
             MessageBox.Show(Mensaje, "Cierre de Movimientos", MessageBoxButtons.OK, MessageBoxIcon.Information);
 

@@ -1,4 +1,4 @@
-﻿using System;
+
 using System.Windows.Forms;
 
 namespace CapaVista_AprobacionFinanciera
@@ -8,6 +8,8 @@ namespace CapaVista_AprobacionFinanciera
         public FrmAprobarOrden()
         {
             InitializeComponent();
+            ComprasBtnSiAprobar.Enabled = false;
+            ComprasBtnNoAprobar.Click += (Remitente, Evento) => Close();
             CapaVista_Componentes.Componentes.ClsPresentacionCompras.ComprasMetFijarTamanoFormulario(this);
         }
     }

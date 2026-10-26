@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -47,10 +47,14 @@
     <Compile Include="Contratos\IRepositorioGenerico.cs" />
     <Compile Include="Contratos\IRepositorioPagoProveedor.cs" />
     <Compile Include="Entidades\ClsPagoProveedor.cs" />
-    <Compile Include="Entidades\Estadoentidad.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositorios\ClsRepositorioPagoProveedor.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <Reference Include="CapaModelo_Componentes">
+      <HintPath>..\..\Componentes\CapaModelo_Componentes\bin\$(Configuration)\CapaModelo_Componentes.dll</HintPath>
+    </Reference>
+  </ItemGroup>
 </Project>

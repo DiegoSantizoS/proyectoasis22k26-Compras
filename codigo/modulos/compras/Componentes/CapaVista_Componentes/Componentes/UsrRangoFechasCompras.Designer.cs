@@ -1,13 +1,13 @@
-﻿namespace CapaVista_Componentes.Componentes
+namespace CapaVista_Componentes.Componentes
 {
     partial class UsrRangoFechasCompras
     {
-        private System.ComponentModel.IContainer components = null;
+        private System.ComponentModel.IContainer _Components = null;
 
-        protected override void Dispose(bool disposing)
+        protected override void Dispose(bool Disposing)
         {
-            if (disposing && components != null) components.Dispose();
-            base.Dispose(disposing);
+            if (Disposing && _Components != null) _Components.Dispose();
+            base.Dispose(Disposing);
         }
 
         private void InitializeComponent()

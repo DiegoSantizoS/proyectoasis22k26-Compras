@@ -1,10 +1,11 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Data;
-using System.Data.Odbc;
+using CapaModelo_Componentes.Repositorios;
 using CapaModelo_PagosProveedores.Entidades;
 using CapaModelo_PagosProveedores.Repositorios;
+using CapaModelo_PagosProveedores.Contratos;
 
 /*
  * ==================================================================
@@ -35,9 +36,9 @@ namespace CapaControlador_PagosProveedores
         private string _MetodoPagoProveedor;
         private string _ReferenciaPagoProveedor;
         private string _EstadoPagoProveedor;
-        private ClsRepositorioPagoProveedor _RepositorioPagoProveedor;
+        private readonly IRepositorioPagoProveedor _RepositorioPagoProveedor;
 
-        public EstadoEntidad Estado { private get; set; }
+        public EnmEstadoEntidadCompras Estado { private get; set; }
         private List<ClsModeloPagoProveedor> _ListaPago;
 
         public int IdPagoProveedor { get => _IdPagoProveedor; set => _IdPagoProveedor = value; }
@@ -70,12 +71,14 @@ namespace CapaControlador_PagosProveedores
         [RegularExpression("^(Pagado|Programado|Rechazado|Anulado)$", ErrorMessage = "El Estado debe ser Pagado, Programado, Rechazado o Anulado")]
         public string EstadoPagoProveedor { get => _EstadoPagoProveedor; set => _EstadoPagoProveedor = value; }
 
-        public ClsModeloPagoProveedor()
+        public ClsModeloPagoProveedor() : this(new ClsRepositorioPagoProveedor()) { }
+
+        public ClsModeloPagoProveedor(IRepositorioPagoProveedor Repositorio)
         {
-            _RepositorioPagoProveedor = new ClsRepositorioPagoProveedor();
+            _RepositorioPagoProveedor = Repositorio ?? throw new ArgumentNullException(nameof(Repositorio));
         }
 
-        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        public IEnumerable<ValidationResult> Validate(ValidationContext ValidationContext)
         {
             if (_MontoPagoProveedor <= 0)
             {
@@ -91,7 +94,7 @@ namespace CapaControlador_PagosProveedores
                     new[] { nameof(MontoPagoProveedor) });
             }
 
-            if (Estado == EstadoEntidad.Added && _EstadoPagoProveedor != "Pagado" && _EstadoPagoProveedor != "Programado")
+            if (Estado == EnmEstadoEntidadCompras.Added && _EstadoPagoProveedor != "Pagado" && _EstadoPagoProveedor != "Programado")
             {
                 yield return new ValidationResult(
                     "Un pago nuevo solo puede quedar Pagado o Programado",
@@ -104,6 +107,12 @@ namespace CapaControlador_PagosProveedores
             string Mensaje = null;
             try
             {
+                if (Estado != EnmEstadoEntidadCompras.Deleted)
+                {
+                    var Errores = new List<ValidationResult>();
+                    if (!Validator.TryValidateObject(this, new ValidationContext(this), Errores, true))
+                        return string.Join(Environment.NewLine, Errores.ConvertAll(Error => Error.ErrorMessage));
+                }
                 var ModeloDatos = new ClsPagoProveedor();
                 ModeloDatos.IdPagoProveedor = _IdPagoProveedor;
                 ModeloDatos.IdProveedor = _IdProveedor;
@@ -116,49 +125,23 @@ namespace CapaControlador_PagosProveedores
 
                 switch (Estado)
                 {
-                    case EstadoEntidad.Added:
+                    case EnmEstadoEntidadCompras.Added:
                         _IdPagoProveedor = _RepositorioPagoProveedor.ComprasMetAgregar(ModeloDatos);
                         Mensaje = "Grabacion exitosa";
                         break;
-                    case EstadoEntidad.Modified:
+                    case EnmEstadoEntidadCompras.Modified:
                         _RepositorioPagoProveedor.ComprasMetEditar(ModeloDatos);
                         Mensaje = "Actualizacion exitosa";
                         break;
-                    case EstadoEntidad.Deleted:
+                    case EnmEstadoEntidadCompras.Deleted:
                         _RepositorioPagoProveedor.ComprasMetRemover(ModeloDatos);
                         Mensaje = "Eliminacion exitosa";
                         break;
                 }
             }
-            catch (OdbcException Ex)
+            catch (ClsExcepcionDatosCompras Ex)
             {
-                string MensajeServidor = null;
-                bool esViolacionRegla = false;
-                bool esErrorLlaveForanea = false;
-                bool esDatoDemasiadoLargo = false;
-
-                foreach (OdbcError Error in Ex.Errors)
-                {
-                    if (Error.NativeError == 1644)
-                        MensajeServidor = ExtraerMensajeServidor(Error.Message);
-                    else if (Error.NativeError == 3819)
-                        esViolacionRegla = true;
-                    else if (Error.NativeError == 1451 || Error.NativeError == 1452)
-                        esErrorLlaveForanea = true;
-                    else if (Error.NativeError == 1406)
-                        esDatoDemasiadoLargo = true;
-                }
-
-                if (MensajeServidor != null)
-                    Mensaje = MensajeServidor;
-                else if (esViolacionRegla)
-                    Mensaje = "Alguno de los valores ingresados no cumple las reglas del sistema. Verifique el monto, el método y el estado.";
-                else if (esErrorLlaveForanea)
-                    Mensaje = "La cuenta por pagar o el proveedor seleccionado no existe o tiene una relación en otro módulo del sistema.";
-                else if (esDatoDemasiadoLargo)
-                    Mensaje = "Uno de los campos ingresados excede la longitud permitida.";
-                else
-                    Mensaje = "Ocurrió un problema al procesar la solicitud. Verifique los datos e intente nuevamente.";
+                Mensaje = Ex.Message;
             }
             catch (Exception)
             {
@@ -183,7 +166,7 @@ namespace CapaControlador_PagosProveedores
             _ListaPago = new List<ClsModeloPagoProveedor>();
             foreach (ClsPagoProveedor Item in ResultadoConsulta)
             {
-                _ListaPago.Add(MapearDesdeEntidad(Item));
+                _ListaPago.Add(ComprasFuncMapearDesdeEntidad(Item));
             }
             return _ListaPago;
         }
@@ -191,7 +174,7 @@ namespace CapaControlador_PagosProveedores
         public ClsModeloPagoProveedor ComprasMetObtenerPorId(int IdPago)
         {
             var Item = _RepositorioPagoProveedor.ComprasMetObtenerPorId(IdPago);
-            return Item == null ? null : MapearDesdeEntidad(Item);
+            return Item == null ? null : ComprasFuncMapearDesdeEntidad(Item);
         }
 
         public DataTable ComprasMetObtenerProveedores()
@@ -204,7 +187,7 @@ namespace CapaControlador_PagosProveedores
             return _RepositorioPagoProveedor.ComprasMetObtenerCuentasPendientes(IdProveedor);
         }
 
-        private static ClsModeloPagoProveedor MapearDesdeEntidad(ClsPagoProveedor Item)
+        private static ClsModeloPagoProveedor ComprasFuncMapearDesdeEntidad(ClsPagoProveedor Item)
         {
             return new ClsModeloPagoProveedor
             {
@@ -221,12 +204,5 @@ namespace CapaControlador_PagosProveedores
             };
         }
 
-        private static string ExtraerMensajeServidor(string MensajeOdbc)
-        {
-            if (string.IsNullOrEmpty(MensajeOdbc))
-                return null;
-            int Posicion = MensajeOdbc.LastIndexOf(']');
-            return Posicion >= 0 ? MensajeOdbc.Substring(Posicion + 1).Trim() : MensajeOdbc.Trim();
-        }
     }
 }

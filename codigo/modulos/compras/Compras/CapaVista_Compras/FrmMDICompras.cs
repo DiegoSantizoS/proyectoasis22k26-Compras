@@ -1,5 +1,5 @@
-﻿using CapaControlador_Seguridad.Objetos_de_valor;
-using CapaVista_Navegador;
+using CapaControlador_Seguridad.Objetos_de_valor;
+
 using System;
 using System.ComponentModel;
 using System.Collections.Generic;
@@ -24,6 +24,12 @@ namespace CapaVista_Compras
         public FrmMDICompras()
         {
             InitializeComponent();
+            ComprasBtnAyuda.Enabled = false;
+            ComprasTlpBitacora.Enabled = false;
+            ComprasTlpHerramientas.Enabled = false;
+            ComprasLblBienvenido.Tipografia = CapaVista_Componentes.Componentes.TipografiaCompras.TituloBienvenida;
+            ComprasLblKpi1.Texto = "Antigüedad promedio de saldos";
+            ComprasLblKpi2.Texto = "Órdenes autorizadas a tiempo (%)";
             DoubleBuffered = true;
             foreach (Control ControlActual in ComprasTlpNavegador.Controls)
             {
@@ -41,6 +47,10 @@ namespace CapaVista_Compras
                     Panel.RowStyles[Fila].SizeType = ComprasTlpKpi1.RowStyles[Fila].SizeType;
                     Panel.RowStyles[Fila].Height = ComprasTlpKpi1.RowStyles[Fila].Height;
                 }
+                Panel.RowStyles[1].SizeType = SizeType.Absolute;
+                Panel.RowStyles[1].Height = 30F;
+                Panel.RowStyles[2].SizeType = SizeType.Absolute;
+                Panel.RowStyles[2].Height = 64F;
                 foreach (Control Elemento in Panel.Controls)
                     if (Panel.GetRow(Elemento) == 2) Elemento.Margin = new Padding(2);
             }
@@ -165,7 +175,7 @@ namespace CapaVista_Compras
                     {
                         var Encabezados = Formulario as CapaVista_OrdenesCompra.FrmEncabezados;
                         if (Encabezados != null && Encabezados.AbrirOrden)
-                            CrearSiguiente = Encabezados.CrearOrdenSeleccionada;
+                            CrearSiguiente = Encabezados.ComprasFuncCrearOrdenSeleccionada;
                         else if (Formulario is CapaVista_OrdenesCompra.FrmOrdenesCompra)
                             CrearSiguiente = () => new CapaVista_OrdenesCompra.FrmEncabezados();
                     }
@@ -244,12 +254,12 @@ namespace CapaVista_Compras
             // Punto de integracion existente para mantenimientos y bitacora.
         }
 
-        private void ComprasBtnSalir_Click(object Remitente, EventArgs Evento)
+        private void ComprasProcSalirClick(object Remitente, EventArgs Evento)
         {
             Close();
         }
 
-        private async void ComprasBtnBurger_Click(object Remitente, EventArgs Evento)
+        private async void ComprasProcAlternarMenuClick(object Remitente, EventArgs Evento)
         {
             if (_ContenidoOculto || _ClsTransicionNavegador != null) return;
             _ContenidoOculto = true;
@@ -355,7 +365,7 @@ namespace CapaVista_Compras
                 Cubierta.BackColor = ComprasTlpPrincipal.BackColor;
                 Controls.Add(Cubierta);
                 Cubierta.BringToFront();
-                Cubierta.Iniciar();
+                Cubierta.ComprasProcIniciar();
             }
         }
 
@@ -389,7 +399,7 @@ namespace CapaVista_Compras
                 };
             }
 
-            internal void Iniciar()
+            internal void ComprasProcIniciar()
             {
                 Refresh();
                 _Tiempo.Start();
@@ -429,9 +439,19 @@ namespace CapaVista_Compras
         private void ComprasMetAjustarPresentacion()
         {
             bool Compacto = ComprasTlpPresentacion.Height < 320;
+            float TamanoTitulo = Compacto ? 32F : 42F;
+            if (Math.Abs(ComprasLblBienvenido.TamanoTipografia - TamanoTitulo) > 0.01F)
+                ComprasLblBienvenido.TamanoTipografia = TamanoTitulo;
+            ComprasLblBienvenido.Margin = new Padding(0, Compacto ? 6 : 15, 12, Compacto ? 6 : 15);
+            float TamanoModulo = Compacto ? 16F : 19F;
+            if (Math.Abs(ComprasLblModulo.TamanoTipografia - TamanoModulo) > 0.01F)
+                ComprasLblModulo.TamanoTipografia = TamanoModulo;
             RowStyle Fila = ComprasTlpPresentacion.RowStyles[1];
-            SizeType Tipo = Compacto ? SizeType.Absolute : SizeType.Percent;
-            float Altura = Compacto ? 64F : 22F;
+            SizeType Tipo = SizeType.Absolute;
+            float Altura = Math.Max(ComprasLblModulo.Font.Height * 2,
+                TextRenderer.MeasureText(ComprasLblModulo.Texto, ComprasLblModulo.Font,
+                    new System.Drawing.Size(Math.Max(1, ComprasLblModulo.Width - 6), int.MaxValue),
+                    TextFormatFlags.WordBreak).Height) + ComprasLblModulo.Margin.Vertical;
             if (Fila.SizeType == Tipo && Fila.Height == Altura) return;
             ComprasTlpPresentacion.SuspendLayout();
             try

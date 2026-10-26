@@ -20,9 +20,9 @@ namespace CapaVista_Componentes.Componentes
         private bool _PaginaPendiente;
         private string _CampoOrden;
         private bool _OrdenDescendente;
-        private bool _PaginacionHabilitada;
+        private bool _PaginacionHabilitada = true;
 
-        [Category("Compras"), DefaultValue(false)]
+        [Category("Compras"), DefaultValue(true)]
         public bool PaginacionHabilitada
         {
             get { return _PaginacionHabilitada; }
@@ -37,25 +37,30 @@ namespace CapaVista_Componentes.Componentes
 
         private void ComprasProcInicializarPaginacion()
         {
+            var Recursos = new ComponentResourceManager(typeof(UsrDataGridViewCompras));
             ComprasFlpPaginacion = new FlowLayoutPanel
             {
-                Name = "ComprasFlpPaginacion", Dock = DockStyle.Bottom, Height = 32,
+                Name = "ComprasFlpPaginacion", Dock = DockStyle.Bottom, Height = 86,
                 WrapContents = false, BackColor = ClsTemaCompras.FondoGeneral,
                 Visible = _PaginacionHabilitada
             };
             ComprasBtnAnterior = new ClsButtonCompras
             {
                 Name = "ComprasBtnAnterior", TipoBoton = ComprasTipoBoton.Libre,
-                Text = "Anterior", Size = new System.Drawing.Size(85, 28)
+                Text = string.Empty, AccessibleName = "Anterior", Size = new System.Drawing.Size(80, 80),
+                BackgroundImage = (System.Drawing.Image)Recursos.GetObject("Anterior"),
+                BackgroundImageLayout = ImageLayout.Zoom
             };
             ComprasBtnSiguiente = new ClsButtonCompras
             {
                 Name = "ComprasBtnSiguiente", TipoBoton = ComprasTipoBoton.Libre,
-                Text = "Siguiente", Size = new System.Drawing.Size(85, 28)
+                Text = string.Empty, AccessibleName = "Siguiente", Size = new System.Drawing.Size(80, 80),
+                BackgroundImage = (System.Drawing.Image)Recursos.GetObject("Siguiente"),
+                BackgroundImageLayout = ImageLayout.Zoom
             };
             ComprasLblPagina = new Label
             {
-                Name = "ComprasLblPagina", AutoSize = true, Padding = new Padding(4, 7, 0, 0),
+                Name = "ComprasLblPagina", AutoSize = true, Padding = new Padding(4, 33, 0, 0),
                 Font = new System.Drawing.Font("Tahoma", 9F)
             };
             ComprasFlpPaginacion.Controls.AddRange(new Control[] { ComprasBtnAnterior, ComprasBtnSiguiente, ComprasLblPagina });

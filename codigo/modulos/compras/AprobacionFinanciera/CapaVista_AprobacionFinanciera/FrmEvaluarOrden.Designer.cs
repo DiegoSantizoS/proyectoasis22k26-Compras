@@ -1,4 +1,4 @@
-﻿namespace CapaVista_AprobacionFinanciera
+namespace CapaVista_AprobacionFinanciera
 {
     partial class FrmEvaluarOrden
     {
@@ -41,7 +41,7 @@
             this.ComprasBtnRechazar = new CapaVista_Componentes.Componentes.ClsButtonCompras();
             this.ComprasBtnAprobar = new CapaVista_Componentes.Componentes.ClsButtonCompras();
             this.ComprasLblEvaluacion = new CapaVista_Componentes.Componentes.ClsEtiquetaCompras();
-            this.ComprasUsrDetalleOrden = new CapaVista_Componentes.Componentes.UsrDataGridViewCompras();
+            this.ComprasDgvDetalleOrden = new CapaVista_Componentes.Componentes.UsrDataGridViewCompras();
             this.ComprasPnlDesplazamiento.SuspendLayout();
             this.ComprasPnlContenido.SuspendLayout();
             this.SuspendLayout();
@@ -87,10 +87,10 @@
             this.ComprasTlpContenidoVisible.RowCount = 2;
             this.ComprasTlpContenidoVisible.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.ComprasTlpContenidoVisible.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 100F));
-            this.ComprasTlpContenidoVisible.Controls.Add(this.ComprasUsrDetalleOrden, 0, 0);
+            this.ComprasTlpContenidoVisible.Controls.Add(this.ComprasDgvDetalleOrden, 0, 0);
             this.ComprasTlpContenidoVisible.Controls.Add(this.ComprasTlpAcciones, 0, 1);
-            this.ComprasUsrDetalleOrden.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ComprasUsrDetalleOrden.Margin = new System.Windows.Forms.Padding(0, 0, 0, 10);
+            this.ComprasDgvDetalleOrden.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ComprasDgvDetalleOrden.Margin = new System.Windows.Forms.Padding(0, 0, 0, 10);
             this.ComprasTlpAcciones.Name = "ComprasTlpAcciones";
             this.ComprasTlpAcciones.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ComprasTlpAcciones.Margin = new System.Windows.Forms.Padding(0);
@@ -186,13 +186,13 @@
             // 
             // ComprasUsrDetalleOrden
             // 
-            this.ComprasUsrDetalleOrden.BackColor = CapaVista_Componentes.Componentes.ClsTemaCompras.FondoGeneral;
-            this.ComprasUsrDetalleOrden.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.PrincipalNavegador;
-            this.ComprasUsrDetalleOrden.Location = new System.Drawing.Point(32, 79);
-            this.ComprasUsrDetalleOrden.Margin = new System.Windows.Forms.Padding(0);
-            this.ComprasUsrDetalleOrden.Name = "ComprasUsrDetalleOrden";
-            this.ComprasUsrDetalleOrden.Size = new System.Drawing.Size(1234, 413);
-            this.ComprasUsrDetalleOrden.TabIndex = 5;
+            this.ComprasDgvDetalleOrden.BackColor = CapaVista_Componentes.Componentes.ClsTemaCompras.FondoGeneral;
+            this.ComprasDgvDetalleOrden.ForeColor = CapaVista_Componentes.Componentes.ClsTemaCompras.PrincipalNavegador;
+            this.ComprasDgvDetalleOrden.Location = new System.Drawing.Point(32, 79);
+            this.ComprasDgvDetalleOrden.Margin = new System.Windows.Forms.Padding(0);
+            this.ComprasDgvDetalleOrden.Name = "ComprasDgvDetalleOrden";
+            this.ComprasDgvDetalleOrden.Size = new System.Drawing.Size(1234, 413);
+            this.ComprasDgvDetalleOrden.TabIndex = 5;
             // 
             // FrmEvaluarOrden
             // 
@@ -233,6 +233,6 @@
         private CapaVista_Componentes.Componentes.ClsButtonCompras ComprasBtnRechazar;
         private CapaVista_Componentes.Componentes.ClsButtonCompras ComprasBtnAprobar;
         private CapaVista_Componentes.Componentes.ClsEtiquetaCompras ComprasLblEvaluacion;
-        private CapaVista_Componentes.Componentes.UsrDataGridViewCompras ComprasUsrDetalleOrden;
+        private CapaVista_Componentes.Componentes.UsrDataGridViewCompras ComprasDgvDetalleOrden;
     }
 }

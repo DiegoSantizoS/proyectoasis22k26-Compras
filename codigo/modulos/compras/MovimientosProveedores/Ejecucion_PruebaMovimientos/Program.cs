@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System;
+
+
+
 using System.Windows.Forms;
 
-namespace WindowsFormsApp1
+namespace Ejecucion_PruebaMovimientos
 {
-    internal static class Program
+    internal static class ClsPrograma
     {
         /// <summary>
         /// Punto de entrada principal para la aplicación.
@@ -16,7 +16,7 @@ namespace WindowsFormsApp1
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(new FrmPruebaMovimientos());
         }
     }
 }

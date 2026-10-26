@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -50,12 +50,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Auxiliar.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Auxiliar.Designer.cs">
-      <DependentUpon>Auxiliar.cs</DependentUpon>
-    </Compile>
     <Compile Include="FrmEncabezados.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -86,9 +80,6 @@
     <Compile Include="FrmOrdenesCompra.Designer.cs">
       <DependentUpon>FrmOrdenesCompra.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Auxiliar.resx">
-      <DependentUpon>Auxiliar.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="FrmEncabezados.resx">
       <DependentUpon>FrmEncabezados.cs</DependentUpon>
     </EmbeddedResource>

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.CodeDom;
 using System.ComponentModel;
 using System.ComponentModel.Design.Serialization;
@@ -183,6 +183,28 @@ namespace CapaVista_Componentes.Componentes
                 FlatAppearance.MouseDownBackColor = Color.Transparent;
             }
             base.OnPaint(Evento);
+            if (!Enabled && BackgroundImage != null && _ImagenDeshabilitado == null)
+            {
+                Evento.Graphics.Clear(ClsTemaCompras.FondoBotones);
+                float Escala = System.Math.Min((float)ClientSize.Width / BackgroundImage.Width,
+                    (float)ClientSize.Height / BackgroundImage.Height);
+                int Ancho = System.Math.Max(1, (int)(BackgroundImage.Width * Escala));
+                int Alto = System.Math.Max(1, (int)(BackgroundImage.Height * Escala));
+                var AreaImagen = new Rectangle((ClientSize.Width - Ancho) / 2, (ClientSize.Height - Alto) / 2, Ancho, Alto);
+                using (var Atributos = new System.Drawing.Imaging.ImageAttributes())
+                {
+                    Atributos.SetColorMatrix(new System.Drawing.Imaging.ColorMatrix(new[]
+                    {
+                        new[] { 0.12F, 0.12F, 0.12F, 0F, 0F },
+                        new[] { 0.12F, 0.12F, 0.12F, 0F, 0F },
+                        new[] { 0.12F, 0.12F, 0.12F, 0F, 0F },
+                        new[] { 0F, 0F, 0F, 1F, 0F },
+                        new[] { 0.6F, 0.6F, 0.6F, 0F, 1F }
+                    }));
+                    Evento.Graphics.DrawImage(BackgroundImage, AreaImagen, 0, 0, BackgroundImage.Width,
+                        BackgroundImage.Height, GraphicsUnit.Pixel, Atributos);
+                }
+            }
             if (Focused && ShowFocusCues)
             {
                 var Area = ClientRectangle;

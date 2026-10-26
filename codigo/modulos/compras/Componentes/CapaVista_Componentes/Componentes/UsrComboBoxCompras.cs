@@ -1,4 +1,4 @@
-﻿using CapaControlador_Cbo_Compras;
+using CapaControlador_Componentes;
 using System;
 using System.ComponentModel;
 using System.Data;
@@ -125,9 +125,9 @@ namespace CapaVista_Componentes.Componentes
         private bool ComprasEnDiseno =>
             DesignMode || LicenseManager.UsageMode == LicenseUsageMode.Designtime;
 
-        protected override void OnLoad(EventArgs e)
+        protected override void OnLoad(EventArgs Evento)
         {
-            base.OnLoad(e);
+            base.OnLoad(Evento);
             _Iniciado = true;
             ComprasProcCargarSegunTipo();
         }
@@ -136,16 +136,16 @@ namespace CapaVista_Componentes.Componentes
 
         private void ComprasProcActualizarEspacioError()
         {
-            if (ComprasUsrError == null || ComprasTlpMain == null) return;
+            if (ComprasLblError == null || ComprasTlpMain == null) return;
             using (new ClsActualizacionDisenoCompras(ComprasTlpMain))
             {
                 int Altura = Math.Max(_AlturaEtiquetaError, _AlturaErrorAmpliada);
-                int AlturaFila = _MostrarEtiquetaError ? Altura + ComprasUsrError.Margin.Vertical : 0;
+                int AlturaFila = _MostrarEtiquetaError ? Altura + ComprasLblError.Margin.Vertical : 0;
                 int Diferencia = AlturaFila - _AlturaFilaErrorAplicada;
                 _AlturaFilaErrorAplicada = AlturaFila;
-                ComprasUsrError.MinimumSize = Size.Empty;
-                ComprasUsrError.MaximumSize = new Size(0, Altura);
-                ComprasUsrError.Visible = _MostrarEtiquetaError;
+                ComprasLblError.MinimumSize = Size.Empty;
+                ComprasLblError.MaximumSize = new Size(0, Altura);
+                ComprasLblError.Visible = _MostrarEtiquetaError;
                 ClsActualizacionDisenoCompras.ComprasProcAltura(ComprasTlpMain.RowStyles[1], AlturaFila);
                 if (Diferencia != 0) Height = Math.Max(1, Height + Diferencia);
             }
@@ -155,7 +155,7 @@ namespace CapaVista_Componentes.Componentes
         {
             InitializeComponent();
             DoubleBuffered = true;
-            ComprasUsrError.ComprasProcConservarRojo();
+            ComprasLblError.ComprasProcConservarRojo();
             ComprasCboEntrada.TextChanged += (Sender, Evento) => ComprasProcTextoCambiado(Evento);
             Enter += (Sender, Evento) => ComprasCboEntrada.Focus();
             ComprasCboEntrada.KeyDown += (Sender, Evento) => OnKeyDown(Evento);
@@ -390,8 +390,8 @@ namespace CapaVista_Componentes.Componentes
 
             using (new ClsActualizacionDisenoCompras(ComprasTlpMain))
             {
-                if (ComprasUsrError.Texto != Mensaje) ComprasUsrError.Texto = Mensaje;
-                if (ComprasUsrError.ColorTexto != Color.Red) ComprasUsrError.ColorTexto = Color.Red;
+                if (ComprasLblError.Texto != Mensaje) ComprasLblError.Texto = Mensaje;
+                if (ComprasLblError.ColorTexto != Color.Red) ComprasLblError.ColorTexto = Color.Red;
                 _ErrorVisible = true;
                 ComprasProcActualizarEspacioError();
                 if (ComprasPnlBorde.BackColor != Color.Red) ComprasPnlBorde.BackColor = Color.Red;
@@ -401,15 +401,15 @@ namespace CapaVista_Componentes.Componentes
         internal int ComprasFuncAlturaError(string Mensaje)
         {
             int Ancho = System.Math.Max(1, Width - 12);
-            int Altura = System.Math.Max(22, TextRenderer.MeasureText(Mensaje, ComprasUsrError.Font, new Size(Ancho, int.MaxValue), TextFormatFlags.WordBreak).Height);
+            int Altura = System.Math.Max(22, TextRenderer.MeasureText(Mensaje, ComprasLblError.Font, new Size(Ancho, int.MaxValue), TextFormatFlags.WordBreak).Height);
             int AlturaEntrada = Math.Max(25, ComprasPnlBorde.Height) + ComprasTlpMain.Padding.Vertical;
-            return AlturaEntrada + (_MostrarEtiquetaError ? Math.Max(_AlturaEtiquetaError, Altura) + ComprasUsrError.Margin.Vertical : 0);
+            return AlturaEntrada + (_MostrarEtiquetaError ? Math.Max(_AlturaEtiquetaError, Altura) + ComprasLblError.Margin.Vertical : 0);
         }
 
         internal void ComprasProcAmpliarError(int AlturaFila)
         {
             _AlturaErrorAmpliada = Math.Max(0, AlturaFila - Math.Max(25, ComprasPnlBorde.Height)
-                - ComprasTlpMain.Padding.Vertical - ComprasUsrError.Margin.Vertical);
+                - ComprasTlpMain.Padding.Vertical - ComprasLblError.Margin.Vertical);
             ComprasProcActualizarEspacioError();
         }
 
@@ -417,7 +417,7 @@ namespace CapaVista_Componentes.Componentes
         {
             using (new ClsActualizacionDisenoCompras(ComprasTlpMain))
             {
-                if (ComprasUsrError.Texto != string.Empty) ComprasUsrError.Texto = string.Empty;
+                if (ComprasLblError.Texto != string.Empty) ComprasLblError.Texto = string.Empty;
                 _ErrorVisible = false;
                 _AlturaErrorAmpliada = 0;
                 ComprasProcActualizarEspacioError();
@@ -473,8 +473,8 @@ namespace CapaVista_Componentes.Componentes
 
                
                 DataTable Datos = _TipoDatos == EnmTipoDatosCompras.Proveedores
-                    ? new ModeloCombo().ObtenerProveedores()
-                    : new ModeloCombo().enviarDatos(Tabla, Valor, Mostrar);
+                    ? new ClsComboCompras().ComprasFuncObtenerProveedores()
+                    : new ClsComboCompras().ComprasFuncEnviarDatos(Tabla, Valor, Mostrar);
                 ComprasMetCargarDatos(Datos);
             }
             catch (Exception Ex)
@@ -510,7 +510,7 @@ namespace CapaVista_Componentes.Componentes
             foreach (string Columna in Columnas)
             {
                 if (!Seleccion.Row.Table.Columns.Contains(Columna))
-                    return new ModeloCombo().ObtenerProveedor(Convert.ToInt32(Seleccion.Row["idProveedor"]));
+                    return new ClsComboCompras().ComprasFuncObtenerProveedor(Convert.ToInt32(Seleccion.Row["idProveedor"]));
             }
             return new ClsProveedorCompras(Seleccion.Row);
         }
