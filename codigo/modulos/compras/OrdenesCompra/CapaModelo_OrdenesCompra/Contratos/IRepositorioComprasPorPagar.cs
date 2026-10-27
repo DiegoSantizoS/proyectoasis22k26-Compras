@@ -1,4 +1,5 @@
-using System.Data;
+﻿using System.Data;
+using CapaModelo_OrdenesCompra.Entidades;
 
 /*
  * ==================================================================
@@ -13,12 +14,12 @@ using System.Data;
  * ===================================================================
 */
 
-namespace CapaModelo_OrdenesCompra
+namespace CapaModelo_OrdenesCompra.Contratos
 {
     public interface IRepositorioComprasPorPagar
     {
         DataTable ComprasFuncListar();
-        DataTable ComprasFuncObtener(int Id);
+        ClsCompraPorPagar ComprasFuncObtener(int Id);
         DataTable ComprasFuncListarProveedores();
         void ComprasProcAnular(int Id);
         void ComprasProcActualizarVencimiento(int Id, System.DateTime Fecha);

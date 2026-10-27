@@ -1,4 +1,4 @@
-using System.Data;
+﻿using System.Data;
 
 /*
  * ==================================================================
@@ -72,13 +72,6 @@ namespace CapaControlador_CierreMovimientos
             }
 
             return Resumen;
-        }
-
-        public string ComprasFuncEjecutarCierre(int IdPeriodo)
-        {
-            
-            
-            return "Prototipo: el período " + IdPeriodo + " se marcaría como cerrado.";
         }
 
         private DataTable ComprasFuncDatosValidaciones(int IdPeriodo)

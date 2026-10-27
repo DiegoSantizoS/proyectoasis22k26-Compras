@@ -1,8 +1,10 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Odbc;
 using CapaModelo_Componentes.Repositorios;
+using CapaModelo_OrdenesCompra.Contratos;
+using CapaModelo_OrdenesCompra.Entidades;
 
 /*
  * ==================================================================
@@ -17,7 +19,7 @@ using CapaModelo_Componentes.Repositorios;
  * ===================================================================
 */
 
-namespace CapaModelo_OrdenesCompra
+namespace CapaModelo_OrdenesCompra.Repositorios
 {
     public sealed class ClsRepositorioComprasPorPagar : ClsRepositorioMaestroCompras, IRepositorioComprasPorPagar
     {
@@ -32,10 +34,13 @@ namespace CapaModelo_OrdenesCompra
             return ComprasFuncConsultar(_Consulta + "ORDER BY c.fechaEmisionCuentaPorPagar DESC, c.idCuentaPorPagar DESC", null);
         }
 
-        public DataTable ComprasFuncObtener(int Id)
+        public ClsCompraPorPagar ComprasFuncObtener(int Id)
         {
             if (Id <= 0) throw new ArgumentOutOfRangeException(nameof(Id));
-            return ComprasFuncConsultar(_Consulta + "WHERE c.idCuentaPorPagar = ?", Id);
+            using (DataTable Datos = ComprasFuncConsultar(_Consulta + "WHERE c.idCuentaPorPagar = ?", Id))
+            {
+                return Datos.Rows.Count == 0 ? null : new ClsCompraPorPagar(Datos.Rows[0]);
+            }
         }
 
         public DataTable ComprasFuncListarProveedores()

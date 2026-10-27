@@ -1,9 +1,10 @@
-using System;
+﻿using System;
 using System.Data;
 using System.Drawing;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using CapaControlador_OrdenesCompra;
+using CapaModelo_OrdenesCompra.Entidades;
 using CapaVista_Componentes.Componentes;
 
 /*

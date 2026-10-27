@@ -1,8 +1,10 @@
-using System;
+﻿using System;
 using System.Data;
 using CapaModelo_Componentes.Repositorios;
 using System.Globalization;
-using CapaModelo_OrdenesCompra;
+using CapaModelo_OrdenesCompra.Contratos;
+using CapaModelo_OrdenesCompra.Entidades;
+using CapaModelo_OrdenesCompra.Repositorios;
 
 /*
  * ==================================================================
@@ -70,8 +72,7 @@ namespace CapaControlador_OrdenesCompra
         public ClsCompraPorPagar ComprasFuncObtener(int Id)
         {
             if (Id <= 0) throw new ArgumentOutOfRangeException(nameof(Id));
-            DataTable Datos = _Repositorio.ComprasFuncObtener(Id);
-            return Datos.Rows.Count == 0 ? null : new ClsCompraPorPagar(Datos.Rows[0]);
+            return _Repositorio.ComprasFuncObtener(Id);
         }
 
         public DataTable ComprasFuncFiltrar(DataTable Datos, string Palabra, string Estado, DateTime? Inicio, DateTime? Fin)

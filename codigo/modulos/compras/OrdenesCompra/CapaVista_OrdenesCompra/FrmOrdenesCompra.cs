@@ -1,8 +1,9 @@
-using CapaVista_Componentes.Componentes;
+﻿using CapaVista_Componentes.Componentes;
 using System;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using CapaControlador_OrdenesCompra;
+using CapaModelo_OrdenesCompra.Entidades;
 
 /*
  * ==================================================================

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Data;
 
 /*
@@ -14,7 +14,7 @@ using System.Data;
  * ===================================================================
 */
 
-namespace CapaControlador_OrdenesCompra
+namespace CapaModelo_OrdenesCompra.Entidades
 {
     public sealed class ClsCompraPorPagar
     {

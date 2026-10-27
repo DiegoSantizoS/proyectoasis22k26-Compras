@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Windows.Forms;
 using CapaControlador_CierreMovimientos;
 
@@ -31,9 +31,7 @@ namespace CapaVista_CierreMovimientos
             ComprasProcConfigurarTablas();
             Load += ComprasMetCargar;
             ComprasBtnValidar.Click += ComprasMetValidar;
-            ComprasBtnEjecutarCierre.Click += ComprasMetEjecutarCierre;
-            ComprasBtnImprimir.Click += ComprasMetImprimir;
-            ComprasBtnAyuda.Click += ComprasMetAyuda;
+
             ComprasBtnSalir.Click += ComprasMetSalir;
         }
 
@@ -82,32 +80,9 @@ namespace CapaVista_CierreMovimientos
             ComprasBtnImprimir.Enabled = false;
         }
 
-        private void ComprasMetEjecutarCierre(object Remitente, EventArgs Evento)
-        {
-            DialogResult Respuesta = MessageBox.Show(
-                "El cierre es definitivo: los movimientos del período quedarán bloqueados.\n¿Desea continuar?",
-                "Confirmar cierre", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
 
-            if (Respuesta != DialogResult.Yes) return;
 
-            int IdPeriodo = Convert.ToInt32(ComprasCboPeriodo.SelectedValue);
-            string Mensaje = _Controlador.ComprasFuncEjecutarCierre(IdPeriodo);
-            MessageBox.Show(Mensaje, "Cierre de Movimientos", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-            ComprasBtnEjecutarCierre.Enabled = false;
-        }
-
-        private void ComprasMetImprimir(object Remitente, EventArgs Evento)
-        {
-            MessageBox.Show("El reporte de cierre se conectará con el componente Reporteador.",
-                "Imprimir reporte", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
-
-        private void ComprasMetAyuda(object Remitente, EventArgs Evento)
-        {
-            MessageBox.Show("La ayuda del módulo se integrará en la siguiente fase.",
-                "Ayuda", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
         private void ComprasMetSalir(object Remitente, EventArgs Evento)
         {
             Close();
