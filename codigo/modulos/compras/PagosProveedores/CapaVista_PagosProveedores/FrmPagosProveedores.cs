@@ -37,6 +37,7 @@ namespace CapaVista_PagosProveedores
         public FrmPagosProveedores()
         {
             InitializeComponent();
+            StartPosition = FormStartPosition.CenterScreen;
 
             _Modelo = new ClsModeloPagoProveedor();
             _IdPagoEditando = 0;

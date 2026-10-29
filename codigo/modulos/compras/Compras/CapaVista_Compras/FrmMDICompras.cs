@@ -1,4 +1,4 @@
-using CapaControlador_Seguridad.Objetos_de_valor;
+﻿using CapaControlador_Seguridad.Objetos_de_valor;
 
 using System;
 using System.ComponentModel;
@@ -21,10 +21,8 @@ namespace CapaVista_Compras
 {
     public partial class FrmMDICompras : Form
     {
-        private ClsTransicionNavegador _ClsTransicionNavegador;
         private Form _FormularioSubproceso;
         private CapaVista_Componentes.Componentes.ClsTableLayoutPanelCompras _OpcionSubproceso;
-        private bool _ContenidoOculto;
         private bool _NavegadorContraido;
         private bool _PantallaCompleta;
         private FormBorderStyle _BordeAnterior;
@@ -37,8 +35,8 @@ namespace CapaVista_Compras
         {
             InitializeComponent();
             ComprasBtnAyuda.Enabled = false;
-            ComprasTlpBitacora.Enabled = false;
-            ComprasTlpHerramientas.Enabled = false;
+            ComprasTlpBitacora.Enabled = true;
+            ComprasTlpHerramientas.Enabled = true;
             ComprasLblBienvenido.Tipografia = CapaVista_Componentes.Componentes.TipografiaCompras.TituloBienvenida;
             ComprasLblKpi1.Texto = "Antigüedad promedio de saldos";
             ComprasLblKpi2.Texto = "Órdenes autorizadas a tiempo (%)";
@@ -268,80 +266,53 @@ namespace CapaVista_Compras
 
         private void ComprasProcSalirClick(object Remitente, EventArgs Evento)
         {
-            Close();
+            DialogResult Respuesta = MessageBox.Show(this,
+                "¿Desea cerrar sesión?", "Cerrar sesión",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+            if (Respuesta == DialogResult.Yes)
+            {
+                Close();
+                return;
+            }
+            ActiveControl = null;
+            ComprasTlpSalir.Seleccionado = false;
+            ComprasTlpSalir.ComprasProcActualizarHover(false);
+            BeginInvoke(new Action(() =>
+            {
+                if (IsDisposed || Disposing || ComprasTlpSalir.IsDisposed) return;
+                ComprasTlpSalir.ComprasProcActualizarHover(false);
+            }));
         }
 
-        private async void ComprasProcAlternarMenuClick(object Remitente, EventArgs Evento)
+        [System.Runtime.InteropServices.DllImport("user32.dll", EntryPoint = "SendMessageW")]
+        private static extern IntPtr ComprasEnviarMensaje(IntPtr Ventana, int Mensaje, IntPtr Parametro, IntPtr Datos);
+
+        [System.Runtime.InteropServices.DllImport("user32.dll")]
+        [return: System.Runtime.InteropServices.MarshalAs(System.Runtime.InteropServices.UnmanagedType.Bool)]
+        private static extern bool RedrawWindow(IntPtr Ventana, IntPtr Rectangulo, IntPtr Region, uint Opciones);
+
+        private void ComprasProcAlternarMenuClick(object Remitente, EventArgs Evento)
         {
-            if (_ContenidoOculto || _ClsTransicionNavegador != null) return;
-            _ContenidoOculto = true;
-            bool EncabezadoVisible = ComprasFlpEncabezado.Visible;
-            bool ContenidoVisible = ComprasPnlMain.Visible;
-            var Tiempo = System.Diagnostics.Stopwatch.StartNew();
-            ComprasTlpPrincipal.SuspendLayout();
+            if (IsDisposed || Disposing || !ComprasTlpPrincipal.IsHandleCreated) return;
+            IntPtr Ventana = ComprasTlpPrincipal.Handle;
+            ComprasEnviarMensaje(Ventana, 0x000B, IntPtr.Zero, IntPtr.Zero);
             try
             {
-                ComprasFlpEncabezado.Visible = false;
-                ComprasPnlMain.Visible = false;
-            }
-            finally
-            {
-                ComprasTlpPrincipal.ResumeLayout(true);
-            }
-            try
-            {
-                ComprasTlpPrincipal.Refresh();
                 ComprasMetCambiarNavegador();
-                int Espera = Math.Max(1, 500 - (int)Tiempo.ElapsedMilliseconds);
-                await System.Threading.Tasks.Task.Delay(Espera);
+                ComprasMetAjustarDashboard();
             }
             finally
             {
-                if (!IsDisposed && !Disposing)
+                if (!ComprasTlpPrincipal.IsDisposed && ComprasTlpPrincipal.IsHandleCreated)
                 {
-                    using (var Cubierta = new Panel())
-                    {
-                        Cubierta.BackColor = ComprasTlpPrincipal.BackColor;
-                        int Izquierda = ComprasTlpPrincipal.Left + ComprasTlpPrincipal.Padding.Left
-                            + (int)ComprasTlpPrincipal.ColumnStyles[0].Width;
-                        Cubierta.Bounds = new System.Drawing.Rectangle(Izquierda, ComprasTlpPrincipal.Top,
-                            Math.Max(0, ComprasTlpPrincipal.Right - Izquierda), ComprasTlpPrincipal.Height);
-                        Controls.Add(Cubierta);
-                        Cubierta.BringToFront();
-                        Cubierta.Refresh();
-                        ComprasTlpPrincipal.SuspendLayout();
-                        try
-                        {
-                            ComprasFlpEncabezado.Visible = EncabezadoVisible;
-                            ComprasPnlMain.Visible = ContenidoVisible;
-                        }
-                        finally
-                        {
-                            ComprasTlpPrincipal.ResumeLayout(true);
-                        }
-                        ComprasPnlMain.PerformLayout();
-                        ComprasMetAjustarDashboard();
-                        ComprasFlpEncabezado.Refresh();
-                        ComprasPnlMain.Refresh();
-                        Controls.Remove(Cubierta);
-                        ComprasTlpPrincipal.Refresh();
-                    }
+                    ComprasEnviarMensaje(Ventana, 0x000B, new IntPtr(1), IntPtr.Zero);
+                    RedrawWindow(Ventana, IntPtr.Zero, IntPtr.Zero, 0x0585);
                 }
-                _ContenidoOculto = false;
             }
         }
 
         private void ComprasMetCambiarNavegador()
         {
-            bool Contraer = !_NavegadorContraido;
-            int AnchoAnterior = ComprasTlpNavegador.Width;
-            int AnchoFinal = Contraer ? 64 + ComprasTlpNavegador.Padding.Horizontal : 270;
-            System.Drawing.Bitmap ImagenMenu = null;
-            if (Contraer)
-            {
-                ImagenMenu = new System.Drawing.Bitmap(ComprasTlpNavegador.Width, ComprasTlpNavegador.Height);
-                ComprasTlpNavegador.DrawToBitmap(ImagenMenu, ComprasTlpNavegador.ClientRectangle);
-            }
             _NavegadorContraido = !_NavegadorContraido;
             ComprasTlpPrincipal.SuspendLayout();
             ComprasTlpNavegador.SuspendLayout();
@@ -364,79 +335,6 @@ namespace CapaVista_Compras
             {
                 ComprasTlpNavegador.ResumeLayout(true);
                 ComprasTlpPrincipal.ResumeLayout(true);
-                if (ImagenMenu == null)
-                {
-                    ImagenMenu = new System.Drawing.Bitmap(ComprasTlpNavegador.Width, ComprasTlpNavegador.Height);
-                    ComprasTlpNavegador.DrawToBitmap(ImagenMenu, ComprasTlpNavegador.ClientRectangle);
-                }
-                var Cubierta = new ClsTransicionNavegador(ImagenMenu, AnchoAnterior, AnchoFinal);
-                _ClsTransicionNavegador = Cubierta;
-                Cubierta.Disposed += (Origen, Argumentos) => _ClsTransicionNavegador = null;
-                Cubierta.Location = PointToClient(ComprasTlpNavegador.PointToScreen(System.Drawing.Point.Empty));
-                Cubierta.Size = new System.Drawing.Size(Math.Max(AnchoAnterior, AnchoFinal), ComprasTlpNavegador.Height);
-                Cubierta.BackColor = ComprasTlpPrincipal.BackColor;
-                Controls.Add(Cubierta);
-                Cubierta.BringToFront();
-                Cubierta.ComprasProcIniciar();
-            }
-        }
-
-        private sealed class ClsTransicionNavegador : Control
-        {
-            private readonly System.Drawing.Bitmap _Menu;
-            private readonly Timer _Reloj = new Timer { Interval = 15 };
-            private readonly System.Diagnostics.Stopwatch _Tiempo = new System.Diagnostics.Stopwatch();
-            private readonly int _Desde, _Hasta;
-            private int _AnchoVisible;
-
-            internal ClsTransicionNavegador(System.Drawing.Bitmap Menu, int Desde, int Hasta)
-            {
-                _Menu = Menu;
-                _Desde = Desde;
-                _Hasta = Hasta;
-                _AnchoVisible = Desde;
-                SetStyle(ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint
-                    | ControlStyles.OptimizedDoubleBuffer | ControlStyles.Opaque, true);
-                _Reloj.Tick += (Origen, Argumentos) =>
-                {
-                    double Paso = Math.Min(1D, _Tiempo.Elapsed.TotalMilliseconds / 260D);
-                    if (Paso >= 1D)
-                    {
-                        Dispose();
-                        return;
-                    }
-                    Paso = Paso * Paso * Paso * (Paso * (Paso * 6D - 15D) + 10D);
-                    _AnchoVisible = (int)Math.Round(_Desde + (_Hasta - _Desde) * Paso);
-                    Invalidate();
-                };
-            }
-
-            internal void ComprasProcIniciar()
-            {
-                Refresh();
-                _Tiempo.Start();
-                _Reloj.Start();
-            }
-
-            protected override void OnPaintBackground(PaintEventArgs Evento) { }
-
-            protected override void OnPaint(PaintEventArgs Evento)
-            {
-                Evento.Graphics.Clear(BackColor);
-                var Estado = Evento.Graphics.Save();
-                Evento.Graphics.SetClip(new System.Drawing.Rectangle(0, 0, _AnchoVisible, Height));
-                Evento.Graphics.DrawImageUnscaled(_Menu, 0, 0);
-                Evento.Graphics.Restore(Estado);
-            }
-
-            protected override void Dispose(bool Disposing)
-            {
-                if (Disposing)
-                {
-                    _Reloj.Dispose();
-                    _Menu.Dispose();
-                }
-                base.Dispose(Disposing);
             }
         }
 

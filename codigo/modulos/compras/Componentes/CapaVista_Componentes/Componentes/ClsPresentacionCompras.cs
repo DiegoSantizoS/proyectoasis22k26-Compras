@@ -33,7 +33,7 @@ namespace CapaVista_Componentes.Componentes
             Formulario.FormBorderStyle = FormBorderStyle.FixedSingle;
             Formulario.MaximizeBox = false;
             Formulario.MinimizeBox = true;
-            Formulario.StartPosition = FormStartPosition.CenterParent;
+            Formulario.StartPosition = FormStartPosition.CenterScreen;
             var Recursos = new System.Resources.ResourceManager("CapaVista_Componentes.Componentes.RecursosCompras", typeof(ClsPresentacionCompras).Assembly);
             Formulario.Icon = (Icon)Recursos.GetObject("IconoCompras");
             Formulario.ClientSize = TamanoFormulario;
@@ -43,6 +43,8 @@ namespace CapaVista_Componentes.Componentes
             {
                 Rectangle Area = Screen.FromControl(Formulario.Owner ?? Formulario).WorkingArea;
                 ComprasMetAjustarAreaFormulario(Formulario, Area);
+                Formulario.Location = new Point(Area.Left + (Area.Width - Formulario.Width) / 2,
+                    Area.Top + (Area.Height - Formulario.Height) / 2);
             };
             ComprasMetAplicarScrollVertical(Formulario);
         }

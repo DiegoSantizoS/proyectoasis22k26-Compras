@@ -409,6 +409,7 @@ namespace CapaVista_OrdenesCompra
             this.ClientSize = new System.Drawing.Size(1300, 700);
             this.Controls.Add(this.ComprasPnlDesplazamiento);
             this.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FrmEncabezados";
             this.Text = "6012 – EncabezadosComprasPorPagar";
             this.ComprasPnlDesplazamiento.ResumeLayout(false);
