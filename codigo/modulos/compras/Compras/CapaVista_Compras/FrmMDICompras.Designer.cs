@@ -743,7 +743,7 @@ namespace CapaVista_Compras
             this.ComprasTlpBitacora.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.ComprasTlpBitacora.Size = new System.Drawing.Size(258, 61);
             this.ComprasTlpBitacora.TabIndex = 9;
-            this.ComprasTlpBitacora.Click += new System.EventHandler(this.ComprasMetOpcionPendienteClick);
+            this.ComprasTlpBitacora.Click += new System.EventHandler(this.ComprasMetAbrirBitacora);
             this.ComprasBtnIconoBitacora.TipoBoton = CapaVista_Componentes.Componentes.ComprasTipoBoton.Libre;
             // 
             // ComprasBtnIconoBitacora
@@ -768,7 +768,7 @@ namespace CapaVista_Compras
             this.ComprasBtnIconoBitacora.Size = new System.Drawing.Size(54, 49);
             this.ComprasBtnIconoBitacora.TabIndex = 0;
             this.ComprasBtnIconoBitacora.UseVisualStyleBackColor = false;
-            this.ComprasBtnIconoBitacora.Click += new System.EventHandler(this.ComprasMetOpcionPendienteClick);
+            this.ComprasBtnIconoBitacora.Click += new System.EventHandler(this.ComprasMetAbrirBitacora);
             // 
             // ComprasLblBitacora
             // 
@@ -791,7 +791,7 @@ namespace CapaVista_Compras
             this.ComprasLblBitacora.Text = "Bitácora";
             this.ComprasLblBitacora.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.ComprasLblBitacora.Texto = "Bitácora";
-            this.ComprasLblBitacora.Click += new System.EventHandler(this.ComprasMetOpcionPendienteClick);
+            this.ComprasLblBitacora.Click += new System.EventHandler(this.ComprasMetAbrirBitacora);
             // 
             // ComprasTlpHerramientas
             // 
@@ -816,7 +816,7 @@ namespace CapaVista_Compras
             this.ComprasTlpHerramientas.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.ComprasTlpHerramientas.Size = new System.Drawing.Size(258, 61);
             this.ComprasTlpHerramientas.TabIndex = 9;
-            this.ComprasTlpHerramientas.Click += new System.EventHandler(this.ComprasMetOpcionPendienteClick);
+            this.ComprasTlpHerramientas.Click += new System.EventHandler(this.ComprasMetAbrirHerramientas);
             this.ComprasBtnIconoHerramientas.TipoBoton = CapaVista_Componentes.Componentes.ComprasTipoBoton.Libre;
             // 
             // ComprasBtnIconoHerramientas
@@ -842,7 +842,7 @@ namespace CapaVista_Compras
             this.ComprasBtnIconoHerramientas.TabIndex = 0;
             this.ComprasBtnIconoHerramientas.Text = "?";
             this.ComprasBtnIconoHerramientas.UseVisualStyleBackColor = false;
-            this.ComprasBtnIconoHerramientas.Click += new System.EventHandler(this.ComprasMetOpcionPendienteClick);
+            this.ComprasBtnIconoHerramientas.Click += new System.EventHandler(this.ComprasMetAbrirHerramientas);
             // 
             // ComprasLblHerramientas
             // 
@@ -865,7 +865,7 @@ namespace CapaVista_Compras
             this.ComprasLblHerramientas.Text = "Herramientas";
             this.ComprasLblHerramientas.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.ComprasLblHerramientas.Texto = "Herramientas";
-            this.ComprasLblHerramientas.Click += new System.EventHandler(this.ComprasMetOpcionPendienteClick);
+            this.ComprasLblHerramientas.Click += new System.EventHandler(this.ComprasMetAbrirHerramientas);
             // 
             // ComprasTlpSalir
             // 
