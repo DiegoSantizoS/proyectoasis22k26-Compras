@@ -72,7 +72,7 @@ namespace CapaVista_Componentes.Componentes
             Formulario.MaximumSize = Tamano;
         }
 
-        public static void ComprasProcAgregarColumna(UsrDataGridViewCompras Tabla, string Campo,
+        public static void ComprasProcAgregarColumna(ComprasUsrDataGridView Tabla, string Campo,
             string Encabezado, int Peso, bool EsMonto)
         {
             Tabla.AutoGenerateColumns = false;
@@ -94,7 +94,7 @@ namespace CapaVista_Componentes.Componentes
             Tabla.Columns.Add(Columna);
         }
 
-        public static void ComprasProcMostrarMonto(UsrTextBoxCompras Entrada, decimal Monto)
+        public static void ComprasProcMostrarMonto(ComprasUsrTextBox Entrada, decimal Monto)
         {
             Entrada.Text = ComprasFuncFormatearMonto(Monto, Entrada.TipoMoneda);
             Entrada.Entrada.SelectAll();

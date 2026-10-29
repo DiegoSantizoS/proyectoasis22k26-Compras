@@ -30,7 +30,7 @@ namespace CapaVista_Componentes.Componentes
 
     [DefaultBindingProperty("SelectedValue")]
     [DefaultEvent("SelectedIndexChanged")]
-    public partial class UsrComboBoxCompras : UserControl
+    public partial class ComprasUsrComboBox : UserControl
     {
 
         private bool _ErrorVisible;
@@ -149,7 +149,8 @@ namespace CapaVista_Componentes.Componentes
         private void ComprasProcActualizarEspacioError()
         {
             if (ComprasLblError == null || ComprasTlpMain == null) return;
-            using (new ClsActualizacionDisenoCompras(ComprasTlpMain))
+            ComprasTlpMain.SuspendLayout();
+            try
             {
                 int Altura = Math.Max(_AlturaEtiquetaError, _AlturaErrorAmpliada);
                 int AlturaFila = _MostrarEtiquetaError ? Altura + ComprasLblError.Margin.Vertical : 0;
@@ -158,12 +159,18 @@ namespace CapaVista_Componentes.Componentes
                 ComprasLblError.MinimumSize = Size.Empty;
                 ComprasLblError.MaximumSize = new Size(0, Altura);
                 ComprasLblError.Visible = _MostrarEtiquetaError;
-                ClsActualizacionDisenoCompras.ComprasProcAltura(ComprasTlpMain.RowStyles[1], AlturaFila);
+                RowStyle FilaError = ComprasTlpMain.RowStyles[1];
+                if (FilaError.SizeType != SizeType.Absolute) FilaError.SizeType = SizeType.Absolute;
+                if (FilaError.Height != AlturaFila) FilaError.Height = AlturaFila;
                 if (Diferencia != 0) Height = Math.Max(1, Height + Diferencia);
+            }
+            finally
+            {
+                ComprasTlpMain.ResumeLayout(true);
             }
         }
 
-        public UsrComboBoxCompras()
+        public ComprasUsrComboBox()
         {
             InitializeComponent();
             DoubleBuffered = true;
@@ -400,13 +407,18 @@ namespace CapaVista_Componentes.Componentes
                 return;
             }
 
-            using (new ClsActualizacionDisenoCompras(ComprasTlpMain))
+            ComprasTlpMain.SuspendLayout();
+            try
             {
                 if (ComprasLblError.Texto != Mensaje) ComprasLblError.Texto = Mensaje;
                 if (ComprasLblError.ColorTexto != Color.Red) ComprasLblError.ColorTexto = Color.Red;
                 _ErrorVisible = true;
                 ComprasProcActualizarEspacioError();
                 if (ComprasPnlBorde.BackColor != Color.Red) ComprasPnlBorde.BackColor = Color.Red;
+            }
+            finally
+            {
+                ComprasTlpMain.ResumeLayout(true);
             }
         }
 
@@ -427,13 +439,18 @@ namespace CapaVista_Componentes.Componentes
 
         public void ComprasMetLimpiarError()
         {
-            using (new ClsActualizacionDisenoCompras(ComprasTlpMain))
+            ComprasTlpMain.SuspendLayout();
+            try
             {
                 if (ComprasLblError.Texto != string.Empty) ComprasLblError.Texto = string.Empty;
                 _ErrorVisible = false;
                 _AlturaErrorAmpliada = 0;
                 ComprasProcActualizarEspacioError();
                 ComprasProcActualizarBorde();
+            }
+            finally
+            {
+                ComprasTlpMain.ResumeLayout(true);
             }
         }
 

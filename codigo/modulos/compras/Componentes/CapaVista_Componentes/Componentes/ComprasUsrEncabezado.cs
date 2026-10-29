@@ -16,12 +16,12 @@ using System.Windows.Forms;
 namespace CapaVista_Componentes.Componentes
 {
     [DefaultProperty("Titulo")]
-    public partial class UsrEncabezadoCompras : UserControl
+    public partial class ComprasUsrEncabezado : UserControl
     {
         private string _Titulo = "Titulo";
         private string _Codigo = "6000";
 
-        public UsrEncabezadoCompras()
+        public ComprasUsrEncabezado()
         {
             InitializeComponent();
             ComprasProcActualizarTitulo();

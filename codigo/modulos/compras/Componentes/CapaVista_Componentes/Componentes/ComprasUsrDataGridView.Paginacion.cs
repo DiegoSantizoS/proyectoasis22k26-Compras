@@ -17,7 +17,7 @@ using System.Windows.Forms;
 
 namespace CapaVista_Componentes.Componentes
 {
-    public partial class UsrDataGridViewCompras
+    public partial class ComprasUsrDataGridView
     {
         private object _OrigenDatos;
         private DataView _VistaDatos;
@@ -49,7 +49,7 @@ namespace CapaVista_Componentes.Componentes
 
         private void ComprasProcInicializarPaginacion()
         {
-            var Recursos = new ComponentResourceManager(typeof(UsrDataGridViewCompras));
+            var Recursos = new ComponentResourceManager(typeof(ComprasUsrDataGridView));
             ComprasFlpPaginacion = new FlowLayoutPanel
             {
                 Name = "ComprasFlpPaginacion", Dock = DockStyle.Bottom, Height = 46,
