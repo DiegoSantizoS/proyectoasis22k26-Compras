@@ -1,4 +1,5 @@
-﻿using CapaVista_Componentes.Componentes;
+﻿using CapaVista_OrdenesCompra.Presentacion;
+using CapaVista_Componentes.Componentes;
 using System;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -13,76 +14,95 @@ using CapaControlador_OrdenesCompra.Entidades;
  * Fecha : 24/10/2026
  * ==================================================================
  * Propósito :
- *  Presenta la factura y los datos del proveedor de una orden de compra,
- *  gestiona las fechas, muestra sus importes y permite su anulación.
+ *  Coordina la visualización de una orden de compra seleccionada.
  * ===================================================================
 */
+
+
+
+
+
+
+
+
+
 
 namespace CapaVista_OrdenesCompra
 {
     public partial class FrmOrdenesCompra : System.Windows.Forms.Form
     {
-        private bool _AjustandoAltura;
-        private const int _AlturaMinimaArticulo = 40;
-        private readonly ClsComprasPorPagar _Controlador;
-        private ClsCompraPorPagar _Compra;
+        private readonly ClsDisenoDetallesOrdenCompra _DisenoDetalles;
+        private readonly ClsOrdenesCompra _Controlador;
+        private ClsOrdenCompra _Compra;
         private bool _Anulando;
         public bool OrdenGuardada { get; private set; }
 
-        public FrmOrdenesCompra() : this(null, new ClsComprasPorPagar()) { }
+        
+        
+        
+        
+        public FrmOrdenesCompra() : this(null, new ClsOrdenesCompra()) { }
 
-        public FrmOrdenesCompra(ClsCompraPorPagar Compra, ClsComprasPorPagar Controlador)
+        
+        
+        
+        
+        public FrmOrdenesCompra(ClsOrdenCompra Compra, ClsOrdenesCompra Controlador)
         {
             _Controlador = Controlador ?? throw new ArgumentNullException(nameof(Controlador));
             _Compra = Compra;
             InitializeComponent();
-            CapaVista_Componentes.Componentes.ClsPresentacionCompras.ComprasMetFijarTamanoFormulario(this);
+            ClsPresentacionCompras.ComprasMetFijarTamanoFormulario(this);
             ComprasCboNombreProveedor.SelectedIndexChanged += ComprasProcActualizarProveedor;
-            if (Compra == null) ComprasDtpFechaEmision.MaxDate = ComprasDtpFechaVencimiento.MaxDate.AddMonths(-3);
             ComprasDtpFechaEmision.ValueChanged += ComprasProcActualizarVencimiento;
-            ComprasProcConfigurarArticulos();
-            ComprasProcConfigurarAlturaArticulos();
+            ClsTablasOrdenesCompra.ComprasProcConfigurarDetalles(ComprasDgvProductos);
+            _DisenoDetalles = new ClsDisenoDetallesOrdenCompra(this, ComprasDgvProductos,
+                ComprasPnlContenido, ComprasTlpPrincipal, ComprasTlpDetalles, ComprasGbxDetalles);
             ComprasTlpMantenimientoProductos.Enabled = false;
             ComprasBtnGuardar.Enabled = false;
             ComprasBtnGuardar.AccessibleDescription = "Se requieren productos para guardar la orden.";
             ComprasBtnDescartar.AccessibleName = Compra == null ? "Descartar" : "Anular orden";
-            ComprasBtnDescartar.Enabled = true;
+            ComprasBtnDescartar.Enabled = _Compra == null || (_Compra.Estado != "Anulada" && _Compra.Estado != "Recibida");
             ComprasBtnDescartar.Click += ComprasProcAnular;
             ComprasBtnRegresar.Click += (Remitente, Evento) => Close();
             FormClosing += (Remitente, Evento) => { if (_Anulando) Evento.Cancel = true; };
             ComprasProcMostrarEncabezado();
         }
 
+        
+        
+        
+        
         private void ComprasProcMostrarEncabezado()
         {
             bool Nueva = _Compra == null;
-            ComprasLblNumeroDeFactura.MostrarAsterisco = Nueva;
+            ComprasLblCodigoOrden.MostrarAsterisco = Nueva;
             ComprasLblFechaDeEmision.MostrarAsterisco = Nueva;
             ComprasLblFechaDeVencimiento.MostrarAsterisco = Nueva;
-            ComprasTxtNumeroDeFacturaValor.Enabled = Nueva;
-            ComprasTxtNumeroDeFacturaValor.MaxLength = 30;
+            ComprasTxtCodigoOrden.Enabled = Nueva;
+            ComprasTxtCodigoOrden.MaxLength = 30;
             ComprasDtpFechaEmision.Enabled = Nueva;
             ComprasDtpFechaVencimiento.Enabled = Nueva;
             ComprasCboNombreProveedor.Enabled = Nueva;
             ComprasTxtComentario.Enabled = false;
+            ComprasTxtComentario.Text = Nueva ? string.Empty : _Compra.Comentario;
             ComprasTxtEstadoProveedor.Text = string.Empty;
             ComprasTxtEstadoProveedor.Enabled = false;
             ComprasTxtDireccionProveedor.Enabled = false;
-            ComprasTxtNumeroDeFacturaValor.Text = Nueva ? string.Empty : _Compra.NumeroFactura;
+            ComprasTxtCodigoOrden.Text = Nueva ? string.Empty : _Compra.CodigoOrdenCompra;
             ComprasDtpFechaEmision.Value = Nueva ? DateTime.Today : _Compra.FechaEmision;
-            ComprasDtpFechaVencimiento.Value = Nueva ? ComprasDtpFechaEmision.Value.Date.AddMonths(3) : _Compra.FechaVencimiento;
-            ComprasTxtSaldoPendienteValor.Text = ClsPresentacionCompras.ComprasFuncFormatearMonto(Nueva ? 0M : _Compra.Saldo,
-                ComprasTxtSaldoPendienteValor.TipoMoneda);
+            ComprasDtpFechaVencimiento.Value = Nueva ? ComprasDtpFechaEmision.Value.Date : _Compra.FechaVencimiento;
+            ComprasTxtPlazoValor.Text = Nueva ? string.Empty : _Compra.NombrePlazo;
             ComprasLblEstadoValor.Texto = Nueva ? "Nueva" : _Compra.Estado;
-            ComprasTxtTotalDeLaOrden.Text = ClsPresentacionCompras.ComprasFuncFormatearMonto(Nueva ? 0M : _Compra.MontoTotal,
-                ComprasTxtTotalDeLaOrden.TipoMoneda);
-            foreach (var Campo in new[] { ComprasTxtImporteBruto, ComprasTxtSubtotal,
-                ComprasTxtDescuentoTotal, ComprasTxtImpuestoTotal, ComprasTxtTotalPorcentaje })
-            {
-                Campo.Text = Nueva ? (Campo == ComprasTxtTotalPorcentaje ? "0.00" :
-                    ClsPresentacionCompras.ComprasFuncFormatearMonto(0M, Campo.TipoMoneda)) : string.Empty;
+            ComprasTxtMoneda.Text = Nueva ? string.Empty : _Compra.IdMoneda.ToString();
+            ComprasTxtTipoCambio.Text = Nueva ? string.Empty : _Compra.TipoCambio.ToString("N6");
+            ComprasTxtDiasPlazo.Text = Nueva ? string.Empty : _Compra.DiasPlazo.ToString();
+            ComprasTxtSubtotal.Text = (Nueva ? 0M : _Compra.Subtotal).ToString("N4");
+            ComprasTxtDescuentoTotal.Text = (Nueva ? 0M : _Compra.Descuento).ToString("N4");
+            ComprasTxtTotalDeLaOrden.Text = (Nueva ? 0M : _Compra.MontoTotal).ToString("N4");
+            foreach (var Campo in new[] { ComprasTxtMoneda, ComprasTxtTipoCambio, ComprasTxtDiasPlazo,
+                ComprasTxtSubtotal, ComprasTxtDescuentoTotal, ComprasTxtPlazoValor })
                 Campo.Enabled = false;
-            }
             ComprasTxtTotalDeLaOrden.Enabled = false;
             if (!Nueva)
             {
@@ -99,13 +119,20 @@ namespace CapaVista_OrdenesCompra
             }
         }
 
+        
+        
+        
         private void ComprasProcActualizarVencimiento(object Remitente, EventArgs Evento)
         {
             if (_Compra != null) return;
-            ComprasDtpFechaVencimiento.Value = ComprasDtpFechaEmision.Value.Date.AddMonths(3);
+            ComprasDtpFechaVencimiento.Value = ComprasDtpFechaEmision.Value.Date;
         }
 
-        protected override void OnShown(EventArgs Evento)
+        
+        
+        
+        
+        protected override async void OnShown(EventArgs Evento)
         {
             base.OnShown(Evento);
             if (_Compra == null)
@@ -116,14 +143,58 @@ namespace CapaVista_OrdenesCompra
             else
             {
                 ComprasProcMostrarEncabezado();
+                await ComprasProcCargarDetallesAsync();
             }
         }
 
+        
+        
+        
+        
+        private async Task ComprasProcCargarDetallesAsync()
+        {
+            try
+            {
+                int Id = _Compra.IdOrdenCompra;
+                var Detalles = await Task.Run(() => _Controlador.ComprasFuncListarDetalles(Id));
+                if (IsDisposed || Disposing)
+                {
+                    Detalles.Dispose();
+                    return;
+                }
+                ComprasDgvProductos.DataSource = Detalles;
+                ComprasDgvProductos.ClearSelection();
+            }
+            catch (Exception Ex)
+            {
+                if (!IsDisposed && !Disposing)
+                    MessageBox.Show(this, "No se pudieron cargar los detalles. " + Ex.Message,
+                        "Órdenes de compra", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        
+        
+        
+        
+        protected override void OnFormClosed(FormClosedEventArgs Evento)
+        {
+            _DisenoDetalles.Dispose();
+            var Detalles = ComprasDgvProductos.DataSource as System.Data.DataTable;
+            ComprasDgvProductos.DataSource = null;
+            Detalles?.Dispose();
+            base.OnFormClosed(Evento);
+        }
+
+        
+        
+        
+        
         private async void ComprasProcAnular(object Remitente, EventArgs Evento)
         {
             if (_Anulando) return;
             if (_Compra == null) { Close(); return; }
-            if (MessageBox.Show(this, "¿Anular la factura " + _Compra.NumeroFactura + "?",
+            if (MessageBox.Show(this, "¿Anular la orden " + _Compra.CodigoOrdenCompra + "?",
                 "Anular orden", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) != DialogResult.Yes) return;
             _Anulando = true;
             ComprasBtnDescartar.Enabled = false;
@@ -131,7 +202,7 @@ namespace CapaVista_OrdenesCompra
             UseWaitCursor = true;
             try
             {
-                int Id = _Compra.IdCuentaPorPagar;
+                int Id = _Compra.IdOrdenCompra;
                 _Compra = await Task.Run(() => _Controlador.ComprasFuncAnular(Id));
                 OrdenGuardada = true;
                 ComprasProcMostrarEncabezado();
@@ -144,12 +215,16 @@ namespace CapaVista_OrdenesCompra
             finally
             {
                 _Anulando = false;
-                ComprasBtnDescartar.Enabled = true;
+                ComprasBtnDescartar.Enabled = _Compra == null || (_Compra.Estado != "Anulada" && _Compra.Estado != "Recibida");
                 ComprasBtnRegresar.Enabled = true;
                 UseWaitCursor = false;
             }
         }
 
+        
+        
+        
+        
         private void ComprasProcActualizarProveedor(object Remitente, EventArgs Evento)
         {
             if (_Compra != null) return;
@@ -175,87 +250,7 @@ namespace CapaVista_OrdenesCompra
             }
         }
 
-        private void ComprasProcConfigurarAlturaArticulos()
-        {
-            var Tabla = ComprasDgvProductos.Tabla;
-            Tabla.RowTemplate.MinimumHeight = _AlturaMinimaArticulo;
-            Tabla.RowTemplate.Height = Math.Max(Tabla.RowTemplate.Height, _AlturaMinimaArticulo);
-            Tabla.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
-            ComprasPnlContenido.MinimumSize = System.Drawing.Size.Empty;
-            ComprasTlpPrincipal.RowStyles[2].SizeType = System.Windows.Forms.SizeType.Absolute;
-            ComprasTlpDetalles.RowStyles[1].SizeType = System.Windows.Forms.SizeType.Absolute;
-            Tabla.RowsAdded += (Remitente, Evento) => ComprasProcAjustarAlturaArticulos();
-            Tabla.RowsRemoved += (Remitente, Evento) => ComprasProcAjustarAlturaArticulos();
-            Tabla.RowHeightChanged += (Remitente, Evento) => ComprasProcAjustarAlturaArticulos();
-            Tabla.ColumnHeadersHeightChanged += (Remitente, Evento) => ComprasProcAjustarAlturaArticulos();
-            Tabla.DataBindingComplete += (Remitente, Evento) => ComprasProcAjustarAlturaArticulos();
-            Tabla.SizeChanged += (Remitente, Evento) => ComprasProcAjustarAlturaArticulos();
-            Shown += (Remitente, Evento) => ComprasProcAjustarAlturaArticulos();
-            ComprasProcAjustarAlturaArticulos();
-        }
 
-        private void ComprasProcAjustarAlturaArticulos()
-        {
-            if (_AjustandoAltura || IsDisposed) return;
-            _AjustandoAltura = true;
-            try
-            {
-                var Tabla = ComprasDgvProductos.Tabla;
-                foreach (System.Windows.Forms.DataGridViewRow Fila in Tabla.Rows)
-                {
-                    if (Fila.MinimumHeight != _AlturaMinimaArticulo)
-                        Fila.MinimumHeight = _AlturaMinimaArticulo;
-                }
-                int Altura = Tabla.ColumnHeadersVisible ? Tabla.ColumnHeadersHeight : 0;
-                Altura += Tabla.Rows.GetRowsHeight(System.Windows.Forms.DataGridViewElementStates.Visible);
-                Altura += ComprasDgvProductos.Height - Tabla.ClientSize.Height;
-                foreach (System.Windows.Forms.Control Control in Tabla.Controls)
-                {
-                    if (Control is System.Windows.Forms.HScrollBar && Control.Visible)
-                        Altura += Control.Height;
-                }
-                ComprasTlpDetalles.RowStyles[1].Height = Math.Max(1, Altura);
-                int AlturaDetalles = (int)ComprasTlpDetalles.RowStyles[0].Height + Math.Max(1, Altura)
-                    + ComprasTlpDetalles.Margin.Vertical + ComprasGbxDetalles.Margin.Vertical
-                    + ComprasGbxDetalles.Height - ComprasGbxDetalles.DisplayRectangle.Height;
-                ComprasTlpPrincipal.RowStyles[2].Height = AlturaDetalles;
-                ComprasPnlContenido.Height = (int)ComprasTlpPrincipal.RowStyles[0].Height
-                    + (int)ComprasTlpPrincipal.RowStyles[1].Height
-                    + AlturaDetalles + (int)ComprasTlpPrincipal.RowStyles[3].Height
-                    + ComprasTlpPrincipal.Padding.Vertical + ComprasPnlContenido.Padding.Vertical;
-            }
-            finally
-            {
-                _AjustandoAltura = false;
-            }
-        }
 
-        private void ComprasProcConfigurarArticulos()
-        {
-            CapaVista_Componentes.Componentes.ClsPresentacionCompras.ComprasProcAgregarColumna(ComprasDgvProductos, "IDarticulo", "ID artículo", 8, false);
-            CapaVista_Componentes.Componentes.ClsPresentacionCompras.ComprasProcAgregarColumna(ComprasDgvProductos, "nombre", "Nombre", 22, false);
-            CapaVista_Componentes.Componentes.ClsPresentacionCompras.ComprasProcAgregarColumna(ComprasDgvProductos, "unidad", "Unidad", 7, false);
-            CapaVista_Componentes.Componentes.ClsPresentacionCompras.ComprasProcAgregarColumna(ComprasDgvProductos, "cantidad", "Cantidad", 8, true);
-            CapaVista_Componentes.Componentes.ClsPresentacionCompras.ComprasProcAgregarColumna(ComprasDgvProductos, "precioUnitario", "Precio unitario", 11, true);
-            CapaVista_Componentes.Componentes.ClsPresentacionCompras.ComprasProcAgregarColumna(ComprasDgvProductos, "subtotal", "Subtotal", 11, true);
-            CapaVista_Componentes.Componentes.ClsPresentacionCompras.ComprasProcAgregarColumna(ComprasDgvProductos, "descuento", "Descuento", 10, true);
-            CapaVista_Componentes.Componentes.ClsPresentacionCompras.ComprasProcAgregarColumna(ComprasDgvProductos, "porcentajeImpuesto", "Impuesto %", 8, false);
-            CapaVista_Componentes.Componentes.ClsPresentacionCompras.ComprasProcAgregarColumna(ComprasDgvProductos, "impuesto", "Impuesto", 10, true);
-            CapaVista_Componentes.Componentes.ClsPresentacionCompras.ComprasProcAgregarColumna(ComprasDgvProductos, "total", "Total", 12, true);
-            ComprasDgvProductos.Columns["ComprasColporcentajeImpuesto"].DefaultCellStyle.Format = "P0";
-            ComprasDgvProductos.Tabla.DefaultCellStyle.Alignment =
-                System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            ComprasDgvProductos.Tabla.ColumnHeadersDefaultCellStyle.Alignment =
-                System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            foreach (System.Windows.Forms.DataGridViewColumn Columna in ComprasDgvProductos.Columns)
-            {
-                Columna.DefaultCellStyle.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            }
-            ComprasDgvProductos.ReadOnly = true;
-            ComprasDgvProductos.AllowUserToAddRows = false;
-            ComprasDgvProductos.AllowUserToDeleteRows = false;
-
-            ComprasDgvProductos.ClearSelection();
-        }
     }
 }
